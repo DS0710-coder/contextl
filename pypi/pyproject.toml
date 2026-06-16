@@ -1,0 +1,50 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "contextl-mcp"
+version = "0.1.2"
+description = "Repository Intelligence Engine — MCP server for AI coding agents"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "dev7shah" }]
+keywords = [
+  "mcp",
+  "model-context-protocol",
+  "ai",
+  "code-search",
+  "context",
+  "cursor",
+  "windsurf",
+  "claude",
+  "vscode",
+  "typescript",
+  "nextjs",
+  "repository",
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Software Development :: Libraries",
+  "Topic :: Utilities",
+]
+requires-python = ">=3.9"
+dependencies = ["networkx", "mcp"]
+
+[project.urls]
+Homepage = "https://github.com/dev7shah/prune"
+Issues = "https://github.com/dev7shah/prune/issues"
+
+[project.scripts]
+contextl = "prune_mcp.__main__:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["prune_mcp", "python"]

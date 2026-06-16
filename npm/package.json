@@ -1,0 +1,40 @@
+{
+  "name": "contextl",
+  "version": "1.0.1",
+  "description": "contextl — finds the most relevant files in your codebase for any change request. MCP server for AI coding agents.",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai",
+    "code-search",
+    "context",
+    "cursor",
+    "windsurf",
+    "claude",
+    "vscode",
+    "typescript",
+    "nextjs",
+    "repository"
+  ],
+  "homepage": "https://github.com/dev7shah/prune#readme",
+  "bugs": {
+    "url": "https://github.com/dev7shah/prune/issues"
+  },
+  "license": "MIT",
+  "author": "dev7shah",
+  "bin": {
+    "contextl": "bin/contextl.js"
+  },
+  "files": [
+    "bin/",
+    "python/",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "prepublishOnly": "node -e \"require('fs').rmSync('python/__pycache__', { recursive: true, force: true })\"",
+    "test": "node bin/contextl.js --help 2>&1 || true"
+  }
+}

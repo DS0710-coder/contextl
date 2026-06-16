@@ -1,0 +1,56 @@
+# Repository Intelligence Engine — MCP Config
+#
+# Paste the JSON block below into your IDE's MCP config file.
+# Replace /absolute/path/to/prune with the real path to your project folder.
+#
+# ─────────────────────────────────────────────
+# WHERE TO PUT THIS IN YOUR IDE:
+#
+# Cursor       →  ~/.cursor/mcp.json
+# Windsurf     →  ~/.codeium/windsurf/mcp_config.json
+# Claude Code  →  ~/.claude.json   (or run: claude mcp add)
+# VS Code      →  .vscode/mcp.json  (in your workspace root)
+#
+# ─────────────────────────────────────────────
+
+{
+  "mcpServers": {
+    "repo-intelligence": {
+      "command": "python",
+      "args": ["/home/dev7shah/Desktop/prune/mcp_server.py"],
+      "env": {}
+    }
+  }
+}
+
+# ─────────────────────────────────────────────
+# EXAMPLE (if your project lives at ~/projects/prune):
+#
+# {
+#   "mcpServers": {
+#     "repo-intelligence": {
+#       "command": "python",
+#       "args": ["/home/dev7shah/projects/prune/mcp_server.py"],
+#       "env": {}
+#     }
+#   }
+# }
+#
+# ─────────────────────────────────────────────
+# WHAT YOUR IDE'S AI CAN NOW DO:
+#
+# You:   "fix the file upload error"
+# IDE:   calls query_repo("fix the file upload error", top_n=5)
+# Gets:  ["components/FileUploader.tsx", "lib/api.ts", ...]
+# IDE:   reads only those 5 files instead of the whole repo
+#
+# ─────────────────────────────────────────────
+# TOOLS EXPOSED:
+#
+#   query_repo(repo_path, query, top_n=5)
+#     → ranked list of relevant files with scores + reasoning
+#
+#   scan_repo(repo_path)
+#     → full list of source files the engine can see
+#
+# ─────────────────────────────────────────────

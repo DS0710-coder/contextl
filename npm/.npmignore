@@ -1,0 +1,20 @@
+# Exclude Python bytecode (at any depth)
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.pyd
+
+# Exclude test directories and fixtures
+tests/
+sample_repo/
+
+# Exclude development / editor artefacts
+.pytest_cache/
+*.egg-info/
+.DS_Store
+.env
+*.log
+
+# Exclude root-level repo files that aren't part of the package
+# (package.json "files" whitelist takes precedence, but belt-and-suspenders)
+*.md.bak
