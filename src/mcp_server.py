@@ -11,8 +11,9 @@ Usage (the IDE does this for you, but you can test manually):
     python mcp_server.py
 
 Tools exposed:
-    query_repo   — rank files by relevance to a natural-language query
-    scan_repo    — list all source files the engine can see in a repo
+    query_repo      — rank files by relevance to a natural-language query
+    scan_repo       — list all source files the engine can see in a repo
+    analyze_impact  — find every file affected by changing a target file
 """
 
 import asyncio
@@ -32,6 +33,7 @@ from import_parser import parse_imports
 from graph_builder import build_graph
 from query_engine import query as engine_query
 from main import _confidence, _reasoning
+from impact_analysis import analyze_impact
 
 
 # ---------------------------------------------------------------------------
@@ -100,6 +102,42 @@ async def list_tools() -> list[types.Tool]:
                 "required": ["repo_path"],
             },
         ),
+        types.Tool(
+            name="analyze_impact",
+            description=(
+                "Find every file affected by changing a specific file. "
+                "Walks the dependency graph upstream to find direct and transitive "
+                "dependents — files that import the target file, and files that import "
+                "those files. Flags likely test files so you know what to re-test. "
+                "Use this BEFORE modifying a shared file (types, utils, config) to "
+                "understand the blast radius of the change."
+            ),
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "repo_path": {
+                        "type": "string",
+                        "description": "Absolute or relative path to the repository root.",
+                    },
+                    "target_file": {
+                        "type": "string",
+                        "description": (
+                            "Path of the file being changed, relative to repo_path. "
+                            "Example: 'src/types/index.ts' or 'lib/api.ts'. "
+                            "Use scan_repo first if unsure of the exact path."
+                        ),
+                    },
+                    "max_depth": {
+                        "type": "integer",
+                        "description": "Maximum hops to traverse upstream (default: 5).",
+                        "default": 5,
+                        "minimum": 1,
+                        "maximum": 10,
+                    },
+                },
+                "required": ["repo_path", "target_file"],
+            },
+        ),
     ]
 
 
@@ -114,6 +152,9 @@ async def call_tool(name: str, arguments: dict) -> list[types.TextContent]:
 
     if name == "scan_repo":
         return await _handle_scan(arguments)
+
+    if name == "analyze_impact":
+        return await _handle_impact(arguments)
 
     return [types.TextContent(
         type="text",
@@ -182,6 +223,48 @@ def _run_scan(repo_path: str) -> dict:
             {"path": f.path, "extension": f.extension, "size_bytes": f.size_bytes}
             for f in scan.files
         ],
+    }
+
+
+async def _handle_impact(args: dict) -> list[types.TextContent]:
+    repo_path = args.get("repo_path", "")
+    target_file = args.get("target_file", "")
+    max_depth = min(int(args.get("max_depth", 5)), 10)
+
+    loop = asyncio.get_event_loop()
+    try:
+        result = await loop.run_in_executor(None, _run_impact, repo_path, target_file, max_depth)
+    except Exception as e:
+        result = {"error": str(e), "repo": repo_path, "target_file": target_file}
+
+    return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
+
+
+def _run_impact(repo_path: str, target_file: str, max_depth: int) -> dict:
+    """Synchronous pipeline — called from a thread executor."""
+    scan = scan_repo(repo_path)
+    parse = parse_imports(scan)
+    repo_graph = build_graph(scan, parse)
+    report = analyze_impact(target_file, repo_graph, max_depth=max_depth)
+
+    return {
+        "target_file": report.target,
+        "total_affected": report.total_affected,
+        "directly_affected": [
+            {"path": f.path, "is_test_file": f.is_test_file}
+            for f in report.directly_affected
+        ],
+        "transitively_affected": [
+            {
+                "path": f.path,
+                "distance": f.distance,
+                "via": f.via,
+                "is_test_file": f.is_test_file,
+            }
+            for f in report.transitively_affected
+        ],
+        "suggested_tests": report.test_files,
+        "dependency_tree": report.to_tree_string(),
     }
 
 

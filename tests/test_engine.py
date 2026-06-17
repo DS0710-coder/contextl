@@ -522,3 +522,49 @@ class TestMCPServer:
         qr = _run_query(str(SAMPLE_REPO), "download", 5)
         assert qr["total_files_scanned"] == scan["total_files"]
 
+
+# ===========================================================================
+# 7. Impact Analysis tests
+# ===========================================================================
+
+class TestImpactAnalysis:
+    """Tests for the analyze_impact tool."""
+
+    def test_analyze_impact_total_affected(self, sample_graph):
+        from impact_analysis import analyze_impact
+        # Test exact match of total_affected
+        result = analyze_impact("types/files.ts", sample_graph)
+        assert result.total_affected == 7
+
+    def test_direct_dependents_match(self, sample_graph):
+        from impact_analysis import analyze_impact
+        result = analyze_impact("types/files.ts", sample_graph)
+        direct = result.directly_affected
+        assert isinstance(direct, list)
+        # Verify it has some expected files (like lib/upload.ts)
+        direct_paths = [d.path for d in direct]
+        assert any("lib/upload.ts" in p for p in direct_paths)
+        assert len(direct) > 0
+
+    def test_raises_value_error_for_unknown_file(self, sample_graph):
+        from impact_analysis import analyze_impact
+        with pytest.raises(ValueError, match="not found in repository graph"):
+            analyze_impact("does/not/exist.ts", sample_graph)
+
+    def test_max_depth_one_returns_only_direct(self, sample_graph):
+        from impact_analysis import analyze_impact
+        result_full = analyze_impact("types/files.ts", sample_graph)
+        result_depth1 = analyze_impact("types/files.ts", sample_graph, max_depth=1)
+        
+        # At depth 1, total_affected should just be the number of direct dependents
+        assert result_depth1.total_affected == len(result_depth1.directly_affected)
+        assert len(result_depth1.transitively_affected) == 0
+        assert result_depth1.total_affected < result_full.total_affected
+
+    def test_leaf_node_zero_dependents(self, sample_graph):
+        from impact_analysis import analyze_impact
+        # app/page.tsx is the top level entrypoint, no one imports it
+        result = analyze_impact("app/page.tsx", sample_graph)
+        assert result.total_affected == 0
+        assert result.directly_affected == []
+        assert result.transitively_affected == []
