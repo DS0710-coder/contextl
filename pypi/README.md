@@ -22,7 +22,15 @@ No LLM. No embeddings. No API keys. No vector database. Pure dependency graph + 
 pip install contextl-mcp
 ```
 
-Then add this to your IDE's MCP config file:
+### Option 1: The AI Prompt Method (Recommended)
+Since you are using an AI IDE, you don't even need to edit the configuration yourself. Just open Cursor's Composer or Claude Code's chat and paste this prompt:
+
+> *"Hey, add the `contextl` MCP server to your configuration file. The command is `contextl`."*
+
+The AI will find its own config file, inject the JSON, and reboot automatically.
+
+### Option 2: The Manual Method
+If you prefer to configure it manually, add this to your IDE's MCP config file:
 
 ```json
 {
