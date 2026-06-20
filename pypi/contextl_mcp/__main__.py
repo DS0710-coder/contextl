@@ -1,9 +1,9 @@
 """
-prune-mcp — entry point
+contextl_mcp — entry point
 
 Called when a user runs:
-    prune-mcp                  (console_scripts shim installed by pip)
-    python -m prune_mcp        (module execution)
+    contextl                   (console_scripts shim installed by pip)
+    python -m contextl_mcp     (module execution)
 
 Resolves the bundled mcp_server.py, sets up the environment, then uses
 os.execve to *replace* the current process with Python running mcp_server.py.
@@ -20,7 +20,7 @@ def main() -> None:
     # The bundled engine files live in python/ next to this package.
     # Installed layout (wheel):
     #   site-packages/
-    #     prune_mcp/          ← this file lives here
+    #     contextl_mcp/       ← this file lives here
     #     python/             ← engine files live here
     python_dir = Path(__file__).parent.parent / "python"
     mcp_server = python_dir / "mcp_server.py"
