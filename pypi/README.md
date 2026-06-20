@@ -90,6 +90,17 @@ Walks the dependency graph upstream from any file to find every direct and trans
 
 Lists every source file `contextl` can see — useful for the agent to orient itself before doing anything else.
 
+### `find_dead_files`
+*"Which files are never imported by anything?"*
+
+Finds unused files and dead code by analyzing the dependency graph for files with an in-degree of 0. Automatically filters out standard entry points (like `page.tsx` or `index.ts`) and test files.
+
+```json
+{
+  "repo_path": "/path/to/repo"
+}
+```
+
 ---
 
 ## How the ranking works

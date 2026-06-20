@@ -35,6 +35,7 @@ from graph_builder import build_graph
 from query_engine import query as engine_query
 from main import _confidence, _reasoning
 from impact_analysis import analyze_impact
+from dead_code import find_dead_files
 
 
 # ---------------------------------------------------------------------------
@@ -139,6 +140,25 @@ async def list_tools() -> list[types.Tool]:
                 "required": ["repo_path", "target_file"],
             },
         ),
+        types.Tool(
+            name="find_dead_files",
+            description=(
+                "Find files in the repository that are never imported by any other file "
+                "(in-degree of 0 in the dependency graph). Automatically filters out "
+                "standard entry points and test files. Use this to identify dead code "
+                "and unused files that can potentially be deleted."
+            ),
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "repo_path": {
+                        "type": "string",
+                        "description": "Absolute or relative path to the repository root.",
+                    },
+                },
+                "required": ["repo_path"],
+            },
+        ),
     ]
 
 
@@ -156,6 +176,9 @@ async def call_tool(name: str, arguments: dict) -> list[types.TextContent]:
 
     if name == "analyze_impact":
         return await _handle_impact(arguments)
+
+    if name == "find_dead_files":
+        return await _handle_dead_files(arguments)
 
     return [types.TextContent(
         type="text",
@@ -266,6 +289,33 @@ def _run_impact(repo_path: str, target_file: str, max_depth: int) -> dict:
         ],
         "suggested_tests": report.test_files,
         "dependency_tree": report.to_tree_string(),
+    }
+
+
+async def _handle_dead_files(args: dict) -> list[types.TextContent]:
+    repo_path = args.get("repo_path", "")
+
+    loop = asyncio.get_event_loop()
+    try:
+        result = await loop.run_in_executor(None, _run_dead_files, repo_path)
+    except Exception as e:
+        result = {"error": str(e), "repo": repo_path}
+
+    return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
+
+
+def _run_dead_files(repo_path: str) -> dict:
+    """Synchronous pipeline — called from a thread executor."""
+    scan = scan_repo(repo_path)
+    parse = parse_imports(scan)
+    repo_graph = build_graph(scan, parse)
+    dead_files = find_dead_files(repo_graph)
+
+    return {
+        "repo": scan.root,
+        "total_files_scanned": scan.total_files,
+        "total_dead_files": len(dead_files),
+        "dead_files": dead_files
     }
 
 
