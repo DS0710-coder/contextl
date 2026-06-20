@@ -388,33 +388,11 @@ async def main():
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
-        parser = argparse.ArgumentParser(description="ContextL — Repository Intelligence Engine")
-        parser.add_argument("repo_path", help="Path to the repository to query")
-        parser.add_argument("query", help="Natural language query")
-        parser.add_argument("--top", type=int, default=5, help="Maximum number of files to return")
-        parser.add_argument("--json", action="store_true", help="Output results in JSON format")
-        
-        args = parser.parse_args()
-        
+        # Fallback for CLI users: route all arguments to the main.py CLI engine
+        from main import main as cli_main
         try:
-            result = _run_query(args.repo_path, args.query, args.top)
-            
-            if args.json:
-                print(json.dumps(result, indent=2))
-            else:
-                print(f"\n> Query: {args.query}")
-                print(f"> Repository: {args.repo_path}\n")
-                
-                for res in result["results"]:
-                    print(f"[{res['rank']}] {res['path']}")
-                    print(f"    Score:      {res['score']} ({res['confidence']})")
-                    print(f"    Terms:      {', '.join(res['matched_terms'])}")
-                    print(f"    Reasoning:  {res['reasoning']}\n")
-        except Exception as e:
-            if args.json:
-                print(json.dumps({"error": str(e)}, indent=2))
-            else:
-                print(f"Error: {str(e)}", file=sys.stderr)
-            sys.exit(1)
+            cli_main()
+        except KeyboardInterrupt:
+            sys.exit(0)
     else:
         asyncio.run(main())

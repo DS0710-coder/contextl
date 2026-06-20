@@ -184,53 +184,97 @@ def run_engine(repo_path: str, query_str: str, top_n: int):
 # ---------------------------------------------------------------------------
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        prog="prune",
-        description=(
-            "Repository Intelligence Engine — find the most relevant files "
-            "for a given change request without LLMs or embeddings."
-        ),
+        prog="contextl",
+        description="Repository Intelligence Engine",
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog=__doc__,
     )
-    parser.add_argument("repo_path", help="Path to the repository root")
-    parser.add_argument("query", help="Natural-language query (e.g. 'fix the upload error handler')")
-    parser.add_argument(
-        "--top", "-n",
-        type=int,
-        default=5,
-        metavar="N",
-        help="Number of results to return (default: 5)",
-    )
-    parser.add_argument(
-        "--json",
-        action="store_true",
-        default=False,
-        help="Output clean JSON instead of human-readable text",
-    )
+    
+    subparsers = parser.add_subparsers(dest="command", required=True, help="Available commands")
+
+    # 1. Search
+    search_parser = subparsers.add_parser("search", help="Search the codebase using natural language")
+    search_parser.add_argument("repo_path", help="Path to the repository root")
+    search_parser.add_argument("query", help="Natural-language query (e.g. 'fix the upload error handler')")
+    search_parser.add_argument("--top", "-n", type=int, default=5, help="Number of results to return (default: 5)")
+    search_parser.add_argument("--json", action="store_true", help="Output clean JSON instead of human-readable text")
+
+    # 2. Dead Code
+    dead_parser = subparsers.add_parser("dead-code", help="Find files with 0 in-degree dependencies")
+    dead_parser.add_argument("repo_path", help="Path to the repository root")
+
+    # 3. Impact Analysis
+    impact_parser = subparsers.add_parser("impact", help="Analyze the impact of changing a file")
+    impact_parser.add_argument("repo_path", help="Path to the repository root")
+    impact_parser.add_argument("target_file", help="Relative path to the file being changed")
+
+    # 4. Obsidian Export
+    obsidian_parser = subparsers.add_parser("obsidian", help="Export the repository graph to an Obsidian Vault")
+    obsidian_parser.add_argument("repo_path", help="Path to the repository root")
+    obsidian_parser.add_argument("output_dir", help="Absolute path to save the Obsidian markdown files")
+
     return parser
 
 
 def main():
+    # To maintain backward compatibility with old `contextl <repo> <query>`
+    # we manually inject "search" if the first argument isn't a known command.
+    if len(sys.argv) >= 2 and sys.argv[1] not in ["search", "dead-code", "impact", "obsidian", "-h", "--help"]:
+        sys.argv.insert(1, "search")
+
     parser = build_parser()
     args = parser.parse_args()
 
-    results, repo_graph, elapsed = run_engine(args.repo_path, args.query, args.top)
+    if args.command == "search":
+        results, repo_graph, elapsed = run_engine(args.repo_path, args.query, args.top)
 
-    if not results:
+        if not results:
+            if args.json:
+                print(json.dumps({
+                    "query": args.query,
+                    "repo": str(Path(args.repo_path).resolve()),
+                    "results": [],
+                }, indent=2))
+            else:
+                print(f"\nNo relevant files found for: '{args.query}'")
+            sys.exit(0)
+
         if args.json:
-            print(json.dumps({
-                "query": args.query,
-                "repo": str(Path(args.repo_path).resolve()),
-                "results": [],
-            }, indent=2))
+            print(_format_json(args.query, args.repo_path, results, repo_graph))
         else:
-            print(f"\nNo relevant files found for: '{args.query}'")
-        sys.exit(0)
+            print(_format_human(args.query, args.repo_path, results, repo_graph, elapsed))
 
-    if args.json:
-        print(_format_json(args.query, args.repo_path, results, repo_graph))
-    else:
-        print(_format_human(args.query, args.repo_path, results, repo_graph, elapsed))
+    elif args.command == "dead-code":
+        from dead_code import find_dead_files
+        scan = scan_repo(args.repo_path)
+        parse = parse_imports(scan)
+        repo_graph = build_graph(scan, parse)
+        dead = find_dead_files(repo_graph)
+        print(f"Found {len(dead)} potentially dead files:")
+        for d in sorted(dead):
+            print(f"  {d}")
+
+    elif args.command == "impact":
+        from impact_analysis import analyze_impact
+        scan = scan_repo(args.repo_path)
+        parse = parse_imports(scan)
+        repo_graph = build_graph(scan, parse)
+        try:
+            report = analyze_impact(args.target_file, repo_graph)
+            print(report.summary())
+            print("\nDependency tree:")
+            print(report.to_tree_string())
+        except ValueError as e:
+            print(f"Error: {e}", file=sys.stderr)
+            sys.exit(1)
+
+    elif args.command == "obsidian":
+        from obsidian_export import export_obsidian_vault
+        scan = scan_repo(args.repo_path)
+        parse = parse_imports(scan)
+        repo_graph = build_graph(scan, parse)
+        vault_path = export_obsidian_vault(repo_graph, args.output_dir)
+        print(f"Obsidian Vault successfully generated at: {vault_path}")
+        print("Open this folder in Obsidian to view your codebase graph!")
 
 
 if __name__ == "__main__":
