@@ -16,6 +16,7 @@ Tools exposed:
     analyze_impact  — find every file affected by changing a target file
 """
 
+import argparse
 import asyncio
 import json
 import sys
@@ -281,4 +282,31 @@ async def main():
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    if len(sys.argv) > 1:
+        parser = argparse.ArgumentParser(description="ContextL — Repository Intelligence Engine")
+        parser.add_argument("repo_path", help="Path to the repository to query")
+        parser.add_argument("query", help="Natural language query")
+        parser.add_argument("--top", type=int, default=5, help="Maximum number of files to return")
+        parser.add_argument("--json", action="store_true", help="Output results in JSON format")
+        
+        args = parser.parse_args()
+        
+        result = _run_query(args.repo_path, args.query, args.top)
+        
+        if args.json:
+            print(json.dumps(result, indent=2))
+        else:
+            if "error" in result:
+                print(f"Error: {result['error']}", file=sys.stderr)
+                sys.exit(1)
+                
+            print(f"\n> Query: {args.query}")
+            print(f"> Repository: {args.repo_path}\n")
+            
+            for res in result["results"]:
+                print(f"[{res['rank']}] {res['path']}")
+                print(f"    Score:      {res['score']} ({res['confidence']})")
+                print(f"    Terms:      {', '.join(res['matched_terms'])}")
+                print(f"    Reasoning:  {res['reasoning']}\n")
+    else:
+        asyncio.run(main())

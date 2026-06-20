@@ -39,7 +39,7 @@ def main() -> None:
     env["PYTHONUNBUFFERED"] = "1"
 
     # Replace this process entirely — clean stdio passthrough, no extra PID.
-    os.execve(sys.executable, [sys.executable, str(mcp_server)], env)
+    os.execve(sys.executable, [sys.executable, str(mcp_server)] + sys.argv[1:], env)
 
 
 if __name__ == "__main__":

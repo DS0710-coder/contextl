@@ -129,7 +129,7 @@ function launchServer(python) {
     throw new Error(`mcp_server.py not found at: ${MCP_SERVER}`);
   }
 
-  const child = spawn(python, [MCP_SERVER], {
+  const child = spawn(python, [MCP_SERVER, ...process.argv.slice(2)], {
     stdio: "inherit",
     env: {
       ...process.env,
