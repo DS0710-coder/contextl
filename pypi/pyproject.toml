@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "contextl-mcp"
-version = "1.2.0"
+version = "1.2.1"
 description = "Repository Intelligence Engine — MCP server for AI coding agents"
 readme = "README.md"
 license = { text = "MIT" }
@@ -21,6 +21,9 @@ keywords = [
   "vscode",
   "typescript",
   "nextjs",
+  "python",
+  "java",
+  "obsidian",
   "repository",
 ]
 classifiers = [
@@ -40,8 +43,8 @@ requires-python = ">=3.9"
 dependencies = ["networkx", "mcp"]
 
 [project.urls]
-Homepage = "https://github.com/dev7shah/prune"
-Issues = "https://github.com/dev7shah/prune/issues"
+Homepage = "https://github.com/DS0710-coder/contextl"
+Issues = "https://github.com/DS0710-coder/contextl/issues"
 
 [project.scripts]
 contextl = "contextl.__main__:main"
