@@ -79,6 +79,11 @@ Lists every source file `contextl` can see — useful for the agent to orient it
 
 Finds unused files and dead code by analyzing the dependency graph for files with an in-degree of 0. Automatically filters out standard entry points (like `page.tsx` or `index.ts`) and test files.
 
+### `export_obsidian_vault`
+*"Visualize this codebase in Obsidian."*
+
+Takes the exact dependency graph built by the intelligence engine and physically writes it to disk as a directory of interconnected Markdown files. Automatically injects file metadata, JSDoc/Docstring explanations, and uses standard `[[wikilinks]]` to map out dependencies. Open the generated folder as an Obsidian vault for a stunning 3D interactive graph of your architecture!
+
 ---
 
 ## How the ranking works
@@ -92,9 +97,32 @@ Finds unused files and dead code by analyzing the dependency graph for files wit
 
 ## Supported languages
 
-TypeScript, TSX, JavaScript, JSX — built for Next.js and React codebases first.
+**JavaScript ecosystem**: TypeScript, TSX, JavaScript, JSX.
+**Backend ecosystem**: Python (`.py`) and Java (`.java`).
 
-Python, Go, and Rust support are on the roadmap.
+The engine natively understands dot-notation module paths (`from X import Y`, `import com.example.X;`) and correctly resolves them to physical file paths to build the architecture graph.
+
+---
+
+## The Global CLI
+
+`contextl` isn't just an AI tool; it installs a global command-line interface on your system so you can access all the intelligence features natively:
+
+```bash
+# 1. Search the codebase
+contextl search ./my-repo "fix the auth flow"
+
+# 2. Analyze impact of changing a file
+contextl impact ./my-repo src/api.ts
+
+# 3. Find dead unused files
+contextl dead-code ./my-repo
+
+# 4. Generate an Obsidian vault
+contextl obsidian ./my-repo ./my_vault
+```
+
+*(Note: If you omit the sub-command, `contextl ./my-repo "query"` will automatically default to `search` for backwards compatibility).*
 
 ---
 
