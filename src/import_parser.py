@@ -37,6 +37,13 @@ IMPORT_PATTERN = re.compile(
 # Also catch: import("./foo")  — dynamic imports
 DYNAMIC_IMPORT_PATTERN = re.compile(r"""import\s*\(\s*['"](.*?)['"]\s*\)""")
 
+# Python
+PYTHON_FROM_IMPORT_PATTERN = re.compile(r"^from\s+([.\w]+)\s+import", re.MULTILINE)
+PYTHON_IMPORT_PATTERN = re.compile(r"^import\s+([.\w]+)", re.MULTILINE)
+
+# Java
+JAVA_IMPORT_PATTERN = re.compile(r"^import\s+(?:static\s+)?([\w.]+);", re.MULTILINE)
+
 
 @dataclass
 class ImportRelationship:
@@ -66,19 +73,33 @@ class ParseResult:
         return "\n".join(lines)
 
 
-def _extract_raw_imports(source_code: str) -> list[str]:
-    """Pull all import paths out of a TypeScript/JSX file."""
+def _extract_raw_imports(source_code: str, extension: str) -> list[str]:
+    """Pull all import paths out of a source file based on its extension."""
     paths = []
-    for match in IMPORT_PATTERN.finditer(source_code):
-        paths.append(match.group(1))
-    for match in DYNAMIC_IMPORT_PATTERN.finditer(source_code):
-        paths.append(match.group(1))
-    return paths
+    if extension in {".ts", ".tsx", ".js", ".jsx"}:
+        for match in IMPORT_PATTERN.finditer(source_code):
+            paths.append(match.group(1))
+        for match in DYNAMIC_IMPORT_PATTERN.finditer(source_code):
+            paths.append(match.group(1))
+    elif extension == ".py":
+        for match in PYTHON_FROM_IMPORT_PATTERN.finditer(source_code):
+            paths.append(match.group(1))
+        for match in PYTHON_IMPORT_PATTERN.finditer(source_code):
+            paths.append(match.group(1))
+    elif extension == ".java":
+        for match in JAVA_IMPORT_PATTERN.finditer(source_code):
+            paths.append(match.group(1))
+    return list(set(paths))
 
 
-def _is_external(import_path: str) -> bool:
-    """Return True if this is an npm package rather than a local file."""
-    # Local files start with . (relative) or @ followed by / (alias like @/)
+def _is_external(import_path: str, extension: str) -> bool:
+    """Return True if this is an external package rather than a local file."""
+    if extension in {".py", ".java"}:
+        # For Python and Java, it's hard to tell without resolving, 
+        # so assume it's local and let the resolver fail if it's external.
+        return False
+
+    # Node.js: Local files start with . (relative) or @ followed by / (alias like @/)
     # but NOT @scope/package style from npm — those don't contain our alias prefix
     if import_path.startswith("./") or import_path.startswith("../"):
         return False
@@ -119,6 +140,7 @@ def _find_file_in_repo(
     candidate: str,
     file_index: dict[str, str],
     root: str,
+    extension: str = "",
 ) -> str | None:
     """
     Given a candidate path (without extension), find the matching file
@@ -142,13 +164,38 @@ def _find_file_in_repo(
     if candidate_str in file_index:
         return candidate_str
 
-    # Try adding each supported extension
+    if extension == ".java":
+        # Java candidate is like 'com/example/Config'
+        # We search for any file ending in this candidate + .java
+        suffix = candidate_str + ".java"
+        for path in file_index:
+            if path.endswith(suffix):
+                return path
+        return None
+
+    if extension == ".py":
+        # Python: try exact candidate + .py
+        py_ext = candidate_str + ".py"
+        if py_ext in file_index:
+            return py_ext
+        # Try python package index
+        py_idx = candidate_str + "/__init__.py"
+        if py_idx in file_index:
+            return py_idx
+        # Fallback: search for any file ending in candidate + .py (handles src/ prefix omit)
+        suffix = "/" + py_ext
+        for path in file_index:
+            if path.endswith(suffix) or path == py_ext:
+                return path
+        return None
+
+    # Node.js: Try adding each supported extension
     for ext in [".tsx", ".ts", ".jsx", ".js"]:
         with_ext = candidate_str + ext
         if with_ext in file_index:
             return with_ext
 
-    # Try as a directory index file (e.g. components/Button/index.tsx)
+    # Node.js: Try as a directory index file
     for ext in [".tsx", ".ts", ".jsx", ".js"]:
         index_path = candidate_str + "/index" + ext
         if index_path in file_index:
@@ -225,26 +272,43 @@ def parse_imports(scan_result: ScanResult) -> ParseResult:
         except Exception:
             continue
 
-        raw_imports = _extract_raw_imports(source_code)
+        raw_imports = _extract_raw_imports(source_code, scanned_file.extension)
 
         for raw in raw_imports:
-            if _is_external(raw):
+            if _is_external(raw, scanned_file.extension):
                 result.unresolved.append((scanned_file.path, raw))
                 continue
 
             # Resolve to a candidate path string
-            if raw.startswith("@/"):
-                resolved_alias = _resolve_alias(raw, alias_map)
-                if resolved_alias is None:
-                    result.unresolved.append((scanned_file.path, raw))
-                    continue
-                candidate = resolved_alias
+            if scanned_file.extension == ".java":
+                candidate = raw.replace(".", "/")
+            elif scanned_file.extension == ".py":
+                if raw.startswith("."):
+                    # Relative python import: from .utils import foo
+                    # Count leading dots
+                    dots = len(raw) - len(raw.lstrip("."))
+                    base_dir = Path(scanned_file.path).parent
+                    # For every dot beyond the first, go up one directory
+                    for _ in range(dots - 1):
+                        base_dir = base_dir.parent
+                    mod_path = raw.lstrip(".").replace(".", "/")
+                    candidate = str(base_dir / mod_path) if mod_path else str(base_dir)
+                else:
+                    # Absolute python import from root
+                    candidate = raw.replace(".", "/")
             else:
-                # Relative import
-                candidate = _resolve_relative(raw, scanned_file.path)
+                # Node.js
+                if raw.startswith("@/"):
+                    resolved_alias = _resolve_alias(raw, alias_map)
+                    if resolved_alias is None:
+                        result.unresolved.append((scanned_file.path, raw))
+                        continue
+                    candidate = resolved_alias
+                else:
+                    candidate = _resolve_relative(raw, scanned_file.path)
 
             # Find the actual file in the repo
-            matched = _find_file_in_repo(candidate, file_index, scan_result.root)
+            matched = _find_file_in_repo(candidate, file_index, scan_result.root, scanned_file.extension)
 
             if matched:
                 result.relationships.append(

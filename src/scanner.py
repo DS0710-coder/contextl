@@ -11,7 +11,7 @@ from pathlib import Path
 from dataclasses import dataclass, field
 
 
-SUPPORTED_EXTENSIONS = {".tsx", ".ts", ".jsx", ".js"}
+SUPPORTED_EXTENSIONS = {".tsx", ".ts", ".jsx", ".js", ".py", ".java"}
 
 IGNORED_DIRS = {
     "node_modules",
