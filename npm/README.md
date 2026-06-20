@@ -144,7 +144,7 @@ Same engine, same tools — installable via PyPI for Python-first workflows.
 
 ## Links
 
-- [GitHub](https://github.com/DS0710-coder/contextl)
+- [Creator GitHub](https://github.com/DS0710-coder)
 - [PyPI package](https://pypi.org/project/contextl-mcp)
 
 ## License

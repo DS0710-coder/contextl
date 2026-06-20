@@ -1,6 +1,6 @@
 {
   "name": "contextl",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "contextl — finds the most relevant files in your codebase for any change request. MCP server for AI coding agents.",
   "keywords": [
     "mcp",
@@ -19,10 +19,7 @@
     "obsidian",
     "repository"
   ],
-  "homepage": "https://github.com/DS0710-coder/contextl#readme",
-  "bugs": {
-    "url": "https://github.com/DS0710-coder/contextl/issues"
-  },
+  "homepage": "https://github.com/DS0710-coder",
   "license": "MIT",
   "author": "dev7shah",
   "bin": {

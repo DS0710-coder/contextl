@@ -175,7 +175,7 @@ Same engine, same tools — installable via npm for JS/TS-first workflows.
 
 ## Links
 
-- [GitHub](https://github.com/DS0710-coder/contextl)
+- [Creator GitHub](https://github.com/DS0710-coder)
 - [npm package](https://npmjs.com/package/contextl)
 
 ## License
