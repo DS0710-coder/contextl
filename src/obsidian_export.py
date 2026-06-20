@@ -9,11 +9,35 @@ visualization of their entire codebase.
 
 import os
 import shutil
+import re
 from pathlib import Path
 
 from scanner import scan_repo
 from import_parser import parse_imports
 from graph_builder import build_graph, RepoGraph
+
+
+PYTHON_DOCSTRING_PATTERN = re.compile(r'^\s*["\']{3}(.*?)["\']{3}', re.DOTALL)
+JS_DOC_PATTERN = re.compile(r'^\s*/\*\*(.*?)\*/', re.DOTALL)
+
+def _extract_explanation(file_path: str, extension: str, root_dir: str) -> str:
+    """Reads the top-level docstring or JSDoc block from the file."""
+    try:
+        content = (Path(root_dir) / file_path).read_text(encoding="utf-8")
+        if extension == ".py":
+            match = PYTHON_DOCSTRING_PATTERN.search(content)
+            if match:
+                return match.group(1).strip()
+        elif extension in {".ts", ".tsx", ".js", ".jsx", ".java"}:
+            match = JS_DOC_PATTERN.search(content)
+            if match:
+                # Clean up leading asterisks from JSDoc lines
+                lines = match.group(1).split('\n')
+                cleaned = [line.strip().lstrip('*').strip() for line in lines]
+                return "\n".join(cleaned).strip()
+    except Exception:
+        pass
+    return "*No explanation provided in source code.*"
 
 
 def export_obsidian_vault(repo_graph: RepoGraph, output_dir: str) -> str:
@@ -37,9 +61,15 @@ def export_obsidian_vault(repo_graph: RepoGraph, output_dir: str) -> str:
         dependencies = repo_graph.get_dependencies(path)
         dependents = repo_graph.get_dependents(path)
         
+        explanation = _extract_explanation(path, node.extension, repo_graph.root)
+        
         content = [
             f"# {path}",
             "",
+            "## Explanation",
+            explanation,
+            "",
+            "## Metrics",
             f"**Extension:** `{node.extension}`",
             f"**Size:** {node.size_bytes} bytes",
             f"**Centrality Score:** {node.centrality:.4f}",
