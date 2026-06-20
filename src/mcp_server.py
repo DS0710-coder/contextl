@@ -291,22 +291,25 @@ if __name__ == "__main__":
         
         args = parser.parse_args()
         
-        result = _run_query(args.repo_path, args.query, args.top)
-        
-        if args.json:
-            print(json.dumps(result, indent=2))
-        else:
-            if "error" in result:
-                print(f"Error: {result['error']}", file=sys.stderr)
-                sys.exit(1)
-                
-            print(f"\n> Query: {args.query}")
-            print(f"> Repository: {args.repo_path}\n")
+        try:
+            result = _run_query(args.repo_path, args.query, args.top)
             
-            for res in result["results"]:
-                print(f"[{res['rank']}] {res['path']}")
-                print(f"    Score:      {res['score']} ({res['confidence']})")
-                print(f"    Terms:      {', '.join(res['matched_terms'])}")
-                print(f"    Reasoning:  {res['reasoning']}\n")
+            if args.json:
+                print(json.dumps(result, indent=2))
+            else:
+                print(f"\n> Query: {args.query}")
+                print(f"> Repository: {args.repo_path}\n")
+                
+                for res in result["results"]:
+                    print(f"[{res['rank']}] {res['path']}")
+                    print(f"    Score:      {res['score']} ({res['confidence']})")
+                    print(f"    Terms:      {', '.join(res['matched_terms'])}")
+                    print(f"    Reasoning:  {res['reasoning']}\n")
+        except Exception as e:
+            if args.json:
+                print(json.dumps({"error": str(e)}, indent=2))
+            else:
+                print(f"Error: {str(e)}", file=sys.stderr)
+            sys.exit(1)
     else:
         asyncio.run(main())
