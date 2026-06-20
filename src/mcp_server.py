@@ -36,6 +36,7 @@ from query_engine import query as engine_query
 from main import _confidence, _reasoning
 from impact_analysis import analyze_impact
 from dead_code import find_dead_files
+from obsidian_export import export_obsidian_vault
 
 
 # ---------------------------------------------------------------------------
@@ -159,6 +160,28 @@ async def list_tools() -> list[types.Tool]:
                 "required": ["repo_path"],
             },
         ),
+        types.Tool(
+            name="export_obsidian_vault",
+            description=(
+                "Generates an Obsidian Vault from the repository graph. "
+                "Creates a folder of interconnected Markdown files using wikilinks "
+                "so the codebase can be visualized in Obsidian's 3D graph view."
+            ),
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "repo_path": {
+                        "type": "string",
+                        "description": "Absolute or relative path to the repository root.",
+                    },
+                    "output_dir": {
+                        "type": "string",
+                        "description": "Absolute path to a folder where the vault should be created.",
+                    },
+                },
+                "required": ["repo_path", "output_dir"],
+            },
+        ),
     ]
 
 
@@ -179,6 +202,9 @@ async def call_tool(name: str, arguments: dict) -> list[types.TextContent]:
 
     if name == "find_dead_files":
         return await _handle_dead_files(arguments)
+
+    if name == "export_obsidian_vault":
+        return await _handle_export_obsidian(arguments)
 
     return [types.TextContent(
         type="text",
@@ -316,6 +342,35 @@ def _run_dead_files(repo_path: str) -> dict:
         "total_files_scanned": scan.total_files,
         "total_dead_files": len(dead_files),
         "dead_files": dead_files
+    }
+
+
+async def _handle_export_obsidian(args: dict) -> list[types.TextContent]:
+    repo_path = args.get("repo_path", "")
+    output_dir = args.get("output_dir", "")
+
+    loop = asyncio.get_event_loop()
+    try:
+        result = await loop.run_in_executor(None, _run_export_obsidian, repo_path, output_dir)
+    except Exception as e:
+        result = {"error": str(e), "repo": repo_path, "output_dir": output_dir}
+
+    return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
+
+
+def _run_export_obsidian(repo_path: str, output_dir: str) -> dict:
+    """Synchronous pipeline — called from a thread executor."""
+    scan = scan_repo(repo_path)
+    parse = parse_imports(scan)
+    repo_graph = build_graph(scan, parse)
+    
+    vault_path = export_obsidian_vault(repo_graph, output_dir)
+    
+    return {
+        "repo": scan.root,
+        "vault_path": vault_path,
+        "total_files_exported": scan.total_files,
+        "success": True
     }
 
 
