@@ -60,37 +60,6 @@ class RankedFile:
         )
 
 
-@dataclass
-class FileFeatures:
-    tokens: set[str]
-    annotations: set[str]
-    declarations: set[str]
-
-
-def _extract_file_features(content: str, extension: str) -> FileFeatures:
-    """Extract structural heuristics and lowercase tokens from a file."""
-    # 1. Declarations: class X, interface Y, enum Z
-    decl_pattern = r"\b(?:class|interface|enum)\s+([A-Za-z0-9_]+)"
-    declarations = {m.group(1).lower() for m in re.finditer(decl_pattern, content)}
-
-    # 2. Annotations: @Controller, @Injectable
-    annotations = {m.group(1).lower() for m in re.finditer(r"@([A-Za-z0-9_]+)", content)}
-
-    # 3. Base tokens
-    tokens = set(re.findall(r"[a-z0-9]+", content.lower()))
-
-    # 4. CamelCase / PascalCase Splitting for structural languages
-    if extension in {".java", ".ts", ".tsx"}:
-        for word in re.findall(r"[A-Za-z]+", content):
-            if not word.islower() and not word.isupper() and len(word) > 2:
-                # Split CamelCase
-                sub = re.sub(r"([a-z])([A-Z])", r"\1 \2", word).lower()
-                for part in re.findall(r"[a-z0-9]+", sub):
-                    if len(part) > 1:
-                        tokens.add(part)
-
-    return FileFeatures(tokens=tokens, annotations=annotations, declarations=declarations)
-
 
 def _tokenize(text: str) -> list[str]:
     """Lowercase, split on non-alphanumeric, remove stop words."""
@@ -138,33 +107,64 @@ def _keyword_score(query_terms: list[str], file_path: str, idf_weights: dict[str
     return score, matched
 
 
-def _content_score(query_terms: list[str], features: "FileFeatures", idf_weights: dict[str, float]) -> tuple[float, list[str]]:
+def _content_score(query_terms: list[str], file_path: str, file_content: str, idf_weights: dict[str, float]) -> tuple[float, list[str]]:
     """
     Score how often query terms appear in the file's source code.
-    Applies massive multipliers for architectural declarations and annotations.
+    Uses TF-IDF weighting, capped to avoid huge files dominating.
+    Includes language-specific heuristics for Java and other OOP languages.
     """
-    if not features or not query_terms:
-        return 0.0, []
+    is_oop = file_path.endswith(".java") or file_path.endswith(".ts") or file_path.endswith(".tsx")
+    content_tokens = set(re.findall(r"[a-z0-9]+", file_content.lower()))
+    
+    # 1. CamelCase Splitting
+    if is_oop:
+        camel_tokens = []
+        for word in re.findall(r"[a-zA-Z]+", file_content):
+            if any(c.isupper() for c in word):
+                sub = re.sub(r"([A-Z])", r" \1", word).lower()
+                camel_tokens.extend(re.findall(r"[a-z0-9]+", sub))
+        content_tokens.update([t for t in camel_tokens if len(t) > 1])
 
-    matched = [t for t in query_terms if t in features.tokens]
+    # 2. Extract Class Declarations & Annotations
+    declared_classes = set()
+    if is_oop or file_path.endswith(".py"):
+        decls = re.findall(r"\b(?:class|interface|enum)\s+([a-zA-Z0-9_]+)", file_content)
+        for d in decls:
+            declared_classes.add(d.lower())
+            
+    annotations = set()
+    if is_oop or file_path.endswith(".py"):
+        anns = re.findall(r"@([a-zA-Z0-9_]+)", file_content)
+        for a in anns:
+            annotations.add(a.lower())
+
+    matched = [t for t in query_terms if t in content_tokens]
+
+    if not query_terms:
+        return 0.0, []
 
     score = 0.0
     for t in matched:
         base_weight = idf_weights.get(t, 1.0)
         multiplier = 1.0
-        if t in features.declarations:
+        
+        # 3. Apply Multipliers
+        if t in declared_classes:
             multiplier = 10.0
-        elif t in features.annotations:
+        elif t in annotations:
             multiplier = 5.0
-        score += base_weight * multiplier
+            
+        score += (base_weight * multiplier)
 
     max_score = sum(idf_weights.get(t, 1.0) for t in query_terms)
     if max_score > 0:
-        score = score / max_score
+        base_normalized = min(1.0, sum(idf_weights.get(t, 1.0) for t in matched) / max_score)
+        bonus = score - sum(idf_weights.get(t, 1.0) for t in matched)
+        final_score = base_normalized + bonus
     else:
-        score = 0.0
+        final_score = 0.0
 
-    return score, matched
+    return final_score, matched
 
 
 def _apply_neighbor_bonus(
@@ -223,23 +223,29 @@ def query(
     total_files = len(repo_graph.nodes)
     document_frequency = {term: 0 for term in query_terms}
     
-    file_features_cache = {}
+    file_contents = {}
     for path, node in repo_graph.nodes.items():
         abs_path = node.path if hasattr(node, "absolute_path") else str(__import__("pathlib").Path(repo_graph.root) / path)
-        extension = pathlib.Path(path).suffix.lower()
-        
         try:
             content = open(abs_path, encoding="utf-8").read()
-            features = _extract_file_features(content, extension)
-            file_features_cache[path] = features
+            file_contents[path] = content
+            content_tokens = set(re.findall(r"[a-z0-9]+", content.lower()))
             
+            if path.endswith(".java") or path.endswith(".ts") or path.endswith(".tsx"):
+                camel_tokens = []
+                for word in re.findall(r"[a-zA-Z]+", content):
+                    if any(c.isupper() for c in word):
+                        sub = re.sub(r"([A-Z])", r" \1", word).lower()
+                        camel_tokens.extend(re.findall(r"[a-z0-9]+", sub))
+                content_tokens.update([t for t in camel_tokens if len(t) > 1])
+                
             path_tokens = set(_path_tokens(path))
-            combined_tokens = features.tokens.union(path_tokens)
+            combined_tokens = content_tokens.union(path_tokens)
             for term in query_terms:
                 if term in combined_tokens:
                     document_frequency[term] += 1
         except Exception:
-            file_features_cache[path] = None
+            file_contents[path] = ""
 
     idf_weights = {}
     for term in query_terms:
@@ -253,7 +259,7 @@ def query(
 
     for path, node in repo_graph.nodes.items():
         kscore, kterms = _keyword_score(query_terms, path, idf_weights)
-        cscore, cterms = _content_score(query_terms, file_features_cache.get(path), idf_weights)
+        cscore, cterms = _content_score(query_terms, path, file_contents.get(path, ""), idf_weights)
 
         keyword_scores[path] = kscore
         content_scores[path] = cscore
