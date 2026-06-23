@@ -32,7 +32,9 @@ STOP_WORDS = {
     "where", "when", "which", "who", "make", "change", "update", "fix",
     "add", "remove", "edit", "modify", "the", "my", "our", "i", "we",
     "string", "int", "boolean", "class", "function", "return", "import",
-    "public", "private", "logic", "handler", "data", "value"
+    "public", "private", "logic", "handler", "data", "value", "yo", "bro",
+    "bruh", "pls", "please", "bug", "issue", "error", "help", "stuff",
+    "handling", "failing", "why", "need", "can", "could", "would", "should", "fr"
 }
 
 
@@ -91,70 +93,138 @@ def _keyword_score(query_terms: list[str], file_path: str, idf_weights: dict[str
     score = 0.0
 
     for term in query_terms:
+        # Exact match
         if term in filename_toks:
-            score += idf_weights.get(term, 1.0)   # Strong signal: term in filename
+            score += 2.0 * idf_weights.get(term, 1.0)   # Massive signal
             matched.append(term)
+        # Substring match on filename
+        elif len(term) > 3 and any(term in ft for ft in filename_toks):
+            score += 1.5 * idf_weights.get(term, 1.0)
+            matched.append(term)
+        # Exact match on path
         elif term in path_toks:
-            score += 0.4 * idf_weights.get(term, 1.0)   # Weaker signal: term in directory path
+            score += 0.8 * idf_weights.get(term, 1.0)   # Strong signal
+            if term not in matched:
+                matched.append(term)
+        # Substring match on path
+        elif len(term) > 3 and any(term in pt for pt in path_toks):
+            score += 0.4 * idf_weights.get(term, 1.0)
             if term not in matched:
                 matched.append(term)
 
     # Normalize by max possible score (sum of all IDFs)
     max_score = sum(idf_weights.get(t, 1.0) for t in query_terms)
     if max_score > 0:
-        score = score / max_score
+        score = min(1.0, score / max_score) # Cap at 1.0 since we have massive multipliers
 
     return score, matched
 
 
-def _content_score(query_terms: list[str], file_path: str, file_content: str, idf_weights: dict[str, float]) -> tuple[float, list[str]]:
+def _content_score(query_terms: list[str], file_path: str, file_content: str, idf_weights: dict[str, float], dl: int, avgdl: float) -> tuple[float, list[str]]:
     """
     Score how often query terms appear in the file's source code.
-    Uses TF-IDF weighting, capped to avoid huge files dominating.
+    Uses BM25 Term Frequency weighting to neutralize document length bias.
     Includes language-specific heuristics for Java and other OOP languages.
     """
-    is_oop = file_path.endswith(".java") or file_path.endswith(".ts") or file_path.endswith(".tsx")
-    content_tokens = set(re.findall(r"[a-z0-9]+", file_content.lower()))
+    is_java = file_path.endswith(".java")
+    is_ts = file_path.endswith(".ts") or file_path.endswith(".tsx")
+    is_oop = is_java or is_ts
     
-    # 1. CamelCase Splitting
-    if is_oop:
+    content_tokens_list = re.findall(r"[a-z0-9]+", file_content.lower())
+    
+    # 1. CamelCase Splitting (Java only)
+    if is_java:
         camel_tokens = []
         for word in re.findall(r"[a-zA-Z]+", file_content):
             if any(c.isupper() for c in word):
                 sub = re.sub(r"([A-Z])", r" \1", word).lower()
                 camel_tokens.extend(re.findall(r"[a-z0-9]+", sub))
-        content_tokens.update([t for t in camel_tokens if len(t) > 1])
+        content_tokens_list.extend([t for t in camel_tokens if len(t) > 1])
 
-    # 2. Extract Class Declarations & Annotations
+    # 2. Extract Class Declarations, Annotations & Method Names
     declared_classes = set()
+    ts_exports = set()
+    java_methods = set()
     if is_oop or file_path.endswith(".py"):
         decls = re.findall(r"\b(?:class|interface|enum)\s+([a-zA-Z0-9_]+)", file_content)
         for d in decls:
             declared_classes.add(d.lower())
             
+    if is_java:
+        # Extract Java method names: public/private/protected ... methodName(
+        methods = re.findall(r"\b(?:public|private|protected)\s+(?:static\s+)?(?:[a-zA-Z0-9_<>\[\]]+)\s+([a-zA-Z0-9_]+)\s*\(", file_content)
+        for m in methods:
+            if m.lower() not in {"main", "get", "set", "is", "has"}:
+                java_methods.add(m.lower())
+                # Also add CamelCase parts of method names
+                sub = re.sub(r"([A-Z])", r" \1", m).lower()
+                for part in re.findall(r"[a-z0-9]+", sub):
+                    if len(part) > 3:
+                        java_methods.add(part)
+            
+    if is_ts:
+        exports = re.findall(r"\bexport\s+(?:const|let|var|class|interface|function|default)\s+([a-zA-Z0-9_]+)", file_content)
+        for e in exports:
+            ts_exports.add(e.lower())
+
     annotations = set()
     if is_oop or file_path.endswith(".py"):
         anns = re.findall(r"@([a-zA-Z0-9_]+)", file_content)
         for a in anns:
             annotations.add(a.lower())
 
-    matched = [t for t in query_terms if t in content_tokens]
+    term_counts = {}
+    for t in query_terms:
+        count = 0
+        for ct in content_tokens_list:
+            if t == ct:
+                count += 1
+            elif len(t) > 3 and t in ct:
+                count += 1
+        if count > 0:
+            term_counts[t] = count
+            
+    matched = list(term_counts.keys())
 
     if not query_terms:
         return 0.0, []
+
+    # Multiplier strength scales inversely with query length.
+    # Short queries (1-2 terms, likely vibe) need a loud structural signal.
+    # Long queries (4+ terms, likely standard LLM) rely more on BM25 math.
+    n_terms = len(query_terms)
+    if n_terms <= 2:
+        class_mult = 10.0
+        ann_mult = 5.0
+    elif n_terms <= 4:
+        class_mult = 6.0
+        ann_mult = 3.0
+    else:
+        class_mult = 3.0
+        ann_mult = 2.0
 
     score = 0.0
     for t in matched:
         base_weight = idf_weights.get(t, 1.0)
         multiplier = 1.0
         
-        # 3. Apply Multipliers
-        if t in declared_classes:
-            multiplier = 10.0
+        # 3. Apply Multipliers — TS exports always get 8x regardless of query length
+        if t in ts_exports:
+            multiplier = 8.0
+        elif t in declared_classes:
+            multiplier = class_mult
+        elif t in java_methods:
+            multiplier = 4.0
         elif t in annotations:
-            multiplier = 5.0
+            multiplier = ann_mult
             
-        score += (base_weight * multiplier)
+        # 4. BM25 Term Frequency
+        count = term_counts[t]
+        k1 = 1.5
+        b = 0.75
+        tf_bm25 = (count * (k1 + 1)) / (count + k1 * (1 - b + b * (dl / avgdl)))
+            
+        score += (tf_bm25 * base_weight * multiplier)
 
     max_score = sum(idf_weights.get(t, 1.0) for t in query_terms)
     if max_score > 0:
@@ -170,7 +240,7 @@ def _content_score(query_terms: list[str], file_path: str, file_content: str, id
 def _apply_neighbor_bonus(
     scores: dict[str, float],
     repo_graph: RepoGraph,
-    boost: float = 0.15,
+    boost: float = 0.35,
     depth: int = 1,
 ) -> dict[str, float]:
     """
@@ -218,20 +288,29 @@ def query(
     if not query_terms:
         return []
 
-    # --- Pre-computation: Global TF-IDF ---
+    # --- Pre-computation: Global TF-IDF & BM25 ---
     import pathlib
     total_files = len(repo_graph.nodes)
     document_frequency = {term: 0 for term in query_terms}
     
     file_contents = {}
+    doc_lengths = {}
+    total_tokens_count = 0
+    
     for path, node in repo_graph.nodes.items():
         abs_path = node.path if hasattr(node, "absolute_path") else str(__import__("pathlib").Path(repo_graph.root) / path)
         try:
             content = open(abs_path, encoding="utf-8").read()
             file_contents[path] = content
-            content_tokens = set(re.findall(r"[a-z0-9]+", content.lower()))
             
-            if path.endswith(".java") or path.endswith(".ts") or path.endswith(".tsx"):
+            raw_tokens = re.findall(r"[a-z0-9]+", content.lower())
+            dl = len(raw_tokens)
+            doc_lengths[path] = dl
+            total_tokens_count += dl
+            
+            content_tokens = set(raw_tokens)
+            
+            if path.endswith(".java"):
                 camel_tokens = []
                 for word in re.findall(r"[a-zA-Z]+", content):
                     if any(c.isupper() for c in word):
@@ -244,13 +323,24 @@ def query(
             for term in query_terms:
                 if term in combined_tokens:
                     document_frequency[term] += 1
+                elif len(term) > 3:
+                    for ct in combined_tokens:
+                        if term in ct:
+                            document_frequency[term] += 1
+                            break
         except Exception:
             file_contents[path] = ""
+            doc_lengths[path] = 0
+
+    avgdl = total_tokens_count / total_files if total_files > 0 else 1.0
 
     idf_weights = {}
     for term in query_terms:
         df = document_frequency[term]
-        idf_weights[term] = math.log(total_files / (1 + df)) if total_files > 0 else 1.0
+        if df == 0:
+            idf_weights[term] = 0.0
+        else:
+            idf_weights[term] = math.log(total_files / (1 + df)) if total_files > 0 else 1.0
 
     # --- Pass 1: keyword + content scores per file ---
     keyword_scores: dict[str, float] = {}
@@ -259,7 +349,8 @@ def query(
 
     for path, node in repo_graph.nodes.items():
         kscore, kterms = _keyword_score(query_terms, path, idf_weights)
-        cscore, cterms = _content_score(query_terms, path, file_contents.get(path, ""), idf_weights)
+        dl = doc_lengths.get(path, 0)
+        cscore, cterms = _content_score(query_terms, path, file_contents.get(path, ""), idf_weights, dl, avgdl)
 
         keyword_scores[path] = kscore
         content_scores[path] = cscore
