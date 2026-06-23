@@ -71,19 +71,12 @@ async def list_tools() -> list[types.Tool]:
                     "query": {
                         "type": "string",
                         "description": (
-                            "SYSTEM INSTRUCTION: You are a translation layer designed to convert human requests into highly optimized queries for the contextl codebase search engine. "
-                            "The contextl engine is NOT a semantic AI; it is an advanced, dependency-aware fuzzy keyword searcher. It relies on exact token matching and import-graph ranking.\n\n"
-                            "Your goal is to extract the core technical keywords from the user's request and discard all conversational filler or vague concepts.\n\n"
-                            "Rules for generating the query string:\n"
-                            "1. Remove Conversational Filler: Drop words like 'where is', 'how does', 'find the', 'show me'.\n"
-                            "2. Translate Concepts to Code: If the user asks for a concept, translate it into the exact keywords, classes, or library syntax a developer would type. (e.g., 'routing' -> 'createRouter Route routeTree', 'entry point' -> 'main bootstrap init').\n"
-                            "3. Include Known Framework Terms: Append standard terminology of the framework.\n"
-                            "4. Target File Types/Structures: Use terms like 'config', 'yaml', 'json' if looking for configurations.\n"
-                            "5. Keep it space-separated: Output a single string of space-separated keywords without punctuation.\n\n"
-                            "Examples:\n"
-                            "- 'Where are the main react components and routing defined?' -> 'createRouter Route routeTree components layout'\n"
-                            "- 'Find the application entry point and main method.' -> 'public static void main bootstrap init ApplicationContext configuration'\n"
-                            "- 'How is the user authentication handled?' -> 'login auth authenticate jwt token session passport'"
+                            "SYSTEM INSTRUCTION: The contextl search engine is highly optimized for both raw conversational queries AND exact keyword searches. "
+                            "It uses dynamic structural multipliers to instantly rank classes for short/conversational queries, and switches to BM25 frequency math for longer keyword queries.\n\n"
+                            "STRATEGY INSTRUCTION:\n"
+                            "1. INITIAL SEARCHES: Pass the user's raw natural-language query directly. Do NOT convert it to keywords. The engine is smart enough to drop stop-words and find the primary class anchors. Example: 'where is the auth logic?' -> 'where is the auth logic?'\n"
+                            "2. TARGETED DEBUG SEARCHES: If the initial search fails, or if you are deep into debugging and need to cross-reference very specific variables across the codebase, then convert the query into highly optimized, space-separated keywords. Example: 'auth failure bug' -> 'login jwt AuthController retry_count token'\n"
+                            "Never append generic filler words to targeted searches."
                         ),
                     },
                     "top_n": {
