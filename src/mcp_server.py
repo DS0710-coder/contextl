@@ -71,9 +71,19 @@ async def list_tools() -> list[types.Tool]:
                     "query": {
                         "type": "string",
                         "description": (
-                            "Natural-language description of the change you want to make. "
-                            "Examples: 'fix the upload error handler', "
-                            "'change the login page logo', 'add dark mode to footer'."
+                            "SYSTEM INSTRUCTION: You are a translation layer designed to convert human requests into highly optimized queries for the contextl codebase search engine. "
+                            "The contextl engine is NOT a semantic AI; it is an advanced, dependency-aware fuzzy keyword searcher. It relies on exact token matching and import-graph ranking.\n\n"
+                            "Your goal is to extract the core technical keywords from the user's request and discard all conversational filler or vague concepts.\n\n"
+                            "Rules for generating the query string:\n"
+                            "1. Remove Conversational Filler: Drop words like 'where is', 'how does', 'find the', 'show me'.\n"
+                            "2. Translate Concepts to Code: If the user asks for a concept, translate it into the exact keywords, classes, or library syntax a developer would type. (e.g., 'routing' -> 'createRouter Route routeTree', 'entry point' -> 'main bootstrap init').\n"
+                            "3. Include Known Framework Terms: Append standard terminology of the framework.\n"
+                            "4. Target File Types/Structures: Use terms like 'config', 'yaml', 'json' if looking for configurations.\n"
+                            "5. Keep it space-separated: Output a single string of space-separated keywords without punctuation.\n\n"
+                            "Examples:\n"
+                            "- 'Where are the main react components and routing defined?' -> 'createRouter Route routeTree components layout'\n"
+                            "- 'Find the application entry point and main method.' -> 'public static void main bootstrap init ApplicationContext configuration'\n"
+                            "- 'How is the user authentication handled?' -> 'login auth authenticate jwt token session passport'"
                         ),
                     },
                     "top_n": {
