@@ -14,6 +14,7 @@ Accepts a natural-language query and ranks files by relevance using:
 No LLM. No embeddings. Pure text + graph.
 """
 
+import math
 import re
 from dataclasses import dataclass, field
 
@@ -30,6 +31,8 @@ STOP_WORDS = {
     "or", "is", "it", "this", "that", "with", "from", "how", "what",
     "where", "when", "which", "who", "make", "change", "update", "fix",
     "add", "remove", "edit", "modify", "the", "my", "our", "i", "we",
+    "string", "int", "boolean", "class", "function", "return", "import",
+    "public", "private", "logic", "handler", "data", "value"
 }
 
 
@@ -75,7 +78,7 @@ def _path_tokens(path: str) -> list[str]:
     return [t for t in tokens if t not in STOP_WORDS and len(t) > 1]
 
 
-def _keyword_score(query_terms: list[str], file_path: str) -> tuple[float, list[str]]:
+def _keyword_score(query_terms: list[str], file_path: str, idf_weights: dict[str, float]) -> tuple[float, list[str]]:
     """
     Score how well query terms match the file path / name.
     Filename matches score higher than directory matches.
@@ -88,37 +91,39 @@ def _keyword_score(query_terms: list[str], file_path: str) -> tuple[float, list[
 
     for term in query_terms:
         if term in filename_toks:
-            score += 1.0   # Strong signal: term in filename
+            score += idf_weights.get(term, 1.0)   # Strong signal: term in filename
             matched.append(term)
         elif term in path_toks:
-            score += 0.4   # Weaker signal: term in directory path
+            score += 0.4 * idf_weights.get(term, 1.0)   # Weaker signal: term in directory path
             if term not in matched:
                 matched.append(term)
 
-    # Normalize by number of query terms
-    if query_terms:
-        score = score / len(query_terms)
+    # Normalize by max possible score (sum of all IDFs)
+    max_score = sum(idf_weights.get(t, 1.0) for t in query_terms)
+    if max_score > 0:
+        score = score / max_score
 
     return score, matched
 
 
-def _content_score(query_terms: list[str], file_path: str) -> tuple[float, list[str]]:
+def _content_score(query_terms: list[str], file_content: str, idf_weights: dict[str, float]) -> tuple[float, list[str]]:
     """
     Score how often query terms appear in the file's source code.
-    Uses term frequency, capped to avoid huge files dominating.
+    Uses TF-IDF weighting, capped to avoid huge files dominating.
     """
-    try:
-        content = open(file_path, encoding="utf-8").read().lower()
-    except Exception:
-        return 0.0, []
-
-    content_tokens = set(re.findall(r"[a-z0-9]+", content))
+    content_tokens = set(re.findall(r"[a-z0-9]+", file_content))
     matched = [t for t in query_terms if t in content_tokens]
 
     if not query_terms:
         return 0.0, []
 
-    score = len(matched) / len(query_terms)
+    score = sum(idf_weights.get(t, 1.0) for t in matched)
+    max_score = sum(idf_weights.get(t, 1.0) for t in query_terms)
+    if max_score > 0:
+        score = score / max_score
+    else:
+        score = 0.0
+
     return score, matched
 
 
@@ -173,15 +178,38 @@ def query(
     if not query_terms:
         return []
 
+    # --- Pre-computation: Global TF-IDF ---
+    total_files = len(repo_graph.nodes)
+    document_frequency = {term: 0 for term in query_terms}
+    
+    file_contents = {}
+    for path, node in repo_graph.nodes.items():
+        abs_path = node.path if hasattr(node, "absolute_path") else str(__import__("pathlib").Path(repo_graph.root) / path)
+        try:
+            content = open(abs_path, encoding="utf-8").read().lower()
+            file_contents[path] = content
+            content_tokens = set(re.findall(r"[a-z0-9]+", content))
+            path_tokens = set(_path_tokens(path))
+            combined_tokens = content_tokens.union(path_tokens)
+            for term in query_terms:
+                if term in combined_tokens:
+                    document_frequency[term] += 1
+        except Exception:
+            file_contents[path] = ""
+
+    idf_weights = {}
+    for term in query_terms:
+        df = document_frequency[term]
+        idf_weights[term] = math.log(total_files / (1 + df)) if total_files > 0 else 1.0
+
     # --- Pass 1: keyword + content scores per file ---
     keyword_scores: dict[str, float] = {}
     content_scores: dict[str, float] = {}
     matched_terms: dict[str, list[str]] = {}
 
     for path, node in repo_graph.nodes.items():
-        kscore, kterms = _keyword_score(query_terms, path)
-        cscore, cterms = _content_score(query_terms, node.path if hasattr(node, "absolute_path") else
-                                        str(__import__("pathlib").Path(repo_graph.root) / path))
+        kscore, kterms = _keyword_score(query_terms, path, idf_weights)
+        cscore, cterms = _content_score(query_terms, file_contents.get(path, ""), idf_weights)
 
         keyword_scores[path] = kscore
         content_scores[path] = cscore

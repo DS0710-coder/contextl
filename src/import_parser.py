@@ -92,19 +92,25 @@ def _extract_raw_imports(source_code: str, extension: str) -> list[str]:
     return list(set(paths))
 
 
-def _is_external(import_path: str, extension: str) -> bool:
+def _is_external(import_path: str, extension: str, alias_map: dict[str, str] = None) -> bool:
     """Return True if this is an external package rather than a local file."""
     if extension in {".py", ".java"}:
         # For Python and Java, it's hard to tell without resolving, 
         # so assume it's local and let the resolver fail if it's external.
         return False
 
-    # Node.js: Local files start with . (relative) or @ followed by / (alias like @/)
-    # but NOT @scope/package style from npm — those don't contain our alias prefix
+    # Node.js: Local files start with . (relative) or match an alias
     if import_path.startswith("./") or import_path.startswith("../"):
         return False
+    
+    if alias_map:
+        for alias in alias_map:
+            if import_path.startswith(alias):
+                return False
+
     if import_path.startswith("@/"):
         return False
+        
     return True  # Everything else is an external package
 
 
@@ -212,16 +218,18 @@ def _detect_alias_map(scan_result: ScanResult) -> dict[str, str]:
     Returns a map like {"@/": "frontend/"} or {"@/": ""}
     """
     root = Path(scan_result.root)
+    alias_map = {}
 
     # Look for tsconfig.json to find paths config
     for tsconfig in root.rglob("tsconfig.json"):
         try:
             import json
-            data = json.loads(tsconfig.read_text())
+            # naive regex to strip comments from tsconfig before parsing
+            text = tsconfig.read_text()
+            text = re.sub(r'//.*?\n|/\*.*?\*/', '', text, flags=re.S)
+            data = json.loads(text)
             paths = data.get("compilerOptions", {}).get("paths", {})
-            base_url = data.get("compilerOptions", {}).get("baseUrl", ".")
 
-            alias_map = {}
             for alias, targets in paths.items():
                 if not targets:
                     continue
@@ -232,19 +240,19 @@ def _detect_alias_map(scan_result: ScanResult) -> dict[str, str]:
                 tsconfig_dir = tsconfig.parent.relative_to(root)
                 prefix = str(tsconfig_dir / clean_target).lstrip("./")
                 alias_map[clean_alias + "/"] = prefix + "/" if prefix else ""
-
-            if alias_map:
-                return alias_map
         except Exception:
             continue
 
-    # Heuristic fallback: if all files share a common top-level dir, use that
-    top_dirs = {Path(f.path).parts[0] for f in scan_result.files if Path(f.path).parts}
-    if len(top_dirs) == 1:
-        top = list(top_dirs)[0]
-        return {"@/": top + "/"}
+    if not alias_map:
+        # Heuristic fallback: if all files share a common top-level dir, use that
+        top_dirs = {Path(f.path).parts[0] for f in scan_result.files if Path(f.path).parts}
+        if len(top_dirs) == 1:
+            top = list(top_dirs)[0]
+            alias_map["@/"] = top + "/"
+        else:
+            alias_map["@/"] = ""
 
-    return {"@/": ""}
+    return alias_map
 
 
 def parse_imports(scan_result: ScanResult) -> ParseResult:
@@ -275,7 +283,7 @@ def parse_imports(scan_result: ScanResult) -> ParseResult:
         raw_imports = _extract_raw_imports(source_code, scanned_file.extension)
 
         for raw in raw_imports:
-            if _is_external(raw, scanned_file.extension):
+            if _is_external(raw, scanned_file.extension, alias_map):
                 result.unresolved.append((scanned_file.path, raw))
                 continue
 
@@ -298,11 +306,8 @@ def parse_imports(scan_result: ScanResult) -> ParseResult:
                     candidate = raw.replace(".", "/")
             else:
                 # Node.js
-                if raw.startswith("@/"):
-                    resolved_alias = _resolve_alias(raw, alias_map)
-                    if resolved_alias is None:
-                        result.unresolved.append((scanned_file.path, raw))
-                        continue
+                resolved_alias = _resolve_alias(raw, alias_map)
+                if resolved_alias is not None:
                     candidate = resolved_alias
                 else:
                     candidate = _resolve_relative(raw, scanned_file.path)
