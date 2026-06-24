@@ -11,3 +11,5 @@ pypi/python/
 .DS_Store
 *.log
 .env
+test_vault*/
+test_obsidian*/
