@@ -19,68 +19,95 @@ from graph_builder import build_graph, RepoGraph
 
 PYTHON_DOCSTRING_PATTERN = re.compile(r'^\s*["\']{3}(.*?)["\']{3}', re.DOTALL)
 JS_DOC_PATTERN = re.compile(r'^\s*/\*\*(.*?)\*/', re.DOTALL)
+OUTLINE_PATTERN = re.compile(r'^\s*(?:export\s+)?(?:class|def|function|interface|type)\s+([a-zA-Z0-9_]+)', re.MULTILINE)
 
-def _extract_explanation(file_path: str, extension: str, root_dir: str) -> str:
-    """Reads the top-level docstring or JSDoc block from the file."""
+def _extract_file_context(file_path: str, extension: str, root_dir: str) -> tuple[str, list[str], str]:
+    """Returns (explanation, outline_symbols, snippet)."""
+    explanation = "*No explanation provided in source code.*"
+    outline = []
+    snippet = ""
     try:
         content = (Path(root_dir) / file_path).read_text(encoding="utf-8")
+        
+        # 1. Snippet (first 20 lines)
+        lines = content.splitlines()
+        snippet = "\n".join(lines[:20])
+        if len(lines) > 20:
+            snippet += "\n..."
+            
+        # 2. Explanation
         if extension == ".py":
             match = PYTHON_DOCSTRING_PATTERN.search(content)
             if match:
-                return match.group(1).strip()
+                explanation = match.group(1).strip()
         elif extension in {".ts", ".tsx", ".js", ".jsx", ".java"}:
             match = JS_DOC_PATTERN.search(content)
             if match:
-                # Clean up leading asterisks from JSDoc lines
-                lines = match.group(1).split('\n')
-                cleaned = [line.strip().lstrip('*').strip() for line in lines]
-                return "\n".join(cleaned).strip()
+                clean_lines = [line.strip().lstrip('*').strip() for line in match.group(1).split('\n')]
+                explanation = "\n".join(clean_lines).strip()
+                
+        # 3. Outline
+        for match in OUTLINE_PATTERN.finditer(content):
+            outline.append(match.group(1))
+            
     except Exception:
         pass
-    return "*No explanation provided in source code.*"
+        
+    return explanation, outline, snippet
 
 
 def export_obsidian_vault(repo_graph: RepoGraph, output_dir: str) -> str:
     """
-    Generates a markdown file for every node in the graph, with
-    Obsidian wikilinks connecting them based on imports.
+    Generates a markdown file for every node in the graph in a hierarchical folder structure, 
+    with Obsidian wikilinks connecting them based on imports.
     """
     out_path = Path(output_dir).resolve()
     
-    # Create the output directory (clean it if it exists)
     if out_path.exists():
         shutil.rmtree(out_path)
     out_path.mkdir(parents=True)
 
     for path, node in repo_graph.nodes.items():
-        # We replace slashes with dashes to keep a flat folder structure
-        # so Obsidian graph view looks clean, but keep original name as title
-        safe_name = path.replace("/", "-").replace("\\", "-")
-        md_file = out_path / f"{safe_name}.md"
+        md_file = out_path / f"{path}.md"
+        md_file.parent.mkdir(parents=True, exist_ok=True)
         
         dependencies = repo_graph.get_dependencies(path)
         dependents = repo_graph.get_dependents(path)
         
-        explanation = _extract_explanation(path, node.extension, repo_graph.root)
+        explanation, outline, snippet = _extract_file_context(path, node.extension, repo_graph.root)
         
         content = [
-            f"# {path}",
+            f"# {Path(path).name}",
+            "",
+            "## Architecture Metrics",
+            f"- **Path:** `{path}`",
+            f"- **Extension:** `{node.extension}`",
+            f"- **Size:** {node.size_bytes} bytes",
+            f"- **Centrality Score:** {node.centrality:.4f}",
+            f"- **In-Degree (Imported By):** {len(dependents)}",
+            f"- **Out-Degree (Imports):** {len(dependencies)}",
             "",
             "## Explanation",
             explanation,
             "",
-            "## Metrics",
-            f"**Extension:** `{node.extension}`",
-            f"**Size:** {node.size_bytes} bytes",
-            f"**Centrality Score:** {node.centrality:.4f}",
-            "",
-            "## Imports (Dependencies)",
+            "## Structural Outline",
         ]
+        
+        if outline:
+            for symbol in outline:
+                content.append(f"- `{symbol}`")
+        else:
+            content.append("*No major classes or functions detected.*")
+            
+        content.extend([
+            "",
+            "## Imports (Dependencies)"
+        ])
         
         if dependencies:
             for dep in sorted(dependencies):
-                dep_safe = dep.replace("/", "-").replace("\\", "-")
-                content.append(f"- [[{dep_safe}]]")
+                # Use full relative path for accurate linking in hierarchical vaults
+                content.append(f"- [[{dep}.md|{dep}]]")
         else:
             content.append("*No internal imports*")
             
@@ -91,10 +118,17 @@ def export_obsidian_vault(repo_graph: RepoGraph, output_dir: str) -> str:
         
         if dependents:
             for dep in sorted(dependents):
-                dep_safe = dep.replace("/", "-").replace("\\", "-")
-                content.append(f"- [[{dep_safe}]]")
+                content.append(f"- [[{dep}.md|{dep}]]")
         else:
             content.append("*Not imported by any file*")
+            
+        content.extend([
+            "",
+            "## Source Code Snippet",
+            f"```{node.extension.lstrip('.')}",
+            snippet,
+            "```"
+        ])
             
         md_file.write_text("\n".join(content), encoding="utf-8")
         

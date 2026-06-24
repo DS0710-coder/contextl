@@ -1,0 +1,70 @@
+# libreplan-business/src/main/java/org/libreplan/business/common/IntegrationEntity.java
+
+## Explanation
+*No explanation provided in source code.*
+
+## Metrics
+**Extension:** `.java`
+**Size:** 6447 bytes
+**Centrality Score:** 0.0202
+
+## Imports (Dependencies)
+- [[libreplan-business-src-main-java-org-libreplan-business-common-daos-IIntegrationEntityDAO.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-common-exceptions-InstanceNotFoundException.java]]
+
+## Imported By (Dependents)
+- [[libreplan-business-src-main-java-org-libreplan-business-calendars-entities-BaseCalendar.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-calendars-entities-CalendarAvailability.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-calendars-entities-CalendarData.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-calendars-entities-CalendarException.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-calendars-entities-CalendarExceptionType.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-common-daos-IIntegrationEntityDAO.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-common-daos-IntegrationEntityDAO.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-common-entities-EntityNameEnum.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-common-entities-EntitySequence.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-costcategories-entities-CostCategory.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-costcategories-entities-HourCost.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-costcategories-entities-ResourcesCostCategoryAssignment.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-costcategories-entities-TypeOfWorkHours.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-expensesheet-entities-ExpenseSheet.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-expensesheet-entities-ExpenseSheetLine.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-labels-entities-Label.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-labels-entities-LabelType.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-logs-entities-IssueLog.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-logs-entities-ProjectLog.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-logs-entities-RiskLog.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-materials-entities-Material.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-materials-entities-MaterialCategory.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-materials-entities-UnitType.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-orders-entities-HoursGroup.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-orders-entities-OrderElement.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-resources-entities-Criterion.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-resources-entities-CriterionSatisfaction.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-resources-entities-CriterionType.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-resources-entities-Resource.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-workreports-entities-WorkReport.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-workreports-entities-WorkReportLine.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-workreports-entities-WorkReportType.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-calendars-BaseCalendarModel.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-common-IntegrationEntityModel.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-costcategories-CostCategoryModel.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-costcategories-ResourcesCostCategoryAssignmentModel.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-costcategories-TypeOfWorkHoursModel.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-exceptionDays-CalendarExceptionTypeModel.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-expensesheet-ExpenseSheetModel.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-labels-LabelTypeModel.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-logs-IssueLogModel.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-logs-RiskLogModel.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-materials-MaterialsModel.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-materials-UnitTypeModel.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-orders-OrderModel.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-resources-criterion-CriterionsModel.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-resources-machine-AssignedMachineCriterionsModel.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-resources-machine-MachineModel.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-resources-worker-AssignedCriterionsModel.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-resources-worker-WorkerModel.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-workreports-WorkReportModel.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-workreports-WorkReportTypeModel.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-ws-common-impl-GenericRESTService.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-ws-resources-impl-ResourceServiceREST.java]]
+- [[libreplan-webapp-src-test-java-org-libreplan-web-test-ws-workreports-WorkReportServiceTest.java]]

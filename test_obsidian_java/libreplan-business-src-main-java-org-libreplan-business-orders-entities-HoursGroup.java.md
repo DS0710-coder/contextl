@@ -1,0 +1,70 @@
+# libreplan-business/src/main/java/org/libreplan/business/orders/entities/HoursGroup.java
+
+## Explanation
+*No explanation provided in source code.*
+
+## Metrics
+**Extension:** `.java`
+**Size:** 14662 bytes
+**Centrality Score:** 0.0031
+
+## Imports (Dependencies)
+- [[libreplan-business-src-main-java-org-libreplan-business-common-IntegrationEntity.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-common-Registry.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-common-daos-IIntegrationEntityDAO.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-requirements-entities-CriterionRequirement.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-requirements-entities-DirectCriterionRequirement.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-requirements-entities-IndirectCriterionRequirement.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-resources-entities-Criterion.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-resources-entities-ResourceEnum.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-templates-entities-OrderLineTemplate.java]]
+
+## Imported By (Dependents)
+- [[libreplan-business-src-main-java-org-libreplan-business-orders-daos-HoursGroupDAO.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-orders-daos-IHoursGroupDAO.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-planner-entities-Task.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-requirements-entities-CriterionRequirement.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-requirements-entities-DirectCriterionRequirement.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-requirements-entities-IndirectCriterionRequirement.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-templates-entities-CriterionRequirementTemplateHandler.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-templates-entities-HoursGroupOrderLineTemplateHandler.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-templates-entities-OrderElementTemplate.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-templates-entities-OrderLineGroupTemplate.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-templates-entities-OrderLineTemplate.java]]
+- [[libreplan-business-src-test-java-org-libreplan-business-test-orders-entities-AddAdvanceAssignmentsToOrderElementTest.java]]
+- [[libreplan-business-src-test-java-org-libreplan-business-test-orders-entities-AggregatedHoursGroupTest.java]]
+- [[libreplan-business-src-test-java-org-libreplan-business-test-orders-entities-OrderLineTest.java]]
+- [[libreplan-business-src-test-java-org-libreplan-business-test-planner-daos-ResourceAllocationDAOTest.java]]
+- [[libreplan-business-src-test-java-org-libreplan-business-test-planner-daos-SubcontractorCommunicationDAOTest.java]]
+- [[libreplan-business-src-test-java-org-libreplan-business-test-planner-daos-TaskElementDAOTest.java]]
+- [[libreplan-business-src-test-java-org-libreplan-business-test-planner-entities-TaskElementTest.java]]
+- [[libreplan-business-src-test-java-org-libreplan-business-test-planner-entities-TaskGroupTest.java]]
+- [[libreplan-business-src-test-java-org-libreplan-business-test-planner-entities-TaskTest.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-importers-JiraOrderElementSynchronizer.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-limitingresources-LimitingResourceQueueModel.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-orders-HoursGroupWrapper.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-orders-IOrderElementModel.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-orders-OrderElementModel.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-orders-OrderElementPredicate.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-orders-OrderModel.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-orders-criterionrequirements-AssignedCriterionRequirementController.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-orders-criterionrequirements-AssignedCriterionRequirementModel.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-orders-criterionrequirements-AssignedCriterionRequirementToOrderElementController.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-orders-criterionrequirements-AssignedCriterionRequirementToOrderElementModel.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-planner-allocation-AllocationRowsHandler.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-planner-limiting-allocation-LimitingResourceAllocationModel.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-planner-order-OrderPlanningModel.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-planner-order-PlanningStateCreator.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-planner-order-SaveCommandBuilder.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-reports-SchedulingProgressPerOrderModel.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-templates-OrderTemplatesModel.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-templates-criterionrequirements-AssignedCriterionRequirementToTemplateController.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-web-templates-criterionrequirements-AssignedCriterionRequirementToTemplateModel.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-ws-common-api-HoursGroupDTO.java]]
+- [[libreplan-webapp-src-main-java-org-libreplan-ws-common-impl-OrderElementConverter.java]]
+- [[libreplan-webapp-src-test-java-org-libreplan-web-orders-OrderFilesTest.java]]
+- [[libreplan-webapp-src-test-java-org-libreplan-web-orders-OrderModelTest.java]]
+- [[libreplan-webapp-src-test-java-org-libreplan-web-planner-chart-ChartFillerTest.java]]
+- [[libreplan-webapp-src-test-java-org-libreplan-web-test-ws-email-EmailTest.java]]
+- [[libreplan-webapp-src-test-java-org-libreplan-web-test-ws-orders-OrderElementServiceTest.java]]
+- [[libreplan-webapp-src-test-java-org-libreplan-web-test-ws-subcontract-ReportAdvancesServiceTest.java]]

@@ -1,0 +1,17 @@
+# libreplan-business/src/test/java/org/libreplan/business/test/planner/entities/AggregateOfResourceAllocationsTest.java
+
+## Explanation
+*No explanation provided in source code.*
+
+## Metrics
+**Extension:** `.java`
+**Size:** 5169 bytes
+**Centrality Score:** 0.0002
+
+## Imports (Dependencies)
+- [[libreplan-business-src-main-java-org-libreplan-business-planner-entities-AggregateOfResourceAllocations.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-planner-entities-ResourceAllocation.java]]
+- [[libreplan-business-src-main-java-org-libreplan-business-workingday-ResourcesPerDay.java]]
+
+## Imported By (Dependents)
+*Not imported by any file*

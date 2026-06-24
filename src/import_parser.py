@@ -22,7 +22,7 @@ from scanner import ScannedFile, ScanResult
 
 # Matches any ES6 import statement and captures the module path
 IMPORT_PATTERN = re.compile(
-    r"""import\s+(?:type\s+)?          # import or import type
+    r"""(?:import|export)\s+(?:type\s+)?          # import or import type or export
         (?:
             \{[^}]*\}                  # named imports: { Foo, Bar }
             |[\w*]+                    # default or namespace: Foo or *
@@ -38,11 +38,12 @@ IMPORT_PATTERN = re.compile(
 DYNAMIC_IMPORT_PATTERN = re.compile(r"""import\s*\(\s*['"](.*?)['"]\s*\)""")
 
 # Python
-PYTHON_FROM_IMPORT_PATTERN = re.compile(r"^from\s+([.\w]+)\s+import", re.MULTILINE)
-PYTHON_IMPORT_PATTERN = re.compile(r"^import\s+([.\w]+)", re.MULTILINE)
+PYTHON_FROM_IMPORT_PATTERN = re.compile(r"^[ \t]*from\s+([.\w]+)\s+import\s+(?:\(([^)]+)\)|([^#\n]+))", re.MULTILINE)
+PYTHON_IMPORT_PATTERN = re.compile(r"^[ \t]*import\s+([.\w]+)", re.MULTILINE)
 
 # Java
-JAVA_IMPORT_PATTERN = re.compile(r"^import\s+(?:static\s+)?([\w.]+);", re.MULTILINE)
+JAVA_IMPORT_PATTERN = re.compile(r"^import\s+(?:static\s+)?([\w.*]+);", re.MULTILINE)
+JAVA_PACKAGE_PATTERN = re.compile(r"^package\s+([\w.]+);", re.MULTILINE)
 
 
 @dataclass
@@ -83,7 +84,15 @@ def _extract_raw_imports(source_code: str, extension: str) -> list[str]:
             paths.append(match.group(1))
     elif extension == ".py":
         for match in PYTHON_FROM_IMPORT_PATTERN.finditer(source_code):
-            paths.append(match.group(1))
+            base = match.group(1)
+            paths.append(base)
+            symbols_str = match.group(2) or match.group(3)
+            if symbols_str:
+                symbols_str = symbols_str.replace('(', '').replace(')', '').replace('\\', '').strip()
+                for sym in symbols_str.split(','):
+                    sym = sym.split(' as ')[0].strip()
+                    if sym and sym != '*':
+                        paths.append(f"{base}.{sym}")
         for match in PYTHON_IMPORT_PATTERN.finditer(source_code):
             paths.append(match.group(1))
     elif extension == ".java":
@@ -191,6 +200,16 @@ def _find_file_in_repo(
         for path in file_index:
             if path.endswith(suffix):
                 return path
+        
+        # Fallback for static method/field imports: import static com.example.MyClass.myMethod;
+        # In this case, candidate_str is 'com/example/MyClass/myMethod'
+        if "/" in candidate_str:
+            parent_candidate = candidate_str.rsplit("/", 1)[0]
+            parent_suffix = parent_candidate + ".java"
+            for path in file_index:
+                if path.endswith(parent_suffix):
+                    return path
+                    
         return None
 
     if extension == ".py":
@@ -215,11 +234,21 @@ def _find_file_in_repo(
         if with_ext in file_index:
             return with_ext
 
-    # Node.js: Try as a directory index file
+    # Node.js / Deno: Try as a directory index/mod file
     for ext in [".tsx", ".ts", ".jsx", ".js"]:
         index_path = candidate_str + "/index" + ext
         if index_path in file_index:
             return index_path
+        mod_path = candidate_str + "/mod" + ext
+        if mod_path in file_index:
+            return mod_path
+
+    # Fuzzy fallback for dynamic paths (like P4A recipes)
+    if extension == ".py":
+        candidate_suffix = "/" + candidate_str + ".py"
+        matches = [p for p in file_index if p.endswith(candidate_suffix)]
+        if len(matches) == 1:
+            return matches[0]
 
     return None
 
@@ -311,6 +340,29 @@ def _detect_alias_map(scan_result: ScanResult) -> dict[str, str]:
             if alias_key not in alias_map:
                 alias_map[alias_key] = target_val
 
+    # Detect NPM Workspaces (monorepos)
+    for pkg in root.rglob("package.json"):
+        if any(p in ignore for p in pkg.parts):
+            continue
+        try:
+            import json
+            data = json.loads(pkg.read_text(encoding="utf-8"))
+            name = data.get("name")
+            if name and isinstance(name, str):
+                pkg_dir = pkg.parent
+                try:
+                    repo_rel = str(pkg_dir.relative_to(root)).replace("\\", "/")
+                    if repo_rel == ".":
+                        continue # Skip root package.json
+                    # For absolute imports like "@meshtastic/sdk-react"
+                    alias_map[name] = repo_rel
+                    # For sub-path imports like "@meshtastic/sdk-react/src/foo"
+                    alias_map[name + "/"] = repo_rel + "/"
+                except ValueError:
+                    pass
+        except Exception:
+            pass
+
     if not alias_map:
         # Heuristic fallback: single top-level source dir
         top_dirs = {Path(f.path).parts[0] for f in scan_result.files if Path(f.path).parts}
@@ -342,6 +394,27 @@ def parse_imports(scan_result: ScanResult) -> ParseResult:
     # Auto-detect alias map (e.g. @/ → frontend/)
     alias_map = _detect_alias_map(scan_result)
 
+    # Pre-pass for Java: build package map and implicit same-package relationships
+    java_packages = {}
+    for scanned_file in scan_result.files:
+        if scanned_file.extension == ".java":
+            try:
+                source_code = Path(scanned_file.absolute_path).read_text(encoding="utf-8")
+                pkg_match = JAVA_PACKAGE_PATTERN.search(source_code)
+                if pkg_match:
+                    pkg = pkg_match.group(1)
+                    java_packages.setdefault(pkg, []).append(scanned_file.path)
+            except Exception:
+                pass
+
+    for pkg, files in java_packages.items():
+        for source_file in files:
+            for target_file in files:
+                if source_file != target_file:
+                    result.relationships.append(
+                        ImportRelationship(source=source_file, target=target_file, raw_import=f"implicit_package:{pkg}")
+                    )
+
     for scanned_file in scan_result.files:
         try:
             source_code = Path(scanned_file.absolute_path).read_text(encoding="utf-8")
@@ -357,6 +430,14 @@ def parse_imports(scan_result: ScanResult) -> ParseResult:
 
             # Resolve to a candidate path string
             if scanned_file.extension == ".java":
+                if raw.endswith(".*"):
+                    pkg = raw[:-2]
+                    for target_file in java_packages.get(pkg, []):
+                        if target_file != scanned_file.path:
+                            result.relationships.append(
+                                ImportRelationship(source=scanned_file.path, target=target_file, raw_import=raw)
+                            )
+                    continue
                 candidate = raw.replace(".", "/")
             elif scanned_file.extension == ".py":
                 if raw.startswith("."):
