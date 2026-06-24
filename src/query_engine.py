@@ -161,6 +161,13 @@ def _content_score(query_terms: list[str], file_path: str, file_content: str, id
                 for part in re.findall(r"[a-z0-9]+", sub):
                     if len(part) > 3:
                         java_methods.add(part)
+                        
+    py_defs = set()
+    if file_path.endswith(".py"):
+        defs = re.findall(r"\b(?:def|async def)\s+([a-zA-Z0-9_]+)\s*\(", file_content)
+        for d in defs:
+            if d.lower() not in {"main", "init", "get", "set"}:
+                py_defs.add(d.lower())
             
     if is_ts:
         exports = re.findall(r"\bexport\s+(?:const|let|var|class|interface|function|default)\s+([a-zA-Z0-9_]+)", file_content)
@@ -213,7 +220,7 @@ def _content_score(query_terms: list[str], file_path: str, file_content: str, id
             multiplier = 8.0
         elif t in declared_classes:
             multiplier = class_mult
-        elif t in java_methods:
+        elif t in java_methods or t in py_defs:
             multiplier = 4.0
         elif t in annotations:
             multiplier = ann_mult
@@ -340,9 +347,10 @@ def query(
         if df == 0:
             idf_weights[term] = 0.0
         else:
-            idf_weights[term] = math.log(total_files / (1 + df)) if total_files > 0 else 1.0
+            idf_weights[term] = max(0.1, math.log(total_files / (1 + df))) if total_files > 0 else 1.0
 
     # --- Pass 1: keyword + content scores per file ---
+    base_scores: dict[str, float] = {}
     keyword_scores: dict[str, float] = {}
     content_scores: dict[str, float] = {}
     matched_terms: dict[str, list[str]] = {}
@@ -355,14 +363,15 @@ def query(
         keyword_scores[path] = kscore
         content_scores[path] = cscore
         matched_terms[path] = list(set(kterms + cterms))
-
-    # --- Pass 2: combine into base score ---
-    base_scores: dict[str, float] = {}
-    for path in repo_graph.nodes:
-        base_scores[path] = (
-            keyword_scores.get(path, 0.0) * 0.5 +
-            content_scores.get(path, 0.0) * 0.5
-        )
+        
+        # Base combination: 50/50 keyword vs content
+        combined = (kscore * 0.5) + (cscore * 0.5)
+        
+        # Tiebreaker: Slightly penalize deep paths so src/x.py wins over build/npm/python/x.py
+        depth_penalty = 0.0001 * path.count("/")
+        combined -= depth_penalty
+        
+        base_scores[path] = combined
 
     # --- Pass 3: neighbor bonus ---
     boosted_scores = _apply_neighbor_bonus(base_scores, repo_graph)

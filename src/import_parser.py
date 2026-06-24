@@ -134,12 +134,26 @@ def _resolve_alias(import_path: str, alias_map: dict[str, str]) -> str | None:
 def _resolve_relative(import_path: str, source_file: str) -> str:
     """
     Resolve a relative import path against the source file's directory.
-    Example: source="frontend/app/page.tsx", import="../lib/api" → "frontend/lib/api"
+    Returns a repo-relative path string (NOT absolute).
+
+    Example: source="apps/web/src/routes.tsx", import="./App.tsx"
+             → "apps/web/src/App.tsx"
     """
-    source_dir = Path(source_file).parent
-    resolved = (source_dir / import_path).resolve()
-    # Make it relative again (we'll strip the absolute prefix below)
-    return str(resolved)
+    # Use pure PurePosixPath arithmetic — never call .resolve() which
+    # anchors to the OS cwd and produces a wrong absolute path.
+    from pathlib import PurePosixPath
+    source_dir = PurePosixPath(source_file).parent
+    # Normalise away any .. and . components without touching the filesystem
+    resolved = (source_dir / import_path)
+    # PurePosixPath doesn't have .resolve(), so manually normalise ".."
+    parts = []
+    for part in resolved.parts:
+        if part == "..":
+            if parts:
+                parts.pop()
+        elif part != ".":
+            parts.append(part)
+    return str(PurePosixPath(*parts)) if parts else "."
 
 
 def _find_file_in_repo(
@@ -210,41 +224,95 @@ def _find_file_in_repo(
     return None
 
 
+def _load_tsconfig_paths(tsconfig_path: Path) -> dict:
+    """
+    Load compilerOptions.paths from a tsconfig.json, following `extends` chains.
+    Returns merged paths dict (child overrides parent).
+    """
+    import json
+    visited = set()
+    merged_paths = {}
+
+    def _load(path: Path):
+        if path in visited:
+            return
+        visited.add(path)
+        try:
+            text = path.read_text(encoding="utf-8")
+            pattern = r'(".*?(?<!\\)")|(/\*.*?\*/|//[^\r\n]*)'
+            text = re.sub(pattern, lambda m: m.group(1) if m.group(1) else '', text, flags=re.S)
+            data = json.loads(text)
+        except Exception:
+            return
+
+        # Follow extends first (parent paths are base, child overrides)
+        extends = data.get("extends")
+        if extends:
+            parent = (path.parent / extends).resolve()
+            # handle both with and without .json
+            if not parent.suffix:
+                parent = parent.with_suffix(".json")
+            _load(parent)
+
+        # Then apply this tsconfig's own paths (child wins)
+        paths = data.get("compilerOptions", {}).get("paths", {})
+        for alias, targets in paths.items():
+            if targets:
+                merged_paths[alias] = targets[0]
+
+    _load(tsconfig_path)
+    return merged_paths
+
+
 def _detect_alias_map(scan_result: ScanResult) -> dict[str, str]:
     """
-    Auto-detect the @/ alias by finding tsconfig.json or next.config files
-    and inferring the project root. Falls back to a heuristic.
-    
-    Returns a map like {"@/": "frontend/"} or {"@/": ""}
+    Auto-detect TypeScript path aliases by reading every tsconfig.json in the repo.
+    Each tsconfig's aliases are scoped relative to its own directory so that
+    multiple packages with conflicting @/* aliases don't clobber each other.
+
+    Returns a flat map:  alias_prefix -> resolved_repo_relative_prefix
+    e.g. {
+        '@/'            : 'packages/ui/src/',
+        '@components/'  : 'apps/web/src/components/',
+        '@core/'        : 'apps/web/src/core/',
+    }
     """
     root = Path(scan_result.root)
-    alias_map = {}
+    alias_map: dict[str, str] = {}
 
-    # Look for tsconfig.json to find paths config
-    for tsconfig in root.rglob("tsconfig.json"):
-        try:
-            import json
-            # naive regex to strip comments from tsconfig before parsing
-            text = tsconfig.read_text()
-            text = re.sub(r'//.*?\n|/\*.*?\*/', '', text, flags=re.S)
-            data = json.loads(text)
-            paths = data.get("compilerOptions", {}).get("paths", {})
-
-            for alias, targets in paths.items():
-                if not targets:
-                    continue
-                # "@/*": ["./src/*"] → strip trailing /* from both
-                clean_alias = alias.rstrip("/*").rstrip("*")
-                clean_target = targets[0].rstrip("/*").rstrip("*").lstrip("./")
-
-                tsconfig_dir = tsconfig.parent.relative_to(root)
-                prefix = str(tsconfig_dir / clean_target).lstrip("./")
-                alias_map[clean_alias + "/"] = prefix + "/" if prefix else ""
-        except Exception:
+    # Walk all tsconfig.json files (skip node_modules / build dirs)
+    ignore = {"node_modules", "dist", "build", ".next", "coverage", "out"}
+    tsconfigs = []
+    for tc in root.rglob("tsconfig.json"):
+        if any(p in ignore for p in tc.parts):
             continue
+        tsconfigs.append(tc)
+
+    for tsconfig in tsconfigs:
+        tsconfig_dir = tsconfig.parent
+        paths = _load_tsconfig_paths(tsconfig)
+
+        for alias, target in paths.items():
+            # Normalise: strip trailing /* or *
+            clean_alias = alias.rstrip("/*").rstrip("*")
+            clean_target = target.rstrip("/*").rstrip("*").lstrip("./")
+
+            # Resolve target relative to the tsconfig's own directory
+            resolved = (tsconfig_dir / clean_target).resolve()
+            try:
+                repo_rel = str(resolved.relative_to(root))
+            except ValueError:
+                continue  # outside repo — skip
+
+            alias_key = clean_alias + "/"
+            target_val = repo_rel.replace("\\", "/") + "/"
+
+            # Only add if not already defined (first match / most specific wins)
+            if alias_key not in alias_map:
+                alias_map[alias_key] = target_val
 
     if not alias_map:
-        # Heuristic fallback: if all files share a common top-level dir, use that
+        # Heuristic fallback: single top-level source dir
         top_dirs = {Path(f.path).parts[0] for f in scan_result.files if Path(f.path).parts}
         if len(top_dirs) == 1:
             top = list(top_dirs)[0]

@@ -7,23 +7,22 @@ Filters by supported extensions for the MVP (Next.js / React / TypeScript).
 """
 
 import os
+import pathlib
 from pathlib import Path
 from dataclasses import dataclass, field
 
 
 SUPPORTED_EXTENSIONS = {".tsx", ".ts", ".jsx", ".js", ".py", ".java"}
 
-IGNORED_DIRS = {
-    "node_modules",
-    ".git",
-    ".next",
-    "dist",
-    "build",
-    ".cache",
-    "__pycache__",
-    ".turbo",
-    "coverage",
+ignore_dirs = {
+    ".git", "node_modules", "__pycache__", "venv", ".venv",
+    "env", ".env", ".next", ".nuxt", "out", "build", "dist",
+    "coverage", ".nyc_output", ".pytest_cache", "npm", "pypi"
 }
+
+def _should_ignore(path: str) -> bool:
+    parts = pathlib.Path(path).parts
+    return any(part in ignore_dirs for part in parts)
 
 
 @dataclass
@@ -87,7 +86,7 @@ def scan_repo(repo_path: str) -> ScanResult:
 
     for dirpath, dirnames, filenames in os.walk(root):
         # Prune ignored directories in-place so os.walk skips them
-        dirnames[:] = [d for d in dirnames if d not in IGNORED_DIRS]
+        dirnames[:] = [d for d in dirnames if d not in ignore_dirs]
 
         for filename in filenames:
             filepath = Path(dirpath) / filename
