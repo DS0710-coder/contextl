@@ -14,7 +14,7 @@ Tools exposed:
     query_repo             — rank files by relevance to a natural-language query
     scan_repo              — list all source files the engine can see in a repo
     analyze_impact         — find every file affected by changing a target file
-    find_standalone_files  — find unimported files with in-degree 0
+    find_dead_files        — find unimported files with in-degree 0
     export_obsidian_vault  — export repo graph to an Obsidian markdown vault
 
 Performance:
@@ -61,10 +61,11 @@ class _CacheEntry:
     mtime_hash: float       # max mtime across all source files at build time
     scan: object            # ScanResult
     repo_graph: object      # RepoGraph
+    last_checked_time: float = 0.0
 
 
 _cache_lock = threading.Lock()
-_cache: Optional[_CacheEntry] = None
+_cache: dict[str, _CacheEntry] = {}
 
 
 def _compute_mtime_hash(repo_path: str) -> float:
@@ -95,16 +96,24 @@ def _get_graph(repo_path: str):
     On subsequent calls with unchanged files: returns instantly from cache.
     """
     global _cache
+    import time
 
     resolved = str(Path(repo_path).resolve())
-    mtime_hash = _compute_mtime_hash(resolved)
 
     with _cache_lock:
-        if (_cache is not None
-                and _cache.repo_path == resolved
-                and _cache.mtime_hash == mtime_hash):
+        now = time.time()
+        entry = _cache.get(resolved)
+        
+        # Fast path: bypass filesystem walk if checked within last 5 seconds
+        if entry and (now - entry.last_checked_time < 5.0):
+            return entry.scan, entry.repo_graph
+
+        mtime_hash = _compute_mtime_hash(resolved)
+
+        if entry and entry.mtime_hash == mtime_hash:
+            entry.last_checked_time = now
             print("[contextl] graph cache hit", file=sys.stderr, flush=True)
-            return _cache.scan, _cache.repo_graph
+            return entry.scan, entry.repo_graph
 
         # Cache miss — build the pipeline
         print("[contextl] building graph...", file=sys.stderr, flush=True)
@@ -112,11 +121,12 @@ def _get_graph(repo_path: str):
         parse = parse_imports(scan)
         repo_graph = build_graph(scan, parse)
 
-        _cache = _CacheEntry(
+        _cache[resolved] = _CacheEntry(
             repo_path=resolved,
             mtime_hash=mtime_hash,
             scan=scan,
             repo_graph=repo_graph,
+            last_checked_time=now,
         )
         print(f"[contextl] graph built: {scan.total_files} files", file=sys.stderr, flush=True)
         return scan, repo_graph
@@ -228,7 +238,7 @@ async def list_tools() -> list[types.Tool]:
             },
         ),
         types.Tool(
-            name="find_standalone_files",
+            name="find_dead_files",
             description=(
                 "Find files in the repository that are never imported by any other file "
                 "(in-degree of 0 in the dependency graph). Automatically filters out "
@@ -340,8 +350,8 @@ async def call_tool(name: str, arguments: dict) -> list[types.TextContent]:
     if name == "analyze_impact":
         return await _handle_impact(arguments)
 
-    if name == "find_standalone_files":
-        return await _handle_standalone_files(arguments)
+    if name == "find_dead_files":
+        return await _handle_dead_files(arguments)
 
     if name == "export_obsidian_vault":
         return await _handle_export_obsidian(arguments)
@@ -461,19 +471,19 @@ def _run_impact(repo_path: str, target_file: str, max_depth: int) -> dict:
     }
 
 
-async def _handle_standalone_files(args: dict) -> list[types.TextContent]:
+async def _handle_dead_files(args: dict) -> list[types.TextContent]:
     repo_path = args.get("repo_path", "")
 
     loop = asyncio.get_event_loop()
     try:
-        result = await loop.run_in_executor(None, _run_standalone_files, repo_path)
+        result = await loop.run_in_executor(None, _run_dead_files, repo_path)
     except Exception as e:
         result = {"error": str(e), "repo": repo_path}
 
     return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
 
 
-def _run_standalone_files(repo_path: str) -> dict:
+def _run_dead_files(repo_path: str) -> dict:
     """Uses cached graph — pipeline runs only on first call or after file changes."""
     scan, repo_graph = _get_graph(repo_path)
     standalone_files = find_standalone_files(repo_graph)

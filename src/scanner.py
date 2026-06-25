@@ -3,7 +3,7 @@ Repository Intelligence Engine
 Step 1: Repository Scanner
 
 Walks a repository and discovers all relevant source files.
-Filters by supported extensions for the MVP (Next.js / React / TypeScript).
+Filters by supported extensions across 9 language families.
 """
 
 import os
@@ -17,7 +17,8 @@ SUPPORTED_EXTENSIONS = {".tsx", ".ts", ".jsx", ".js", ".py", ".java", ".go", ".r
 ignore_dirs = {
     ".git", "node_modules", "__pycache__", "venv", ".venv",
     "env", ".env", ".next", ".nuxt", "out", "build", "dist",
-    "coverage", ".nyc_output", ".pytest_cache", "npm", "pypi"
+    "coverage", ".nyc_output", ".pytest_cache", "npm", "pypi",
+    "vendor", "target", ".cargo", "Pods", "third_party"
 }
 
 def _should_ignore(path: str) -> bool:
