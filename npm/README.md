@@ -45,7 +45,7 @@ If you prefer to configure it manually, add this to your IDE's MCP config file:
 
 | IDE | Config path |
 |-----|-------------|
-| Antigravity | `~/.gemini/config/mcp_config.json` |
+| Gemini CLI | `~/.gemini/config/mcp_config.json` |
 | Cursor | `~/.cursor/mcp.json` |
 | Windsurf | `~/.codeium/windsurf/mcp_config.json` |
 | Claude Code | `~/.claude.json` |
@@ -64,10 +64,25 @@ Seven tools, automatically available once connected:
 
 Ranks every file in your repo against a natural-language query using filename matching, content matching, and graph proximity. Returns confidence-scored results with plain-English reasoning.
 
+```json
+{
+  "repo_path": "/path/to/repo",
+  "query": "fix the upload error handler",
+  "top_n": 5
+}
+```
+
 ### `analyze_impact`
 *"If I change this file, what breaks?"*
 
 Walks the dependency graph upstream from any file to find every direct and transitive dependent. Flags likely test files so your agent knows what to re-run. Essential before touching shared files like `types/`, `utils/`, or config.
+
+```json
+{
+  "repo_path": "/path/to/repo",
+  "target_file": "src/types/index.ts"
+}
+```
 
 ### `scan_repo`
 *"What files exist here?"*
@@ -79,24 +94,51 @@ Lists every source file `contextl` can see — useful for the agent to orient it
 
 Finds unused files and dead code by analyzing the dependency graph for files with an in-degree of 0. Automatically filters out standard entry points (like `page.tsx` or `index.ts`) and test files.
 
+```json
+{
+  "repo_path": "/path/to/repo"
+}
+```
+
 ### `export_obsidian_vault`
 *"Visualize this codebase in Obsidian."*
 
 Takes the exact dependency graph built by the intelligence engine and physically writes it to disk as a directory of interconnected Markdown files. Automatically injects file metadata, JSDoc/Docstring explanations, and uses standard `[[wikilinks]]` to map out dependencies. Open the generated folder as an Obsidian vault for a stunning 3D interactive graph of your architecture!
+
+```json
+{
+  "repo_path": "/path/to/repo",
+  "output_dir": "/path/to/save/vault"
+}
+```
 
 ### `review_changes`
 *"I'm reviewing or changing some code. What's the impact?"*
 
 Git-aware context builder. Reads the current git diff to find what files you are editing, then automatically runs impact analysis to find every file that depends on your changes. Returns a structured context bundle with the changed files, full blast radius, and suggested tests to re-run.
 
+```json
+{
+  "repo_path": "/path/to/repo",
+  "staged": true,
+  "unstaged": true
+}
+```
+
 ### `get_skeleton`
 *"Show me the API of this huge file."*
 
 Extracts the structural skeleton (API surface) of a source file using Tree-sitter — including all class names, method signatures, return types, and docstrings — without pulling in any implementation bodies. Shrinks a 5,000-line file into a ~100-line reference header.
 
+```json
+{
+  "file_path": "/path/to/src/api.py"
+}
+```
 
 
-## How the ranking works
+
+
 
 1. **Keyword match** — does the filename contain query terms?
 2. **Content match** — does the file's source code mention the terms?

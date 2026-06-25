@@ -46,7 +46,7 @@ If you prefer to configure it manually, add this to your IDE's MCP config file:
 
 | IDE | Config path |
 |-----|-------------|
-| Antigravity | `~/.gemini/config/mcp_config.json` |
+| Gemini CLI | `~/.gemini/config/mcp_config.json` |
 | Cursor | `~/.cursor/mcp.json` |
 | Windsurf | `~/.codeium/windsurf/mcp_config.json` |
 | Claude Code | `~/.claude.json` |

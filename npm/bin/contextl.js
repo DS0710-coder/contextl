@@ -107,6 +107,14 @@ function ensureDeps(python) {
   const required = [
     { importName: "networkx", pipName: "networkx" },
     { importName: "mcp",      pipName: "mcp" },
+    { importName: "tree_sitter", pipName: "tree-sitter>=0.22.0" },
+    { importName: "tree_sitter_python", pipName: "tree-sitter-python>=0.22.0" },
+    { importName: "tree_sitter_javascript", pipName: "tree-sitter-javascript>=0.22.0" },
+    { importName: "tree_sitter_typescript", pipName: "tree-sitter-typescript>=0.22.0" },
+    { importName: "tree_sitter_java", pipName: "tree-sitter-java>=0.22.0" },
+    { importName: "tree_sitter_rust", pipName: "tree-sitter-rust>=0.22.0" },
+    { importName: "tree_sitter_go", pipName: "tree-sitter-go>=0.22.0" },
+    { importName: "tree_sitter_cpp", pipName: "tree-sitter-cpp>=0.22.0" },
   ];
 
   for (const { importName, pipName } of required) {

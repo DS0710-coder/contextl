@@ -29,7 +29,7 @@ def main() -> None:
         print(
             f"Error: cannot find mcp_server.py at {mcp_server}\n"
             "The package may be corrupted — try reinstalling:\n"
-            "    pip install --force-reinstall prune-mcp",
+            "    pip install --force-reinstall contextl-mcp",
             file=sys.stderr,
         )
         sys.exit(1)
