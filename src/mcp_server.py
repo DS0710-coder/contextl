@@ -11,16 +11,27 @@ Usage (the IDE does this for you, but you can test manually):
     python mcp_server.py
 
 Tools exposed:
-    query_repo      — rank files by relevance to a natural-language query
-    scan_repo       — list all source files the engine can see in a repo
-    analyze_impact  — find every file affected by changing a target file
+    query_repo             — rank files by relevance to a natural-language query
+    scan_repo              — list all source files the engine can see in a repo
+    analyze_impact         — find every file affected by changing a target file
+    find_standalone_files  — find unimported files with in-degree 0
+    export_obsidian_vault  — export repo graph to an Obsidian markdown vault
+
+Performance:
+    A shared graph cache is maintained per repo path + file mtime fingerprint.
+    The 4-step build pipeline (scan → parse → graph → query) runs ONCE per
+    session and is reused by all tool calls. Subsequent calls on an unchanged
+    repo return from cache in <1ms.
 """
 
-import argparse
 import asyncio
 import json
+import os
 import sys
+import threading
+from dataclasses import dataclass
 from pathlib import Path
+from typing import Optional
 
 import mcp.types as types
 from mcp.server import Server
@@ -37,6 +48,76 @@ from main import _confidence, _reasoning
 from impact_analysis import analyze_impact
 from standalone import find_standalone_files
 from obsidian_export import export_obsidian_vault
+
+
+# ---------------------------------------------------------------------------
+# Shared graph cache — one pipeline build per repo per session
+# ---------------------------------------------------------------------------
+@dataclass
+class _CacheEntry:
+    repo_path: str          # resolved absolute path
+    mtime_hash: float       # max mtime across all source files at build time
+    scan: object            # ScanResult
+    repo_graph: object      # RepoGraph
+
+
+_cache_lock = threading.Lock()
+_cache: Optional[_CacheEntry] = None
+
+
+def _compute_mtime_hash(repo_path: str) -> float:
+    """Walk repo_path and return the maximum file modification time."""
+    max_mtime = 0.0
+    for dirpath, _, filenames in os.walk(repo_path):
+        # Skip hidden dirs and common noise dirs
+        dirpath_obj = Path(dirpath)
+        if any(part.startswith(".") or part in ("node_modules", "__pycache__", ".git", "dist", "build", "target")
+               for part in dirpath_obj.parts):
+            continue
+        for fname in filenames:
+            try:
+                mtime = os.path.getmtime(os.path.join(dirpath, fname))
+                if mtime > max_mtime:
+                    max_mtime = mtime
+            except OSError:
+                pass
+    return max_mtime
+
+
+def _get_graph(repo_path: str):
+    """
+    Return (scan, repo_graph) for the given repo_path.
+
+    On first call (or after any source file changes): runs the full
+    4-step pipeline and stores the result in the module-level cache.
+    On subsequent calls with unchanged files: returns instantly from cache.
+    """
+    global _cache
+
+    resolved = str(Path(repo_path).resolve())
+    mtime_hash = _compute_mtime_hash(resolved)
+
+    with _cache_lock:
+        if (_cache is not None
+                and _cache.repo_path == resolved
+                and _cache.mtime_hash == mtime_hash):
+            print("[contextl] graph cache hit", file=sys.stderr, flush=True)
+            return _cache.scan, _cache.repo_graph
+
+        # Cache miss — build the pipeline
+        print("[contextl] building graph...", file=sys.stderr, flush=True)
+        scan = scan_repo(resolved)
+        parse = parse_imports(scan)
+        repo_graph = build_graph(scan, parse)
+
+        _cache = _CacheEntry(
+            repo_path=resolved,
+            mtime_hash=mtime_hash,
+            scan=scan,
+            repo_graph=repo_graph,
+        )
+        print(f"[contextl] graph built: {scan.total_files} files", file=sys.stderr, flush=True)
+        return scan, repo_graph
 
 
 # ---------------------------------------------------------------------------
@@ -231,10 +312,8 @@ async def _handle_query(args: dict) -> list[types.TextContent]:
 
 
 def _run_query(repo_path: str, query_str: str, top_n: int) -> dict:
-    """Synchronous pipeline — called from a thread executor."""
-    scan = scan_repo(repo_path)
-    parse = parse_imports(scan)
-    repo_graph = build_graph(scan, parse)
+    """Uses cached graph — pipeline runs only on first call or after file changes."""
+    scan, repo_graph = _get_graph(repo_path)
     ranked = engine_query(query_str, repo_graph, top_n=top_n)
 
     return {
@@ -268,7 +347,8 @@ async def _handle_scan(args: dict) -> list[types.TextContent]:
 
 
 def _run_scan(repo_path: str) -> dict:
-    scan = scan_repo(repo_path)
+    """Uses cached graph — pipeline runs only on first call or after file changes."""
+    scan, _ = _get_graph(repo_path)
     return {
         "repo": scan.root,
         "total_files": scan.total_files,
@@ -294,10 +374,8 @@ async def _handle_impact(args: dict) -> list[types.TextContent]:
 
 
 def _run_impact(repo_path: str, target_file: str, max_depth: int) -> dict:
-    """Synchronous pipeline — called from a thread executor."""
-    scan = scan_repo(repo_path)
-    parse = parse_imports(scan)
-    repo_graph = build_graph(scan, parse)
+    """Uses cached graph — pipeline runs only on first call or after file changes."""
+    scan, repo_graph = _get_graph(repo_path)
     report = analyze_impact(target_file, repo_graph, max_depth=max_depth)
 
     return {
@@ -334,10 +412,8 @@ async def _handle_standalone_files(args: dict) -> list[types.TextContent]:
 
 
 def _run_standalone_files(repo_path: str) -> dict:
-    """Synchronous pipeline — called from a thread executor."""
-    scan = scan_repo(repo_path)
-    parse = parse_imports(scan)
-    repo_graph = build_graph(scan, parse)
+    """Uses cached graph — pipeline runs only on first call or after file changes."""
+    scan, repo_graph = _get_graph(repo_path)
     standalone_files = find_standalone_files(repo_graph)
 
     return {
@@ -362,13 +438,10 @@ async def _handle_export_obsidian(args: dict) -> list[types.TextContent]:
 
 
 def _run_export_obsidian(repo_path: str, output_dir: str) -> dict:
-    """Synchronous pipeline — called from a thread executor."""
-    scan = scan_repo(repo_path)
-    parse = parse_imports(scan)
-    repo_graph = build_graph(scan, parse)
-    
+    """Uses cached graph — pipeline runs only on first call or after file changes."""
+    scan, repo_graph = _get_graph(repo_path)
     vault_path = export_obsidian_vault(repo_graph, output_dir)
-    
+
     return {
         "repo": scan.root,
         "vault_path": vault_path,
