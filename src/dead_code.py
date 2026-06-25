@@ -27,6 +27,8 @@ ENTRY_POINT_MARKERS = {
 
 def _is_entry_point(path: str) -> bool:
     lowered = path.lower()
+    if lowered.endswith(".d.ts"):
+        return True
     for marker in ENTRY_POINT_MARKERS:
         if marker in lowered:
             return True
