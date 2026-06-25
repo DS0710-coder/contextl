@@ -57,7 +57,7 @@ Restart your IDE. Done — no cloning, no Python setup beyond having it installe
 
 ## What it gives your agent
 
-Three tools, automatically available once connected:
+Seven tools, automatically available once connected:
 
 ### `query_repo`
 *"Find the files relevant to this change."*
@@ -84,6 +84,16 @@ Finds unused files and dead code by analyzing the dependency graph for files wit
 
 Takes the exact dependency graph built by the intelligence engine and physically writes it to disk as a directory of interconnected Markdown files. Automatically injects file metadata, JSDoc/Docstring explanations, and uses standard `[[wikilinks]]` to map out dependencies. Open the generated folder as an Obsidian vault for a stunning 3D interactive graph of your architecture!
 
+### `review_changes`
+*"I'm reviewing or changing some code. What's the impact?"*
+
+Git-aware context builder. Reads the current git diff to find what files you are editing, then automatically runs impact analysis to find every file that depends on your changes. Returns a structured context bundle with the changed files, full blast radius, and suggested tests to re-run.
+
+### `get_skeleton`
+*"Show me the API of this huge file."*
+
+Extracts the structural skeleton (API surface) of a source file using Tree-sitter — including all class names, method signatures, return types, and docstrings — without pulling in any implementation bodies. Shrinks a 5,000-line file into a ~100-line reference header.
+
 
 
 ## How the ranking works
@@ -98,7 +108,7 @@ Takes the exact dependency graph built by the intelligence engine and physically
 ## Supported languages
 
 **JavaScript ecosystem**: TypeScript, TSX, JavaScript, JSX.
-**Backend ecosystem**: Python (`.py`) and Java (`.java`).
+**Backend ecosystem**: Python (`.py`), Java (`.java`), Rust (`.rs`), Go (`.go`), C/C++ (`.cpp`, `.c`, `.h`).
 
 The engine natively understands dot-notation module paths (`from X import Y`, `import com.example.X;`) and correctly resolves them to physical file paths to build the architecture graph.
 
@@ -120,6 +130,9 @@ contextl dead-code ./my-repo
 
 # 4. Generate an Obsidian vault
 contextl obsidian ./my-repo ./my_vault
+
+# 5. Git-aware review / impact of current edits
+contextl review ./my-repo
 ```
 
 *(Note: If you omit the sub-command, `contextl ./my-repo "query"` will automatically default to `search` for backwards compatibility).*

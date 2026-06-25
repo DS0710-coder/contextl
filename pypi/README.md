@@ -58,7 +58,7 @@ Restart your IDE. The `contextl` command is now available — `pip install` regi
 
 ## What it gives your agent
 
-Three tools, automatically available once connected:
+Seven tools, automatically available once connected:
 
 ### `query_repo`
 *"Find the files relevant to this change."*
@@ -113,6 +113,30 @@ Takes the exact dependency graph built by the intelligence engine and physically
 }
 ```
 
+### `review_changes`
+*"I'm reviewing or changing some code. What's the impact?"*
+
+Git-aware context builder. Reads the current git diff to find what files you are editing, then automatically runs impact analysis to find every file that depends on your changes. Returns a structured context bundle with the changed files, full blast radius, and suggested tests to re-run.
+
+```json
+{
+  "repo_path": "/path/to/repo",
+  "staged": true,
+  "unstaged": true
+}
+```
+
+### `get_skeleton`
+*"Show me the API of this huge file."*
+
+Extracts the structural skeleton (API surface) of a source file using Tree-sitter — including all class names, method signatures, return types, and docstrings — without pulling in any implementation bodies. Shrinks a 5,000-line file into a ~100-line reference header.
+
+```json
+{
+  "file_path": "/path/to/src/api.py"
+}
+```
+
 
 
 ## How the ranking works
@@ -129,7 +153,7 @@ No machine learning involved — every score is fully explainable and traceable 
 ## Supported languages
 
 **JavaScript ecosystem**: TypeScript, TSX, JavaScript, JSX.
-**Backend ecosystem**: Python (`.py`) and Java (`.java`).
+**Backend ecosystem**: Python (`.py`), Java (`.java`), Rust (`.rs`), Go (`.go`), C/C++ (`.cpp`, `.c`, `.h`).
 
 The engine natively understands dot-notation module paths (`from X import Y`, `import com.example.X;`) and correctly resolves them to physical file paths to build the architecture graph.
 
@@ -151,6 +175,9 @@ contextl dead-code ./my-repo
 
 # 4. Generate an Obsidian vault
 contextl obsidian ./my-repo ./my_vault
+
+# 5. Git-aware review / impact of current edits
+contextl review ./my-repo
 ```
 
 *(Note: If you omit the sub-command, `contextl ./my-repo "query"` will automatically default to `search` for backwards compatibility).*
