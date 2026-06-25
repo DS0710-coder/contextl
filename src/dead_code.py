@@ -20,6 +20,7 @@ ENTRY_POINT_MARKERS = {
     "index.ts", "index.js", "index.tsx", "index.jsx",
     "main.ts", "main.js", "main.py",
     "app.ts", "app.js", "app.tsx", "app.jsx", "app.py",
+    "mcp_server.py", "server.ts", "server.js", "server.py",
     "__main__.py", "__init__.py", "setup.py", "conftest.py",
     "next.config", "tailwind.config", "postcss.config", "vite.config", "webpack.config"
 }
