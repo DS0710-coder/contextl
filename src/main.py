@@ -212,13 +212,20 @@ def build_parser() -> argparse.ArgumentParser:
     obsidian_parser.add_argument("repo_path", help="Path to the repository root")
     obsidian_parser.add_argument("output_dir", help="Absolute path to save the Obsidian markdown files")
 
+    # 5. Git Review
+    review_parser = subparsers.add_parser("review", help="Build AI-ready context from your git changes")
+    review_parser.add_argument("repo_path", help="Path to the repository root (must be a git repo)")
+    review_parser.add_argument("--staged", action="store_true", help="Only include staged changes")
+    review_parser.add_argument("--unstaged", action="store_true", help="Only include unstaged changes")
+    review_parser.add_argument("--json", action="store_true", help="Output clean JSON instead of human-readable text")
+
     return parser
 
 
 def main():
     # To maintain backward compatibility with old `contextl <repo> <query>`
     # we manually inject "search" if the first argument isn't a known command.
-    if len(sys.argv) >= 2 and sys.argv[1] not in ["search", "standalone", "impact", "obsidian", "-h", "--help"]:
+    if len(sys.argv) >= 2 and sys.argv[1] not in ["search", "standalone", "impact", "obsidian", "review", "-h", "--help"]:
         sys.argv.insert(1, "search")
 
     parser = build_parser()
@@ -275,6 +282,33 @@ def main():
         vault_path = export_obsidian_vault(repo_graph, args.output_dir)
         print(f"Obsidian Vault successfully generated at: {vault_path}")
         print("Open this folder in Obsidian to view your codebase graph!")
+
+    elif args.command == "review":
+        from git_review import _is_git_repo, get_changed_files, build_review_context, format_review_human, format_review_json
+
+        if not _is_git_repo(args.repo_path):
+            print(f"Error: '{args.repo_path}' is not a git repository.", file=sys.stderr)
+            sys.exit(1)
+
+        # Default: both staged + unstaged unless a flag is explicitly set
+        include_staged   = args.staged or (not args.staged and not args.unstaged)
+        include_unstaged = args.unstaged or (not args.staged and not args.unstaged)
+
+        staged, unstaged = get_changed_files(args.repo_path, include_staged, include_unstaged)
+
+        if not staged and not unstaged:
+            print("No changed files found. Make some edits and try again.")
+            sys.exit(0)
+
+        scan = scan_repo(args.repo_path)
+        parse = parse_imports(scan)
+        repo_graph = build_graph(scan, parse)
+        ctx = build_review_context(args.repo_path, staged, unstaged, repo_graph)
+
+        if args.json:
+            print(format_review_json(ctx))
+        else:
+            print(format_review_human(ctx))
 
 
 if __name__ == "__main__":

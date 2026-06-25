@@ -48,6 +48,7 @@ from main import _confidence, _reasoning
 from impact_analysis import analyze_impact
 from standalone import find_standalone_files
 from obsidian_export import export_obsidian_vault
+from git_review import _is_git_repo, get_changed_files, build_review_context, format_review_json
 
 
 # ---------------------------------------------------------------------------
@@ -266,6 +267,39 @@ async def list_tools() -> list[types.Tool]:
                 "required": ["repo_path", "output_dir"],
             },
         ),
+        types.Tool(
+            name="review_changes",
+            description=(
+                "Git-aware context builder. Reads the current git diff (staged and/or "
+                "unstaged) to find what files you are editing, then automatically runs "
+                "impact analysis on each changed file to find every file that depends on "
+                "your changes. Returns a structured context bundle containing: the changed "
+                "files, their full blast radius (direct + transitive dependents), and a "
+                "list of test files that should be re-run. Use this at the START of any "
+                "code review or refactor session to instantly understand the full scope "
+                "of your changes before touching anything."
+            ),
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "repo_path": {
+                        "type": "string",
+                        "description": "Absolute or relative path to the git repository root.",
+                    },
+                    "staged": {
+                        "type": "boolean",
+                        "description": "Include staged changes (git diff --cached). Default true.",
+                        "default": True,
+                    },
+                    "unstaged": {
+                        "type": "boolean",
+                        "description": "Include unstaged working-tree changes (git diff). Default true.",
+                        "default": True,
+                    },
+                },
+                "required": ["repo_path"],
+            },
+        ),
     ]
 
 
@@ -289,6 +323,9 @@ async def call_tool(name: str, arguments: dict) -> list[types.TextContent]:
 
     if name == "export_obsidian_vault":
         return await _handle_export_obsidian(arguments)
+
+    if name == "review_changes":
+        return await _handle_review_changes(arguments)
 
     return [types.TextContent(
         type="text",
@@ -448,6 +485,45 @@ def _run_export_obsidian(repo_path: str, output_dir: str) -> dict:
         "total_files_exported": scan.total_files,
         "success": True
     }
+
+
+async def _handle_review_changes(args: dict) -> list[types.TextContent]:
+    repo_path = args.get("repo_path", "")
+    include_staged   = bool(args.get("staged", True))
+    include_unstaged = bool(args.get("unstaged", True))
+
+    loop = asyncio.get_event_loop()
+    try:
+        result = await loop.run_in_executor(
+            None, _run_review_changes, repo_path, include_staged, include_unstaged
+        )
+    except Exception as e:
+        result = {"error": str(e), "repo": repo_path}
+
+    return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
+
+
+def _run_review_changes(repo_path: str, include_staged: bool, include_unstaged: bool) -> dict:
+    """Uses cached graph — builds review context from current git diff."""
+    import json as _json
+
+    if not _is_git_repo(repo_path):
+        return {"error": f"'{repo_path}' is not a git repository."}
+
+    staged, unstaged = get_changed_files(repo_path, include_staged, include_unstaged)
+
+    if not staged and not unstaged:
+        return {
+            "repo": repo_path,
+            "message": "No changed files found.",
+            "changed_files": [],
+            "all_affected": [],
+            "suggested_tests": [],
+        }
+
+    _, repo_graph = _get_graph(repo_path)
+    ctx = build_review_context(repo_path, staged, unstaged, repo_graph)
+    return _json.loads(format_review_json(ctx))
 
 
 # ---------------------------------------------------------------------------
