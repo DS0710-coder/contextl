@@ -140,6 +140,8 @@ Extracts the structural skeleton (API surface) of a source file using Tree-sitte
 
 
 
+## How the ranking works
+
 1. **Keyword match** — does the filename contain query terms?
 2. **Content match** — does the file's source code mention the terms?
 3. **Graph proximity** — files connected to high-scoring files get a relevance boost
