@@ -1,6 +1,6 @@
 {
   "name": "contextl",
-  "version": "1.2.11",
+  "version": "1.2.12",
   "description": "contextl — finds the most relevant files in your codebase for any change request. MCP server for AI coding agents.",
   "keywords": [
     "mcp",
