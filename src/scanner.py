@@ -12,7 +12,7 @@ from pathlib import Path
 from dataclasses import dataclass, field
 
 
-SUPPORTED_EXTENSIONS = {".tsx", ".ts", ".jsx", ".js", ".py", ".java"}
+SUPPORTED_EXTENSIONS = {".tsx", ".ts", ".jsx", ".js", ".py", ".java", ".go", ".rs", ".cpp", ".cc", ".c", ".h", ".hpp"}
 
 ignore_dirs = {
     ".git", "node_modules", "__pycache__", "venv", ".venv",

@@ -157,6 +157,8 @@ No machine learning involved — every score is fully explainable and traceable 
 
 The engine natively understands dot-notation module paths (`from X import Y`, `import com.example.X;`) and correctly resolves them to physical file paths to build the architecture graph.
 
+> **Note:** Wildcard imports (e.g. `use super::*`, `use crate::*`) are intentionally left unresolved. ContextL maps explicit dependency paths only.
+
 ---
 
 ## The Global CLI

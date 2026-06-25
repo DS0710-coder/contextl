@@ -213,7 +213,15 @@ def _ts_imports_rust(root: "Node") -> list[str]:
             # Grab the first meaningful child (scoped_identifier, scoped_use_list, identifier)
             for child in node.children:
                 if child.type not in ("use", ";"):
-                    results.append(child.text.decode("utf-8", errors="replace"))
+                    raw = child.text.decode("utf-8", errors="replace")
+                    import re
+                    match = re.match(r'^(.*?)::\{([^}]+)\}$', raw)
+                    if match:
+                        base = match.group(1)
+                        for item in match.group(2).split(','):
+                            results.append(f"{base}::{item.strip()}")
+                    else:
+                        results.append(raw)
                     break
         elif node.type == "extern_crate_declaration":
             for child in node.children:
@@ -419,11 +427,24 @@ def _resolve_relative(import_path: str, source_file: str) -> str:
     return str(PurePosixPath(*parts)) if parts else "."
 
 
+def _path_distance(source: str, target: str) -> int:
+    s_parts = source.split('/')[:-1]
+    t_parts = target.split('/')[:-1]
+    common = 0
+    for s, t in zip(s_parts, t_parts):
+        if s == t:
+            common += 1
+        else:
+            break
+    return (len(s_parts) - common) + (len(t_parts) - common)
+
+
 def _find_file_in_repo(
     candidate: str,
     file_index: dict,
     root: str,
     extension: str = "",
+    source_file: str = "",
 ) -> str | None:
     root_path = Path(root)
     candidate_path = Path(candidate)
@@ -450,6 +471,85 @@ def _find_file_in_repo(
             for path in file_index:
                 if path.endswith(parent_suffix):
                     return path
+        return None
+
+    if extension in (".cpp", ".cc", ".cxx", ".h", ".hpp", ".c"):
+        suffix = "/" + candidate_str
+        matches = []
+        for path in file_index:
+            if path.endswith(suffix) or path == candidate_str:
+                matches.append(path)
+        if not matches and "/" in candidate_str:
+            base_name = "/" + candidate_str.split("/")[-1]
+            for path in file_index:
+                if path.endswith(base_name) or path == base_name.lstrip("/"):
+                    matches.append(path)
+        if matches:
+            if source_file:
+                matches.sort(key=lambda p: _path_distance(source_file, p))
+            return matches[0]
+        return None
+
+    if extension == ".rs":
+        if candidate_str.startswith("crate/"):
+            match_str = candidate_str[6:]
+        else:
+            match_str = candidate_str
+        
+        rs_suffix = "/" + match_str + ".rs"
+        mod_suffix = "/" + match_str + "/mod.rs"
+        matches = []
+        for path in file_index:
+            if path.endswith(rs_suffix) or path == match_str + ".rs":
+                matches.append(path)
+            if path.endswith(mod_suffix) or path == match_str + "/mod.rs":
+                matches.append(path)
+        
+        if not matches and "/" in match_str:
+            parts = match_str.split("/")
+            for i in range(len(parts) - 1, 0, -1):
+                sub_path = "/" + "/".join(parts[:i])
+                b_rs = sub_path + ".rs"
+                b_mod = sub_path + "/mod.rs"
+                for path in file_index:
+                    if path.endswith(b_rs) or path.endswith(b_mod) or path == b_rs.lstrip("/") or path == b_mod.lstrip("/"):
+                        matches.append(path)
+                if matches:
+                    break
+        
+        if matches:
+            if source_file:
+                matches.sort(key=lambda p: _path_distance(source_file, p))
+            return matches[0]
+        return None
+
+    if extension == ".go":
+        matches = []
+        for path in file_index:
+            parent_dir = path.rsplit("/", 1)[0] if "/" in path else ""
+            if parent_dir and candidate_str.endswith(parent_dir):
+                matches.append(path)
+            elif candidate_str.endswith(path.replace(".go", "")):
+                matches.append(path)
+        
+        if not matches:
+            last_part = candidate_str.split("/")[-1]
+            fallback_suffix = "/" + last_part + "/"
+            for path in file_index:
+                if fallback_suffix in path or path.startswith(last_part + "/"):
+                    matches.append(path)
+        
+        if matches:
+            matches.sort()
+            last_part = candidate_str.split("/")[-1]
+            preferred = "/" + last_part + ".go"
+            for m in matches:
+                if m.endswith(preferred) or m == preferred.lstrip("/"):
+                    return m
+            for m in matches:
+                if m.endswith("/mod.go") or m == "mod.go":
+                    return m
+            return matches[0]
         return None
 
     if extension == ".py":
@@ -562,6 +662,28 @@ def _detect_alias_map(scan_result: ScanResult) -> dict[str, str]:
                     alias_map[name + "/"] = repo_rel + "/"
                 except ValueError:
                     pass
+        except Exception:
+            pass
+
+    for gomod in root.rglob("go.mod"):
+        if any(p in ignore for p in gomod.parts):
+            continue
+        try:
+            text = gomod.read_text(encoding="utf-8")
+            for line in text.splitlines():
+                if line.startswith("module "):
+                    mod_name = line.split(" ")[1].strip()
+                    try:
+                        repo_rel = str(gomod.parent.relative_to(root)).replace("\\", "/")
+                        if repo_rel == ".":
+                            alias_map[mod_name] = ""
+                            alias_map[mod_name + "/"] = ""
+                        else:
+                            alias_map[mod_name] = repo_rel
+                            alias_map[mod_name + "/"] = repo_rel + "/"
+                    except ValueError:
+                        pass
+                    break
         except Exception:
             pass
 
@@ -716,11 +838,17 @@ def parse_imports(scan_result: ScanResult) -> ParseResult:
                 else:
                     candidate = raw.replace(".", "/")
 
-            elif scanned_file.extension in (".rs", ".go", ".cpp", ".cc", ".cxx", ".h", ".hpp", ".c"):
-                # Rust/Go/C++ — raw import strings don't map directly to file paths
-                # without more context; add to unresolved so graph ignores them gracefully
-                result.unresolved.append((scanned_file.path, raw))
-                continue
+            elif scanned_file.extension in (".cpp", ".cc", ".cxx", ".h", ".hpp", ".c"):
+                candidate = raw
+            elif scanned_file.extension == ".rs":
+                is_likely_external = not (raw.startswith("crate::") or raw.startswith("super::") or raw.startswith("self::"))
+                candidate = raw.replace("::", "/")
+            elif scanned_file.extension == ".go":
+                resolved = _resolve_alias(raw, alias_map)
+                if resolved is not None:
+                    candidate = resolved
+                else:
+                    candidate = raw
 
             else:
                 # Node.js / TypeScript
@@ -730,7 +858,7 @@ def parse_imports(scan_result: ScanResult) -> ParseResult:
                 else:
                     candidate = _resolve_relative(raw, scanned_file.path)
 
-            matched = _find_file_in_repo(candidate, file_index, scan_result.root, scanned_file.extension)
+            matched = _find_file_in_repo(candidate, file_index, scan_result.root, scanned_file.extension, scanned_file.path)
 
             if matched:
                 result.relationships.append(
@@ -741,6 +869,8 @@ def parse_imports(scan_result: ScanResult) -> ParseResult:
                     )
                 )
             else:
+                if scanned_file.extension == ".rs" and locals().get("is_likely_external", False):
+                    continue
                 result.unresolved.append((scanned_file.path, raw))
 
     return result
