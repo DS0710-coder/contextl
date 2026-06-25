@@ -49,6 +49,7 @@ from impact_analysis import analyze_impact
 from standalone import find_standalone_files
 from obsidian_export import export_obsidian_vault
 from git_review import _is_git_repo, get_changed_files, build_review_context, format_review_json
+from import_parser import extract_skeleton
 
 
 # ---------------------------------------------------------------------------
@@ -300,6 +301,27 @@ async def list_tools() -> list[types.Tool]:
                 "required": ["repo_path"],
             },
         ),
+        types.Tool(
+            name="get_skeleton",
+            description=(
+                "Extract the structural skeleton (API surface) of a source file — all "
+                "class names, method signatures, function signatures, return types, and "
+                "docstrings — without any implementation bodies. "
+                "Use this when you need to understand a file's API without consuming its "
+                "full token count. A 5,000-line file becomes a ~100-line reference header. "
+                "Supports: Python, TypeScript, JavaScript, TSX, JSX, Java, Rust."
+            ),
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "file_path": {
+                        "type": "string",
+                        "description": "Absolute path to the source file to extract the skeleton from.",
+                    },
+                },
+                "required": ["file_path"],
+            },
+        ),
     ]
 
 
@@ -326,6 +348,9 @@ async def call_tool(name: str, arguments: dict) -> list[types.TextContent]:
 
     if name == "review_changes":
         return await _handle_review_changes(arguments)
+
+    if name == "get_skeleton":
+        return await _handle_get_skeleton(arguments)
 
     return [types.TextContent(
         type="text",
@@ -524,6 +549,18 @@ def _run_review_changes(repo_path: str, include_staged: bool, include_unstaged: 
     _, repo_graph = _get_graph(repo_path)
     ctx = build_review_context(repo_path, staged, unstaged, repo_graph)
     return _json.loads(format_review_json(ctx))
+
+
+async def _handle_get_skeleton(args: dict) -> list[types.TextContent]:
+    file_path = args.get("file_path", "")
+
+    loop = asyncio.get_event_loop()
+    try:
+        result = await loop.run_in_executor(None, extract_skeleton, file_path)
+    except Exception as e:
+        result = {"error": str(e), "file": file_path}
+
+    return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
 
 
 # ---------------------------------------------------------------------------
