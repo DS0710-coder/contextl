@@ -1,6 +1,6 @@
 """
 Repository Intelligence Engine
-Step 7: Dead Code Analysis
+Step 7: Standalone Files Analysis
 
 Finds files in the dependency graph that have an in-degree of 0 
 (meaning they are never imported by any other file), while filtering 
@@ -34,18 +34,18 @@ def _is_entry_point(path: str) -> bool:
             return True
     return False
 
-def find_dead_files(repo_graph: RepoGraph) -> list[str]:
+def find_standalone_files(repo_graph: RepoGraph) -> list[str]:
     """
     Find files with in-degree 0, excluding entry points and tests.
     """
-    dead_files = []
+    standalone_files = []
     
     for path, node in repo_graph.nodes.items():
         if node.in_degree == 0:
             if not _is_test_file(path) and not _is_entry_point(path):
-                dead_files.append(path)
+                standalone_files.append(path)
                 
-    return sorted(dead_files)
+    return sorted(standalone_files)
 
 if __name__ == "__main__":
     import sys
@@ -54,7 +54,7 @@ if __name__ == "__main__":
     from graph_builder import build_graph
 
     if len(sys.argv) < 2:
-        print("Usage: python dead_code.py <repo_path>")
+        print("Usage: python standalone.py <repo_path>")
         sys.exit(1)
 
     repo_path = sys.argv[1]
@@ -62,8 +62,8 @@ if __name__ == "__main__":
     parse = parse_imports(scan)
     repo_graph = build_graph(scan, parse)
 
-    dead = find_dead_files(repo_graph)
+    standalone = find_standalone_files(repo_graph)
     
-    print(f"Found {len(dead)} potentially dead files:")
-    for f in dead:
+    print(f"Found {len(standalone)} standalone files:")
+    for f in standalone:
         print(f"  - {f}")

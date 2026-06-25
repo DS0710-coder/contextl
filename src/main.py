@@ -198,9 +198,9 @@ def build_parser() -> argparse.ArgumentParser:
     search_parser.add_argument("--top", "-n", type=int, default=5, help="Number of results to return (default: 5)")
     search_parser.add_argument("--json", action="store_true", help="Output clean JSON instead of human-readable text")
 
-    # 2. Dead Code
-    dead_parser = subparsers.add_parser("dead-code", help="Find files with 0 in-degree dependencies")
-    dead_parser.add_argument("repo_path", help="Path to the repository root")
+    # 2. Standalone Files
+    standalone_parser = subparsers.add_parser("standalone", help="Find files with 0 in-degree dependencies (unimported)")
+    standalone_parser.add_argument("repo_path", help="Path to the repository root")
 
     # 3. Impact Analysis
     impact_parser = subparsers.add_parser("impact", help="Analyze the impact of changing a file")
@@ -218,7 +218,7 @@ def build_parser() -> argparse.ArgumentParser:
 def main():
     # To maintain backward compatibility with old `contextl <repo> <query>`
     # we manually inject "search" if the first argument isn't a known command.
-    if len(sys.argv) >= 2 and sys.argv[1] not in ["search", "dead-code", "impact", "obsidian", "-h", "--help"]:
+    if len(sys.argv) >= 2 and sys.argv[1] not in ["search", "standalone", "impact", "obsidian", "-h", "--help"]:
         sys.argv.insert(1, "search")
 
     parser = build_parser()
@@ -243,14 +243,14 @@ def main():
         else:
             print(_format_human(args.query, args.repo_path, results, repo_graph, elapsed))
 
-    elif args.command == "dead-code":
-        from dead_code import find_dead_files
+    elif args.command == "standalone":
+        from standalone import find_standalone_files
         scan = scan_repo(args.repo_path)
         parse = parse_imports(scan)
         repo_graph = build_graph(scan, parse)
-        dead = find_dead_files(repo_graph)
-        print(f"Found {len(dead)} potentially dead files:")
-        for d in sorted(dead):
+        standalone = find_standalone_files(repo_graph)
+        print(f"Found {len(standalone)} standalone files:")
+        for d in sorted(standalone):
             print(f"  {d}")
 
     elif args.command == "impact":

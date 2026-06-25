@@ -35,7 +35,7 @@ from graph_builder import build_graph
 from query_engine import query as engine_query
 from main import _confidence, _reasoning
 from impact_analysis import analyze_impact
-from dead_code import find_dead_files
+from standalone import find_standalone_files
 from obsidian_export import export_obsidian_vault
 
 
@@ -145,11 +145,11 @@ async def list_tools() -> list[types.Tool]:
             },
         ),
         types.Tool(
-            name="find_dead_files",
+            name="find_standalone_files",
             description=(
                 "Find files in the repository that are never imported by any other file "
                 "(in-degree of 0 in the dependency graph). Automatically filters out "
-                "standard entry points and test files. Use this to identify dead code "
+                "standard entry points and test files. Use this to identify standalone code "
                 "and unused files that can potentially be deleted."
             ),
             inputSchema={
@@ -203,8 +203,8 @@ async def call_tool(name: str, arguments: dict) -> list[types.TextContent]:
     if name == "analyze_impact":
         return await _handle_impact(arguments)
 
-    if name == "find_dead_files":
-        return await _handle_dead_files(arguments)
+    if name == "find_standalone_files":
+        return await _handle_standalone_files(arguments)
 
     if name == "export_obsidian_vault":
         return await _handle_export_obsidian(arguments)
@@ -321,30 +321,30 @@ def _run_impact(repo_path: str, target_file: str, max_depth: int) -> dict:
     }
 
 
-async def _handle_dead_files(args: dict) -> list[types.TextContent]:
+async def _handle_standalone_files(args: dict) -> list[types.TextContent]:
     repo_path = args.get("repo_path", "")
 
     loop = asyncio.get_event_loop()
     try:
-        result = await loop.run_in_executor(None, _run_dead_files, repo_path)
+        result = await loop.run_in_executor(None, _run_standalone_files, repo_path)
     except Exception as e:
         result = {"error": str(e), "repo": repo_path}
 
     return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
 
 
-def _run_dead_files(repo_path: str) -> dict:
+def _run_standalone_files(repo_path: str) -> dict:
     """Synchronous pipeline — called from a thread executor."""
     scan = scan_repo(repo_path)
     parse = parse_imports(scan)
     repo_graph = build_graph(scan, parse)
-    dead_files = find_dead_files(repo_graph)
+    standalone_files = find_standalone_files(repo_graph)
 
     return {
         "repo": scan.root,
         "total_files_scanned": scan.total_files,
-        "total_dead_files": len(dead_files),
-        "dead_files": dead_files
+        "total_standalone_files": len(standalone_files),
+        "standalone_files": standalone_files
     }
 
 
