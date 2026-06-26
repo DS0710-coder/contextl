@@ -58,7 +58,7 @@ from import_parser import extract_skeleton
 @dataclass
 class _CacheEntry:
     repo_path: str          # resolved absolute path
-    mtime_hash: float       # max mtime across all source files at build time
+    mtime_hash: tuple[float, int]       # max mtime across all source files at build time, and total file count
     scan: object            # ScanResult
     repo_graph: object      # RepoGraph
     last_checked_time: float = 0.0
@@ -68,9 +68,10 @@ _cache_lock = threading.Lock()
 _cache: dict[str, _CacheEntry] = {}
 
 
-def _compute_mtime_hash(repo_path: str) -> float:
-    """Walk repo_path and return the maximum file modification time."""
+def _compute_mtime_hash(repo_path: str) -> tuple[float, int]:
+    """Walk repo_path and return (maximum file modification time, file count)."""
     max_mtime = 0.0
+    file_count = 0
     for dirpath, _, filenames in os.walk(repo_path):
         # Skip hidden dirs and common noise dirs
         dirpath_obj = Path(dirpath)
@@ -82,9 +83,10 @@ def _compute_mtime_hash(repo_path: str) -> float:
                 mtime = os.path.getmtime(os.path.join(dirpath, fname))
                 if mtime > max_mtime:
                     max_mtime = mtime
+                file_count += 1
             except OSError:
                 pass
-    return max_mtime
+    return (max_mtime, file_count)
 
 
 def _get_graph(repo_path: str):

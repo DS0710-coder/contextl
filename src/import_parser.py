@@ -567,7 +567,7 @@ def _find_file_in_repo(
         # Fallback for Python cross-language imports (e.g. from tests to .ts/.js core logic)
         for ext in [".ts", ".tsx", ".js", ".jsx", ".java", ".go", ".rs", ".cpp", ".cc", ".cxx", ".h", ".hpp", ".c"]:
             alt_suffix = "/" + candidate_str + ext
-            alt_matches = [p for p in file_index if p.endswith(alt_suffix)]
+            alt_matches = [p for p in file_index if p.endswith(alt_suffix) or p == alt_suffix.lstrip("/")]
             if len(alt_matches) == 1:
                 return alt_matches[0]
                 

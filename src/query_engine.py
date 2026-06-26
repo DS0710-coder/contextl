@@ -98,7 +98,7 @@ def _keyword_score(query_terms: list[str], file_path: str, idf_weights: dict[str
             score += 2.0 * idf_weights.get(term, 1.0)   # Massive signal
             matched.append(term)
         # Substring match on filename
-        elif len(term) >= 3 and any(term in ft for ft in filename_toks) or any(len(ft) >= 3 and ft in term for ft in filename_toks):
+        elif len(term) >= 2 and any(term in ft for ft in filename_toks) or any(len(ft) >= 2 and ft in term for ft in filename_toks):
             score += 1.5 * idf_weights.get(term, 1.0)
             matched.append(term)
         # Exact match on path
@@ -107,7 +107,7 @@ def _keyword_score(query_terms: list[str], file_path: str, idf_weights: dict[str
             if term not in matched:
                 matched.append(term)
         # Substring match on path
-        elif len(term) >= 3 and any(term in pt for pt in path_toks) or any(len(pt) >= 3 and pt in term for pt in path_toks):
+        elif len(term) >= 2 and any(term in pt for pt in path_toks) or any(len(pt) >= 2 and pt in term for pt in path_toks):
             score += 0.4 * idf_weights.get(term, 1.0)
             if term not in matched:
                 matched.append(term)
@@ -186,7 +186,7 @@ def _content_score(query_terms: list[str], file_path: str, file_content: str, id
         for ct in content_tokens_list:
             if t == ct:
                 count += 1
-            elif len(t) >= 3 and (t in ct or (len(ct) >= 3 and ct in t)):
+            elif len(t) >= 2 and (t in ct or (len(ct) >= 2 and ct in t)):
                 count += 1
         if count > 0:
             term_counts[t] = count
@@ -322,9 +322,9 @@ def query(
         for term in query_terms:
             if term in combined_tokens:
                 document_frequency[term] += 1
-            elif len(term) >= 3:
+            elif len(term) >= 2:
                 for ct in combined_tokens:
-                    if term in ct or (len(ct) >= 3 and ct in term):
+                    if term in ct or (len(ct) >= 2 and ct in term):
                         document_frequency[term] += 1
                         break
 
@@ -380,6 +380,13 @@ def query(
             centrality=node.centrality,
             matched_terms=matched_terms.get(path, []),
         ))
+
+    # Down-rank test files unless the user specifically searched for tests
+    is_test_query = "test" in query_str.lower() or "spec" in query_str.lower()
+    from impact_analysis import _is_test_file
+    for r in results:
+        if _is_test_file(r.path) and not is_test_query:
+            r.total_score *= 0.5
 
     # Sort by total score descending
     results.sort(key=lambda r: r.total_score, reverse=True)

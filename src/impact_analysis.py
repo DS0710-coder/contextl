@@ -127,6 +127,9 @@ def analyze_impact(
     Raises:
         ValueError: If target_file is not found in the graph.
     """
+    if not target_file:
+        raise ValueError("target_file cannot be empty")
+
     if target_file not in repo_graph.nodes:
         raise ValueError(
             f"File not found in repository graph: {target_file}. "
@@ -191,6 +194,8 @@ def analyze_impact(
     target_node = repo_graph.nodes.get(target_file)
     in_degree = target_node.in_degree if target_node else 0
     report.risk_score = (in_degree * 0.5) + (len(report.transitively_affected) * 0.2)
+    if report.cycle_detected:
+        report.risk_score += len(report.cycle_members) * 0.8
 
     return report
 

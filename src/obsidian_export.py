@@ -52,11 +52,15 @@ def _extract_file_context(file_path: str, extension: str, root_dir: str) -> tupl
     return explanation, outline, snippet
 
 
-def export_obsidian_vault(repo_graph: RepoGraph, output_dir: str) -> str:
+def export_obsidian_vault(repo_path: str, output_dir: str) -> str:
     """
     Generates a markdown file for every node in the graph in a hierarchical folder structure, 
     with Obsidian wikilinks connecting them based on imports.
     """
+    scan = scan_repo(repo_path)
+    parse = parse_imports(scan)
+    repo_graph = build_graph(scan, parse)
+
     out_path = Path(output_dir).resolve()
     
     if out_path.exists():
