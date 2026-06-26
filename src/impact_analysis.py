@@ -40,13 +40,23 @@ class ImpactReport:
     transitively_affected: list[ImpactedFile] = field(default_factory=list)
     test_files: list[str] = field(default_factory=list)
     total_affected: int = 0
+    cycle_detected: bool = False
+    cycle_members: list[str] = field(default_factory=list)
+    risk_score: float = 0.0
 
     def summary(self) -> str:
         lines = [
             f"Impact analysis for: {self.target}",
             f"Total affected files: {self.total_affected}",
+            f"Risk score: {self.risk_score:.1f}",
             "",
         ]
+
+        if self.cycle_detected:
+            lines.append("⚠️ WARNING: Circular dependency detected ⚠️")
+            lines.append(f"This file is part of a cycle containing {len(self.cycle_members)} files.")
+            lines.append("Members: " + ", ".join(self.cycle_members))
+            lines.append("")
 
         if self.directly_affected:
             lines.append("Directly affected (import this file):")
@@ -169,6 +179,18 @@ def analyze_impact(
         distance += 1
 
     report.total_affected = len(report.directly_affected) + len(report.transitively_affected)
+
+    import networkx as nx
+    sccs = [scc for scc in nx.strongly_connected_components(repo_graph.graph) if len(scc) > 1]
+    for scc in sccs:
+        if target_file in scc:
+            report.cycle_detected = True
+            report.cycle_members = list(scc)
+            break
+            
+    target_node = repo_graph.nodes.get(target_file)
+    in_degree = target_node.in_degree if target_node else 0
+    report.risk_score = (in_degree * 0.5) + (len(report.transitively_affected) * 0.2)
 
     return report
 

@@ -563,8 +563,15 @@ def _find_file_in_repo(
         for path in file_index:
             if path.endswith(suffix) or path == py_ext:
                 return path
+                
+        # Fallback for Python cross-language imports (e.g. from tests to .ts/.js core logic)
+        for ext in [".ts", ".tsx", ".js", ".jsx", ".java", ".go", ".rs", ".cpp", ".cc", ".cxx", ".h", ".hpp", ".c"]:
+            alt_suffix = "/" + candidate_str + ext
+            alt_matches = [p for p in file_index if p.endswith(alt_suffix)]
+            if len(alt_matches) == 1:
+                return alt_matches[0]
+                
         return None
-
     for ext in [".tsx", ".ts", ".jsx", ".js"]:
         with_ext = candidate_str + ext
         if with_ext in file_index:
@@ -578,13 +585,7 @@ def _find_file_in_repo(
         if mod_path in file_index:
             return mod_path
 
-    if extension == ".py":
-        candidate_suffix = "/" + candidate_str + ".py"
-        matches = [p for p in file_index if p.endswith(candidate_suffix)]
-        if len(matches) == 1:
-            return matches[0]
 
-    return None
 
 
 def _load_tsconfig_paths(tsconfig_path: Path) -> dict:

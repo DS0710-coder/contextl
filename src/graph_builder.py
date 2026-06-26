@@ -163,6 +163,15 @@ def build_graph(scan_result, parse_result: ParseResult) -> RepoGraph:
     # Compute PageRank (importance score)
     try:
         pagerank = nx.pagerank(G, alpha=0.85)
+        
+        # Penalize cycle-locked nodes to prevent inflation
+        sccs = [scc for scc in nx.strongly_connected_components(G) if len(scc) > 1]
+        for scc in sccs:
+            for node in scc:
+                # If a node only has incoming edges from within its own cycle, dampen it
+                predecessors = set(G.predecessors(node))
+                if predecessors.issubset(scc):
+                    pagerank[node] *= 0.1
     except nx.PowerIterationFailedConvergence:
         pagerank = {n: 1.0 / len(G.nodes) for n in G.nodes}
 
