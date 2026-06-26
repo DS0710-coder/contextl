@@ -145,10 +145,6 @@ if __name__ == "__main__":
     repo_path = sys.argv[1]
     output_dir = sys.argv[2]
 
-    scan = scan_repo(repo_path)
-    parse = parse_imports(scan)
-    repo_graph = build_graph(scan, parse)
-
-    vault_path = export_obsidian_vault(repo_graph, output_dir)
+    vault_path = export_obsidian_vault(repo_path, output_dir)
     print(f"Obsidian Vault successfully generated at: {vault_path}")
     print("Open this folder in Obsidian to view your codebase graph!")

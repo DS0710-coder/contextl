@@ -508,7 +508,7 @@ async def _handle_export_obsidian(args: dict) -> list[types.TextContent]:
 def _run_export_obsidian(repo_path: str, output_dir: str) -> dict:
     """Uses cached graph — pipeline runs only on first call or after file changes."""
     scan, repo_graph = _get_graph(repo_path)
-    vault_path = export_obsidian_vault(repo_graph, output_dir)
+    vault_path = export_obsidian_vault(repo_path, output_dir)
 
     return {
         "repo": scan.root,
