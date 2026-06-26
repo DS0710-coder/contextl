@@ -58,13 +58,16 @@ def _run_git(args: list[str], cwd: str) -> list[str]:
 
 
 def _is_git_repo(repo_path: str) -> bool:
-    result = subprocess.run(
-        ["git", "rev-parse", "--is-inside-work-tree"],
-        cwd=repo_path,
-        capture_output=True,
-        text=True,
-    )
-    return result.returncode == 0
+    try:
+        result = subprocess.run(
+            ["git", "rev-parse", "--is-inside-work-tree"],
+            cwd=repo_path,
+            capture_output=True,
+            text=True,
+        )
+        return result.returncode == 0
+    except FileNotFoundError:
+        return False
 
 
 def get_changed_files(

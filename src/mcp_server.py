@@ -373,10 +373,8 @@ async def _handle_query(args: dict) -> list[types.TextContent]:
     query_str = args.get("query", "")
     top_n = min(int(args.get("top_n", 5)), 20)
 
-    # Run the engine (synchronous — wrap in thread to stay async-safe)
-    loop = asyncio.get_event_loop()
     try:
-        result = await loop.run_in_executor(None, _run_query, repo_path, query_str, top_n)
+        result = await asyncio.to_thread(_run_query, repo_path, query_str, top_n)
     except Exception as e:
         result = {"error": str(e), "query": query_str, "repo": repo_path, "results": []}
 
@@ -409,9 +407,8 @@ def _run_query(repo_path: str, query_str: str, top_n: int) -> dict:
 async def _handle_scan(args: dict) -> list[types.TextContent]:
     repo_path = args.get("repo_path", "")
 
-    loop = asyncio.get_event_loop()
     try:
-        result = await loop.run_in_executor(None, _run_scan, repo_path)
+        result = await asyncio.to_thread(_run_scan, repo_path)
     except Exception as e:
         result = {"error": str(e), "repo": repo_path}
 
@@ -436,9 +433,8 @@ async def _handle_impact(args: dict) -> list[types.TextContent]:
     target_file = args.get("target_file", "")
     max_depth = min(int(args.get("max_depth", 5)), 10)
 
-    loop = asyncio.get_event_loop()
     try:
-        result = await loop.run_in_executor(None, _run_impact, repo_path, target_file, max_depth)
+        result = await asyncio.to_thread(_run_impact, repo_path, target_file, max_depth)
     except Exception as e:
         result = {"error": str(e), "repo": repo_path, "target_file": target_file}
 
@@ -474,9 +470,8 @@ def _run_impact(repo_path: str, target_file: str, max_depth: int) -> dict:
 async def _handle_dead_files(args: dict) -> list[types.TextContent]:
     repo_path = args.get("repo_path", "")
 
-    loop = asyncio.get_event_loop()
     try:
-        result = await loop.run_in_executor(None, _run_dead_files, repo_path)
+        result = await asyncio.to_thread(_run_dead_files, repo_path)
     except Exception as e:
         result = {"error": str(e), "repo": repo_path}
 
@@ -500,9 +495,8 @@ async def _handle_export_obsidian(args: dict) -> list[types.TextContent]:
     repo_path = args.get("repo_path", "")
     output_dir = args.get("output_dir", "")
 
-    loop = asyncio.get_event_loop()
     try:
-        result = await loop.run_in_executor(None, _run_export_obsidian, repo_path, output_dir)
+        result = await asyncio.to_thread(_run_export_obsidian, repo_path, output_dir)
     except Exception as e:
         result = {"error": str(e), "repo": repo_path, "output_dir": output_dir}
 
@@ -527,10 +521,9 @@ async def _handle_review_changes(args: dict) -> list[types.TextContent]:
     include_staged   = bool(args.get("staged", True))
     include_unstaged = bool(args.get("unstaged", True))
 
-    loop = asyncio.get_event_loop()
     try:
-        result = await loop.run_in_executor(
-            None, _run_review_changes, repo_path, include_staged, include_unstaged
+        result = await asyncio.to_thread(
+            _run_review_changes, repo_path, include_staged, include_unstaged
         )
     except Exception as e:
         result = {"error": str(e), "repo": repo_path}
@@ -564,9 +557,8 @@ def _run_review_changes(repo_path: str, include_staged: bool, include_unstaged: 
 async def _handle_get_skeleton(args: dict) -> list[types.TextContent]:
     file_path = args.get("file_path", "")
 
-    loop = asyncio.get_event_loop()
     try:
-        result = await loop.run_in_executor(None, extract_skeleton, file_path)
+        result = await asyncio.to_thread(extract_skeleton, file_path)
     except Exception as e:
         result = {"error": str(e), "file": file_path}
 

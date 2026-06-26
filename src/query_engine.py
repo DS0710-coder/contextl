@@ -296,48 +296,37 @@ def query(
         return []
 
     # --- Pre-computation: Global TF-IDF & BM25 ---
-    import pathlib
     total_files = len(repo_graph.nodes)
     document_frequency = {term: 0 for term in query_terms}
     
-    file_contents = {}
-    doc_lengths = {}
     total_tokens_count = 0
     
     for path, node in repo_graph.nodes.items():
-        abs_path = node.path if hasattr(node, "absolute_path") else str(__import__("pathlib").Path(repo_graph.root) / path)
-        try:
-            content = open(abs_path, encoding="utf-8").read()
-            file_contents[path] = content
+        content = node.content
+        dl = node.doc_length
+        total_tokens_count += dl
+        
+        raw_tokens = re.findall(r"[a-z0-9]+", content.lower())
+        content_tokens = set(raw_tokens)
+        
+        if path.endswith(".java"):
+            camel_tokens = []
+            for word in re.findall(r"[a-zA-Z]+", content):
+                if any(c.isupper() for c in word):
+                    sub = re.sub(r"([A-Z])", r" \1", word).lower()
+                    camel_tokens.extend(re.findall(r"[a-z0-9]+", sub))
+            content_tokens.update([t for t in camel_tokens if len(t) > 1])
             
-            raw_tokens = re.findall(r"[a-z0-9]+", content.lower())
-            dl = len(raw_tokens)
-            doc_lengths[path] = dl
-            total_tokens_count += dl
-            
-            content_tokens = set(raw_tokens)
-            
-            if path.endswith(".java"):
-                camel_tokens = []
-                for word in re.findall(r"[a-zA-Z]+", content):
-                    if any(c.isupper() for c in word):
-                        sub = re.sub(r"([A-Z])", r" \1", word).lower()
-                        camel_tokens.extend(re.findall(r"[a-z0-9]+", sub))
-                content_tokens.update([t for t in camel_tokens if len(t) > 1])
-                
-            path_tokens = set(_path_tokens(path))
-            combined_tokens = content_tokens.union(path_tokens)
-            for term in query_terms:
-                if term in combined_tokens:
-                    document_frequency[term] += 1
-                elif len(term) > 3:
-                    for ct in combined_tokens:
-                        if term in ct:
-                            document_frequency[term] += 1
-                            break
-        except Exception:
-            file_contents[path] = ""
-            doc_lengths[path] = 0
+        path_tokens = set(_path_tokens(path))
+        combined_tokens = content_tokens.union(path_tokens)
+        for term in query_terms:
+            if term in combined_tokens:
+                document_frequency[term] += 1
+            elif len(term) > 3:
+                for ct in combined_tokens:
+                    if term in ct:
+                        document_frequency[term] += 1
+                        break
 
     avgdl = total_tokens_count / total_files if total_files > 0 else 1.0
 
@@ -357,8 +346,8 @@ def query(
 
     for path, node in repo_graph.nodes.items():
         kscore, kterms = _keyword_score(query_terms, path, idf_weights)
-        dl = doc_lengths.get(path, 0)
-        cscore, cterms = _content_score(query_terms, path, file_contents.get(path, ""), idf_weights, dl, avgdl)
+        dl = node.doc_length
+        cscore, cterms = _content_score(query_terms, path, node.content, idf_weights, dl, avgdl)
 
         keyword_scores[path] = kscore
         content_scores[path] = cscore
@@ -373,10 +362,10 @@ def query(
         
         base_scores[path] = combined
 
-    # --- Pass 3: neighbor bonus ---
+    # --- Pass 2: neighbor bonus ---
     boosted_scores = _apply_neighbor_bonus(base_scores, repo_graph)
 
-    # --- Pass 4: centrality tiebreaker ---
+    # --- Pass 3: centrality tiebreaker ---
     results = []
     for path, node in repo_graph.nodes.items():
         neighbor_bonus = boosted_scores[path] - base_scores[path]

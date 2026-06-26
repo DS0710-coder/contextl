@@ -13,21 +13,18 @@ import re
 from pathlib import Path
 
 from scanner import scan_repo
-from import_parser import parse_imports
+from import_parser import parse_imports, extract_skeleton
 from graph_builder import build_graph, RepoGraph
-
-
-PYTHON_DOCSTRING_PATTERN = re.compile(r'^\s*["\']{3}(.*?)["\']{3}', re.DOTALL)
-JS_DOC_PATTERN = re.compile(r'^\s*/\*\*(.*?)\*/', re.DOTALL)
-OUTLINE_PATTERN = re.compile(r'^\s*(?:export\s+)?(?:class|def|function|interface|type)\s+([a-zA-Z0-9_]+)', re.MULTILINE)
 
 def _extract_file_context(file_path: str, extension: str, root_dir: str) -> tuple[str, list[str], str]:
     """Returns (explanation, outline_symbols, snippet)."""
     explanation = "*No explanation provided in source code.*"
     outline = []
     snippet = ""
+    abs_path = str(Path(root_dir) / file_path)
+    
     try:
-        content = (Path(root_dir) / file_path).read_text(encoding="utf-8")
+        content = Path(abs_path).read_text(encoding="utf-8")
         
         # 1. Snippet (first 20 lines)
         lines = content.splitlines()
@@ -35,21 +32,20 @@ def _extract_file_context(file_path: str, extension: str, root_dir: str) -> tupl
         if len(lines) > 20:
             snippet += "\n..."
             
-        # 2. Explanation
-        if extension == ".py":
-            match = PYTHON_DOCSTRING_PATTERN.search(content)
-            if match:
-                explanation = match.group(1).strip()
-        elif extension in {".ts", ".tsx", ".js", ".jsx", ".java"}:
-            match = JS_DOC_PATTERN.search(content)
-            if match:
-                clean_lines = [line.strip().lstrip('*').strip() for line in match.group(1).split('\n')]
-                explanation = "\n".join(clean_lines).strip()
+        # 2 & 3. Explanation and Outline from Tree-Sitter
+        skeleton = extract_skeleton(abs_path)
+        
+        if "error" not in skeleton:
+            # Grab the first docstring if it exists
+            if skeleton["docstrings"]:
+                explanation = list(skeleton["docstrings"].values())[0]
                 
-        # 3. Outline
-        for match in OUTLINE_PATTERN.finditer(content):
-            outline.append(match.group(1))
-            
+            # Collect classes and functions
+            for cls in skeleton["classes"]:
+                outline.append(cls["name"])
+            for fn in skeleton["functions"]:
+                outline.append(fn["name"])
+                
     except Exception:
         pass
         

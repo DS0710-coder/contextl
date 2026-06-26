@@ -106,7 +106,7 @@ function pipInstall(python, packageName) {
 function ensureDeps(python) {
   const required = [
     { importName: "networkx", pipName: "networkx" },
-    { importName: "mcp",      pipName: "mcp" },
+    { importName: "mcp",      pipName: "mcp>=1.0.0" },
     { importName: "tree_sitter", pipName: "tree-sitter>=0.22.0" },
     { importName: "tree_sitter_python", pipName: "tree-sitter-python>=0.22.0" },
     { importName: "tree_sitter_javascript", pipName: "tree-sitter-javascript>=0.22.0" },

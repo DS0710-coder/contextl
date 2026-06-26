@@ -34,6 +34,10 @@ class FileNode:
     out_degree: int = 0       # files this imports
     centrality: float = 0.0   # PageRank score
 
+    # Text data (computed once)
+    content: str = ""
+    doc_length: int = 0
+
 
 @dataclass
 class RepoGraph:
@@ -126,16 +130,30 @@ def build_graph(scan_result, parse_result: ParseResult) -> RepoGraph:
     """
     G = nx.DiGraph()
 
+    import re
+
     # Add all scanned files as nodes
     file_nodes: dict[str, FileNode] = {}
     for f in scan_result.files:
+        abs_path = str(Path(scan_result.root) / f.path)
+        try:
+            with open(abs_path, "r", encoding="utf-8") as f_obj:
+                content = f_obj.read()
+            dl = len(re.findall(r"[a-z0-9]+", content.lower()))
+        except Exception:
+            content = ""
+            dl = 0
+
         node = FileNode(
             path=f.path,
             extension=f.extension,
             size_bytes=f.size_bytes,
+            content=content,
+            doc_length=dl,
         )
         file_nodes[f.path] = node
-        G.add_node(f.path, **vars(node))
+        # Add basic node properties to nx graph
+        G.add_node(f.path, path=node.path, extension=node.extension, size_bytes=node.size_bytes)
 
     # Add edges from import relationships
     for rel in parse_result.relationships:
