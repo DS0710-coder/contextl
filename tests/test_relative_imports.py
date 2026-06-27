@@ -9,7 +9,7 @@ import os
 sys.path.insert(0, os.path.abspath('src'))
 
 def test():
-    root = "tests/fixtures/bare_relative"
+    root = "tests/fixtures/bare_relative_py"
     scan = scan_repo(root)
     imports = parse_imports(scan)
     graph = build_graph(scan, imports)
@@ -22,7 +22,7 @@ def test():
 
     # check impact
     # pkg/a.py imports ..a (which resolves to pkg/a.py?) Wait, does it? Let's check impact of pkg/a.py.
-    # Actually wait, `..a` from `pkg/a.py` would be `tests/fixtures/bare_relative/a.py` or something.
+    # Actually wait, `..a` from `pkg/a.py` would be `tests/fixtures/bare_relative_py/a.py` or something.
     
     check_impact("pkg/sub/sibling.py", "pkg/sub/x.py")
     check_impact("pkg/helper.py", "pkg/sub/y.py")
