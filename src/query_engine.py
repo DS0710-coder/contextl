@@ -101,8 +101,7 @@ def _keyword_score(query_terms: list[str], file_path: str, idf_weights: dict[str
             matched.append(term)
         # Substring or abbreviation match on filename
         elif len(term) >= 2 and any(
-            term in ft or ft in term or ft.startswith(term) or term.startswith(ft) or
-            all(c in iter(ft) for c in term)
+            term in ft or ft in term or ft.startswith(term) or term.startswith(ft)
             for ft in filename_toks
         ):
             score += 3.0 * idf_weights.get(term, 1.0)
@@ -114,8 +113,7 @@ def _keyword_score(query_terms: list[str], file_path: str, idf_weights: dict[str
                 matched.append(term)
         # Substring or abbreviation match on path
         elif len(term) >= 2 and any(
-            term in pt or pt in term or pt.startswith(term) or term.startswith(pt) or
-            all(c in iter(pt) for c in term)
+            term in pt or pt in term or pt.startswith(term) or term.startswith(pt)
             for pt in path_toks
         ):
             score += 1.5 * idf_weights.get(term, 1.0)
