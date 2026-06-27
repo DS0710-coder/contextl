@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "contextl-mcp"
-version = "1.2.24"
+version = "1.2.25"
 description = "Repository Intelligence Engine — MCP server for AI coding agents"
 readme = "README.md"
 license = { text = "MIT" }

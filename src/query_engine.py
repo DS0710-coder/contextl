@@ -362,8 +362,9 @@ def query(
         content_scores[path] = cscore
         matched_terms[path] = list(set(kterms + cterms))
         
-        # Base combination: 50/50 keyword vs content
-        combined = (kscore * 0.5) + (cscore * 0.5)
+        # Base combination: heavily weight filename/path matches (70%) over content matches (30%)
+        # This prevents transitive consumers of a file from out-ranking the file itself
+        combined = (kscore * 0.7) + (cscore * 0.3)
         
         # Tiebreaker: Slightly penalize deep paths so src/x.py wins over build/npm/python/x.py
         depth_penalty = 0.0001 * path.count("/")

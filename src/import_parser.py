@@ -19,6 +19,18 @@ import sys
 from pathlib import Path, PurePosixPath
 from dataclasses import dataclass, field
 
+PYTHON_STDLIB_AND_COMMON_PACKAGES = {
+    "os", "sys", "re", "math", "json", "datetime", "typing", "collections",
+    "itertools", "functools", "pathlib", "logging", "argparse", "subprocess",
+    "unittest", "pytest", "numpy", "pandas", "requests", "urllib", "asyncio",
+    "time", "random", "hashlib", "base64", "csv", "xml", "html", "http",
+    "concurrent", "multiprocessing", "threading", "sqlite3", "flask", "django",
+    "fastapi", "sqlalchemy", "pydantic", "dataclasses", "uuid", "socket",
+    "struct", "tempfile", "shutil", "glob", "copy", "warnings", "traceback",
+    "contextlib", "io", "sysconfig", "importlib", "pkgutil", "runpy",
+    "celery", "redis", "psycopg2", "boto3", "jinja2", "pytest_mock",
+}
+
 from scanner import ScannedFile, ScanResult
 
 
@@ -142,7 +154,7 @@ def _ts_imports_js_ts(root: "Node") -> list[str]:
                     return child.text.decode("utf-8", errors="replace")
             # Fallback: strip quotes manually
             raw = node.text.decode("utf-8", errors="replace")
-            return raw.strip("'\"`")
+            return raw.strip('"\'`')
         return None
 
     def visit(node: "Node"):
@@ -883,6 +895,10 @@ def parse_imports(scan_result: ScanResult) -> ParseResult:
             else:
                 if scanned_file.extension == ".rs" and locals().get("is_likely_external", False):
                     continue
+                if scanned_file.extension == ".py":
+                    base_pkg = raw.split(".")[0]
+                    if base_pkg in PYTHON_STDLIB_AND_COMMON_PACKAGES:
+                        continue
                 result.unresolved.append((scanned_file.path, raw))
 
     return result
@@ -1495,11 +1511,18 @@ def extract_skeleton(file_path: str) -> dict:
     try:
         path = Path(file_path)
         ext = path.suffix.lower()
+        
+        lang_map = {
+            ".py": "python", ".ts": "typescript", ".tsx": "tsx",
+            ".js": "javascript", ".jsx": "jsx", ".java": "java",
+            ".rs": "rust", ".go": "go", ".cpp": "cpp",
+        }
+        derived_language = lang_map.get(ext, ext.lstrip("."))
 
         if not _TS_AVAILABLE:
             return {
                 "file": str(path),
-                "language": ext.lstrip("."),
+                "language": derived_language,
                 "error": "tree-sitter not installed — run: pip install tree-sitter tree-sitter-python tree-sitter-typescript ...",
                 "classes": [],
                 "functions": [],
@@ -1511,7 +1534,7 @@ def extract_skeleton(file_path: str) -> dict:
         if parser is None:
             return {
                 "file": str(path),
-                "language": ext.lstrip("."),
+                "language": derived_language,
                 "error": f"Unsupported file type: {ext}",
                 "classes": [],
                 "functions": [],
@@ -1526,19 +1549,13 @@ def extract_skeleton(file_path: str) -> dict:
         if handler is None:
             return {
                 "file": str(path),
-                "language": ext.lstrip("."),
+                "language": derived_language,
                 "error": f"No skeleton handler for {ext}",
                 "classes": [],
                 "functions": [],
                 "exports": [],
                 "docstrings": {},
             }
-
-        lang_map = {
-            ".py": "python", ".ts": "typescript", ".tsx": "tsx",
-            ".js": "javascript", ".jsx": "jsx", ".java": "java",
-            ".rs": "rust", ".go": "go", ".cpp": "cpp",
-        }
 
         if ext == ".py":
             body = handler(tree.root_node, source_bytes)
@@ -1547,14 +1564,22 @@ def extract_skeleton(file_path: str) -> dict:
 
         return {
             "file": str(path),
-            "language": lang_map.get(ext, ext.lstrip(".")),
+            "language": derived_language,
             **body,
         }
 
     except Exception as e:
+        # Fallback if path is not yet defined
+        lang = "unknown"
+        if 'derived_language' in locals():
+            lang = derived_language
+        elif 'file_path' in locals():
+            ext = Path(file_path).suffix.lower()
+            lang = lang_map.get(ext, ext.lstrip(".")) if 'lang_map' in locals() else ext.lstrip(".")
+
         return {
             "file": str(file_path),
-            "language": "unknown",
+            "language": lang,
             "error": str(e),
             "classes": [],
             "functions": [],
