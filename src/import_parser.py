@@ -847,7 +847,10 @@ def parse_imports(scan_result: ScanResult) -> ParseResult:
                     for sym in symbols_str.split(','):
                         sym = sym.split(' as ')[0].strip()
                         if sym and sym != '*':
-                            extra.append(f"{base}.{sym}")
+                            if base.endswith("."):
+                                extra.append(f"{base}{sym}")
+                            else:
+                                extra.append(f"{base}.{sym}")
             # Merge without duplicates
             seen = set(raw_imports)
             for e in extra:
