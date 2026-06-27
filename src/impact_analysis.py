@@ -23,7 +23,7 @@ import re
 
 # Heuristics for detecting test files by path/name
 TEST_MARKERS = ("test", "spec", "__tests__", "__mocks__")
-_TEST_PATTERN = re.compile(r'\b(?:' + '|'.join(re.escape(m) for m in TEST_MARKERS) + r')\b', re.IGNORECASE)
+_TEST_PATTERN = re.compile(r'(?<![a-z0-9])(?:' + '|'.join(re.escape(m) for m in TEST_MARKERS) + r')(?![a-z0-9])', re.IGNORECASE)
 
 
 @dataclass
