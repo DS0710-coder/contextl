@@ -65,9 +65,10 @@ class RankedFile:
 
 
 def _tokenize(text: str) -> list[str]:
-    """Lowercase, split on non-alphanumeric, remove stop words."""
+    """Lowercase, split on non-alphanumeric, remove stop words, deduplicate."""
     tokens = re.findall(r"[a-z0-9]+", text.lower())
-    return [t for t in tokens if t not in STOP_WORDS and len(t) > 1]
+    # Deduplicate while preserving order
+    return list(dict.fromkeys(t for t in tokens if t not in STOP_WORDS and len(t) > 1))
 
 
 def _path_tokens(path: str) -> list[str]:
