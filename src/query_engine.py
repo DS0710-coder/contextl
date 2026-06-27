@@ -96,7 +96,7 @@ def _keyword_score(query_terms: list[str], file_path: str, idf_weights: dict[str
     for term in query_terms:
         # Exact match on filename
         if term in filename_toks:
-            score += 2.0 * idf_weights.get(term, 1.0)   # Massive signal
+            score += 4.0 * idf_weights.get(term, 1.0)   # Massive signal
             matched.append(term)
         # Substring or abbreviation match on filename
         elif len(term) >= 2 and any(
@@ -104,11 +104,11 @@ def _keyword_score(query_terms: list[str], file_path: str, idf_weights: dict[str
             all(c in iter(ft) for c in term)
             for ft in filename_toks
         ):
-            score += 1.5 * idf_weights.get(term, 1.0)
+            score += 3.0 * idf_weights.get(term, 1.0)
             matched.append(term)
         # Exact match on path
         elif term in path_toks:
-            score += 0.8 * idf_weights.get(term, 1.0)   # Strong signal
+            score += 2.0 * idf_weights.get(term, 1.0)   # Strong signal
             if term not in matched:
                 matched.append(term)
         # Substring or abbreviation match on path
@@ -117,14 +117,16 @@ def _keyword_score(query_terms: list[str], file_path: str, idf_weights: dict[str
             all(c in iter(pt) for c in term)
             for pt in path_toks
         ):
-            score += 0.4 * idf_weights.get(term, 1.0)
+            score += 1.5 * idf_weights.get(term, 1.0)
             if term not in matched:
                 matched.append(term)
 
     # Normalize by max possible score (sum of all IDFs)
     max_score = sum(idf_weights.get(t, 1.0) for t in query_terms)
     if max_score > 0:
-        score = min(1.0, score / max_score) # Cap at 1.0 since we have massive multipliers
+        base_normalized = min(1.0, sum(idf_weights.get(t, 1.0) for t in matched) / max_score)
+        bonus = score - sum(idf_weights.get(t, 1.0) for t in matched)
+        score = base_normalized + max(0, bonus)
 
     return score, matched
 
