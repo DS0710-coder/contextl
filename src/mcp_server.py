@@ -106,7 +106,10 @@ def _get_graph(repo_path: str):
         now = time.time()
         entry = _cache.get(resolved)
         
-        # Fast path: bypass filesystem walk if checked within last 5 seconds
+        # Fast path: bypass filesystem walk if checked within last 5 seconds.
+        # This intentionally creates a 5s "blind window" where new/deleted/modified
+        # files are not instantly detected, drastically reducing disk I/O on large repos
+        # when the MCP client rapid-fires multiple queries concurrently.
         if entry and (now - entry.last_checked_time < 5.0):
             return entry.scan, entry.repo_graph
 

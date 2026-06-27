@@ -17,6 +17,7 @@ No LLM. No embeddings. Pure text + graph.
 import math
 import re
 from dataclasses import dataclass, field
+from impact_analysis import _is_test_file
 
 from scanner import scan_repo
 from import_parser import parse_imports
@@ -93,12 +94,16 @@ def _keyword_score(query_terms: list[str], file_path: str, idf_weights: dict[str
     score = 0.0
 
     for term in query_terms:
-        # Exact match
+        # Exact match on filename
         if term in filename_toks:
             score += 2.0 * idf_weights.get(term, 1.0)   # Massive signal
             matched.append(term)
-        # Substring match on filename
-        elif len(term) >= 2 and any(term in ft for ft in filename_toks) or any(len(ft) >= 2 and ft in term for ft in filename_toks):
+        # Substring or abbreviation match on filename
+        elif len(term) >= 2 and any(
+            term in ft or ft in term or ft.startswith(term) or term.startswith(ft) or
+            all(c in iter(ft) for c in term)
+            for ft in filename_toks
+        ):
             score += 1.5 * idf_weights.get(term, 1.0)
             matched.append(term)
         # Exact match on path
@@ -106,8 +111,12 @@ def _keyword_score(query_terms: list[str], file_path: str, idf_weights: dict[str
             score += 0.8 * idf_weights.get(term, 1.0)   # Strong signal
             if term not in matched:
                 matched.append(term)
-        # Substring match on path
-        elif len(term) >= 2 and any(term in pt for pt in path_toks) or any(len(pt) >= 2 and pt in term for pt in path_toks):
+        # Substring or abbreviation match on path
+        elif len(term) >= 2 and any(
+            term in pt or pt in term or pt.startswith(term) or term.startswith(pt) or
+            all(c in iter(pt) for c in term)
+            for pt in path_toks
+        ):
             score += 0.4 * idf_weights.get(term, 1.0)
             if term not in matched:
                 matched.append(term)
@@ -247,7 +256,7 @@ def _content_score(query_terms: list[str], file_path: str, file_content: str, id
 def _apply_neighbor_bonus(
     scores: dict[str, float],
     repo_graph: RepoGraph,
-    boost: float = 0.35,
+    boost: float = 0.2,
     depth: int = 1,
 ) -> dict[str, float]:
     """
@@ -383,7 +392,6 @@ def query(
 
     # Down-rank test files unless the user specifically searched for tests
     is_test_query = "test" in q.lower() or "spec" in q.lower()
-    from impact_analysis import _is_test_file
     for r in results:
         if _is_test_file(r.path) and not is_test_query:
             r.total_score *= 0.5

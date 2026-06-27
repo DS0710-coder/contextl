@@ -553,24 +553,35 @@ def _find_file_in_repo(
         return None
 
     if extension == ".py":
-        py_ext = candidate_str + ".py"
-        if py_ext in file_index:
-            return py_ext
-        py_idx = candidate_str + "/__init__.py"
-        if py_idx in file_index:
-            return py_idx
-        suffix = "/" + py_ext
-        for path in file_index:
-            if path.endswith(suffix) or path == py_ext:
-                return path
-                
-        # Fallback for Python cross-language imports (e.g. from tests to .ts/.js core logic)
-        for ext in [".ts", ".tsx", ".js", ".jsx", ".java", ".go", ".rs", ".cpp", ".cc", ".cxx", ".h", ".hpp", ".c"]:
-            alt_suffix = "/" + candidate_str + ext
-            alt_matches = [p for p in file_index if p.endswith(alt_suffix) or p == alt_suffix.lstrip("/")]
-            if len(alt_matches) == 1:
-                return alt_matches[0]
-                
+        def _resolve_python(cand: str) -> str | None:
+            py_ext = cand + ".py"
+            if py_ext in file_index:
+                return py_ext
+            py_idx = cand + "/__init__.py"
+            if py_idx in file_index:
+                return py_idx
+            suffix = "/" + py_ext
+            for path in file_index:
+                if path.endswith(suffix) or path == py_ext:
+                    return path
+                    
+            # Fallback for Python cross-language imports (e.g. from tests to .ts/.js core logic)
+            for ext in [".ts", ".tsx", ".js", ".jsx", ".java", ".go", ".rs", ".cpp", ".cc", ".cxx", ".h", ".hpp", ".c"]:
+                alt_suffix = "/" + cand + ext
+                alt_matches = [p for p in file_index if p.endswith(alt_suffix) or p == alt_suffix.lstrip("/")]
+                if len(alt_matches) == 1:
+                    return alt_matches[0]
+            return None
+            
+        res = _resolve_python(candidate_str)
+        if res is not None:
+            return res
+            
+        # Try stripping the last component (in case it's a symbol-level import like `from a.b import C`)
+        if "/" in candidate_str:
+            stripped = candidate_str.rsplit("/", 1)[0]
+            return _resolve_python(stripped)
+            
         return None
     for ext in [".tsx", ".ts", ".jsx", ".js"]:
         with_ext = candidate_str + ext
