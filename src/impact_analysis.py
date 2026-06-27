@@ -19,8 +19,11 @@ from import_parser import parse_imports
 from graph_builder import build_graph, RepoGraph
 
 
+import re
+
 # Heuristics for detecting test files by path/name
 TEST_MARKERS = ("test", "spec", "__tests__", "__mocks__")
+_TEST_PATTERN = re.compile(r'\b(?:' + '|'.join(re.escape(m) for m in TEST_MARKERS) + r')\b', re.IGNORECASE)
 
 
 @dataclass
@@ -104,8 +107,7 @@ class ImpactReport:
 
 
 def _is_test_file(path: str) -> bool:
-    lowered = path.lower()
-    return any(marker in lowered for marker in TEST_MARKERS)
+    return bool(_TEST_PATTERN.search(path))
 
 
 def analyze_impact(
