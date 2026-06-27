@@ -382,7 +382,7 @@ def query(
         ))
 
     # Down-rank test files unless the user specifically searched for tests
-    is_test_query = "test" in query_str.lower() or "spec" in query_str.lower()
+    is_test_query = "test" in q.lower() or "spec" in q.lower()
     from impact_analysis import _is_test_file
     for r in results:
         if _is_test_file(r.path) and not is_test_query:
