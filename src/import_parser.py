@@ -130,10 +130,31 @@ def _ts_imports_python(root: "Node") -> list[str]:
             # from pathlib import Path
             # from . import utils
             # from ..models import User
+            rel_import = None
             for child in node.children:
-                if child.type in ("dotted_name", "relative_import"):
-                    results.append(child.text.decode("utf-8", errors="replace"))
-                    break  # only the module name, not the imported symbols
+                if child.type == "relative_import":
+                    rel_import = child.text.decode("utf-8", errors="replace")
+                    break
+
+            if rel_import and rel_import.replace(".", "") == "":
+                # Bare relative import like `.` or `..`
+                seen_import = False
+                for child in node.children:
+                    if child.type == "import":
+                        seen_import = True
+                    elif seen_import:
+                        if child.type == "dotted_name":
+                            results.append(f"{rel_import}{child.text.decode('utf-8', errors='replace')}")
+                        elif child.type == "aliased_import":
+                            for sub in child.children:
+                                if sub.type == "dotted_name":
+                                    results.append(f"{rel_import}{sub.text.decode('utf-8', errors='replace')}")
+                                    break
+            else:
+                for child in node.children:
+                    if child.type in ("dotted_name", "relative_import"):
+                        results.append(child.text.decode("utf-8", errors="replace"))
+                        break  # only the module name, not the imported symbols
 
         for child in node.children:
             visit(child)
