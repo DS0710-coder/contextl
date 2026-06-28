@@ -836,27 +836,7 @@ def parse_imports(scan_result: ScanResult) -> ParseResult:
         if scanned_file.extension == ".py" and not _TS_AVAILABLE:
             pass  # regex already handles this above
         elif scanned_file.extension == ".py" and _TS_AVAILABLE:
-            # tree-sitter gives us just the module name; add symbol-level candidates
-            # to match the legacy behaviour that resolves "scanner.ScannedFile" → scanner.py
-            extra: list[str] = []
-            for match in PYTHON_FROM_IMPORT_PATTERN.finditer(source_code):
-                base = match.group(1)
-                symbols_str = match.group(2) or match.group(3)
-                if symbols_str:
-                    symbols_str = symbols_str.replace('(', '').replace(')', '').replace('\\', '').strip()
-                    for sym in symbols_str.split(','):
-                        sym = sym.split(' as ')[0].strip()
-                        if sym and sym != '*':
-                            if base.endswith("."):
-                                extra.append(f"{base}{sym}")
-                            else:
-                                extra.append(f"{base}.{sym}")
-            # Merge without duplicates
-            seen = set(raw_imports)
-            for e in extra:
-                if e not in seen:
-                    raw_imports.append(e)
-                    seen.add(e)
+            pass # tree-sitter gives us just the module name; add symbol-level candidates (legacy removed)
 
         for raw in raw_imports:
             if _is_external(raw, scanned_file.extension, alias_map):
@@ -980,6 +960,7 @@ def _skeleton_python(root: "Node", source_bytes: bytes) -> dict:
         name = ""
         bases: list[str] = []
         methods: list[dict] = []
+        nested_classes: list[dict] = []
         props: list[dict] = []
 
         for child in node.children:
@@ -1001,9 +982,16 @@ def _skeleton_python(root: "Node", source_bytes: bytes) -> dict:
                                 if sub.type == "function_definition":
                                     fn_node = sub
                                     break
-                        methods.append(visit_function(fn_node, is_method=True))
+                                elif sub.type == "class_definition":
+                                    nested_classes.append(visit_class(sub))
+                                    fn_node = None
+                                    break
+                        if fn_node is not None:
+                            methods.append(visit_function(fn_node, is_method=True))
+                    elif stmt.type == "class_definition":
+                        nested_classes.append(visit_class(stmt))
 
-        entry: dict = {"name": name, "bases": bases, "methods": methods, "properties": props}
+        entry: dict = {"name": name, "bases": bases, "methods": methods, "nested_classes": nested_classes, "properties": props}
         return entry
 
     def visit_function(node: "Node", is_method: bool = False) -> dict:
