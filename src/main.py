@@ -219,17 +219,25 @@ def build_parser() -> argparse.ArgumentParser:
     review_parser.add_argument("--unstaged", action="store_true", help="Only include unstaged changes")
     review_parser.add_argument("--json", action="store_true", help="Output clean JSON instead of human-readable text")
 
+    # 6. Install MCP Server
+    install_parser = subparsers.add_parser("install", help="Automatically install the ContextL MCP server into your AI Client")
+
     return parser
 
 
 def main():
     # To maintain backward compatibility with old `contextl <repo> <query>`
     # we manually inject "search" if the first argument isn't a known command.
-    if len(sys.argv) >= 2 and sys.argv[1] not in ["search", "standalone", "impact", "obsidian", "review", "-h", "--help"]:
+    if len(sys.argv) >= 2 and sys.argv[1] not in ["search", "standalone", "impact", "obsidian", "review", "install", "-h", "--help"]:
         sys.argv.insert(1, "search")
 
     parser = build_parser()
     args = parser.parse_args()
+
+    if args.command == "install":
+        from installer import install_mcp
+        install_mcp()
+        sys.exit(0)
 
     if args.command == "search":
         results, repo_graph, elapsed = run_engine(args.repo_path, args.query, args.top)
