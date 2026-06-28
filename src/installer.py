@@ -55,11 +55,20 @@ def install_mcp():
                 if "mcpServers" not in config:
                     config["mcpServers"] = {}
                 
+                # Determine ecosystem
+                is_npm = sys.argv[0].endswith("mcp_server.py") or "node_modules" in __file__
+                
                 # Inject contextl
-                config["mcpServers"]["contextl"] = {
-                    "command": "npx",
-                    "args": ["-y", "contextl"]
-                }
+                if is_npm:
+                    config["mcpServers"]["contextl"] = {
+                        "command": "npx",
+                        "args": ["-y", "contextl"]
+                    }
+                else:
+                    config["mcpServers"]["contextl"] = {
+                        "command": "contextl",
+                        "args": []
+                    }
                 
                 # Write config
                 with open(path, "w", encoding="utf-8") as f:
@@ -73,13 +82,24 @@ def install_mcp():
     if success_count > 0:
         print("\nInstallation successful! Please restart your IDE or AI Client (e.g. reload the window) for the changes to take effect.")
     else:
+        is_npm = sys.argv[0].endswith("mcp_server.py") or "node_modules" in __file__
         print("No supported MCP configuration files were found automatically.")
         print("You may need to manually add the following JSON to your MCP configuration:")
-        print(json.dumps({
-            "mcpServers": {
-                "contextl": {
-                    "command": "npx",
-                    "args": ["-y", "contextl"]
+        if is_npm:
+            print(json.dumps({
+                "mcpServers": {
+                    "contextl": {
+                        "command": "npx",
+                        "args": ["-y", "contextl"]
+                    }
                 }
-            }
-        }, indent=2))
+            }, indent=2))
+        else:
+            print(json.dumps({
+                "mcpServers": {
+                    "contextl": {
+                        "command": "contextl",
+                        "args": []
+                    }
+                }
+            }, indent=2))
