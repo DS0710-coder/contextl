@@ -1190,10 +1190,25 @@ def _skeleton_ts_js(root: "Node") -> dict:
             c = visit_class(node)
             classes.append(c)
             return
-        if node.type in ("function_declaration", "function"):
+        if node.type in ("function_declaration", "function", "generator_function_declaration", "generator_function"):
             f = visit_function(node)
             if f["name"]:
                 functions.append(f)
+            return
+        if node.type == "enum_declaration":
+            name = ""
+            for child in node.children:
+                if child.type == "identifier":
+                    name = _node_text(child)
+                    break
+            if name:
+                classes.append({
+                    "name": name,
+                    "extends": "",
+                    "implements": [],
+                    "methods": [],
+                    "properties": [],
+                })
             return
         if node.type == "export_statement":
             # Track what is exported
@@ -1205,12 +1220,46 @@ def _skeleton_ts_js(root: "Node") -> dict:
                     if c["name"]:
                         exports.append(c["name"])
                     return
-                if child.type in ("function_declaration", "function"):
+                if child.type in ("function_declaration", "function", "generator_function_declaration", "generator_function"):
                     f = visit_function(child)
                     if f["name"]:
                         f["is_exported"] = True
                         functions.append(f)
                         exports.append(f["name"])
+                    return
+                if child.type == "enum_declaration":
+                    name = ""
+                    for sub in child.children:
+                        if sub.type == "identifier":
+                            name = _node_text(sub)
+                            break
+                    if name:
+                        classes.append({
+                            "name": name,
+                            "extends": "",
+                            "implements": [],
+                            "methods": [],
+                            "properties": [],
+                        })
+                        exports.append(name)
+                    return
+                if child.type == "lexical_declaration":
+                    for sub in child.children:
+                        if sub.type == "variable_declarator":
+                            for sub2 in sub.children:
+                                if sub2.type == "identifier":
+                                    name = _node_text(sub2)
+                                    exports.append(name)
+                                    is_callable = any(c.type in ("arrow_function", "function", "generator_function") for c in sub.children)
+                                    if is_callable:
+                                        functions.append({
+                                            "name": name,
+                                            "params": "",
+                                            "return_type": "",
+                                            "is_async": False,
+                                            "is_exported": True,
+                                        })
+                                    break
                     return
                 if child.type == "export_clause":
                     for spec in child.children:
