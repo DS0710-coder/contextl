@@ -654,3 +654,3153 @@
 
 ---
 
+## Iteration 17 - 2026-06-29T02:14:34.866210
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 18 - 2026-06-29T02:14:36.731887
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 19 - 2026-06-29T02:14:38.694802
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 20 - 2026-06-29T02:14:40.533154
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 21 - 2026-06-29T02:14:42.323663
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 22 - 2026-06-29T02:14:44.284003
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 23 - 2026-06-29T02:14:46.144756
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 24 - 2026-06-29T02:14:47.880072
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 25 - 2026-06-29T02:14:49.800466
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 26 - 2026-06-29T02:14:51.573379
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 27 - 2026-06-29T02:14:53.449730
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 28 - 2026-06-29T02:14:55.256645
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 29 - 2026-06-29T02:14:56.999413
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 30 - 2026-06-29T02:14:58.954796
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 31 - 2026-06-29T02:15:00.708550
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 32 - 2026-06-29T02:15:02.640243
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 33 - 2026-06-29T02:15:04.638083
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 34 - 2026-06-29T02:15:06.439766
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 35 - 2026-06-29T02:15:08.307337
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 36 - 2026-06-29T02:15:10.252880
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 37 - 2026-06-29T02:15:12.286853
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 38 - 2026-06-29T02:15:14.240306
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 39 - 2026-06-29T02:15:16.117044
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 40 - 2026-06-29T02:15:18.058280
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 41 - 2026-06-29T02:15:19.876990
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 42 - 2026-06-29T02:15:22.003144
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 43 - 2026-06-29T02:15:23.963438
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 44 - 2026-06-29T02:15:26.046758
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 45 - 2026-06-29T02:15:27.940664
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 46 - 2026-06-29T02:15:29.948646
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 47 - 2026-06-29T02:15:31.873575
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 48 - 2026-06-29T02:15:33.919774
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 49 - 2026-06-29T02:15:35.914812
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 50 - 2026-06-29T02:15:37.835281
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 51 - 2026-06-29T02:15:39.976759
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 52 - 2026-06-29T02:15:41.900246
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 53 - 2026-06-29T02:15:43.733784
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 54 - 2026-06-29T02:15:45.919855
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 55 - 2026-06-29T02:15:48.123333
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 56 - 2026-06-29T02:15:50.203178
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 57 - 2026-06-29T02:15:52.069191
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 58 - 2026-06-29T02:15:53.937617
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 59 - 2026-06-29T02:15:55.765249
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 60 - 2026-06-29T02:15:57.543874
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 61 - 2026-06-29T02:15:59.425310
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 62 - 2026-06-29T02:16:01.359164
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 63 - 2026-06-29T02:16:03.136444
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 64 - 2026-06-29T02:16:04.937374
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 65 - 2026-06-29T02:16:06.762586
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 66 - 2026-06-29T02:16:08.632424
+
+**Summary:** Total=54, PASS=52, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| java | search_quality | query_repo | ✅ PASS | - |
+| git_test | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: ['file1', 'file2']` |
+| git_test | skeleton_complex | get_skeleton | ✅ PASS | - |
+| git_test | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| git_test | relative_circular | analyze_impact | ✅ PASS | - |
+| git_test | git_impact | review_changes | ✅ PASS | - |
+| git_test | search_quality | query_repo | ❌ FAIL | `monster file not found in results for 'monster'` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| javascript | search_quality | query_repo | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| typescript | search_quality | query_repo | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| python | search_quality | query_repo | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| c | search_quality | query_repo | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| rust | search_quality | query_repo | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| cpp | search_quality | query_repo | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| go | search_quality | query_repo | ✅ PASS | - |
+
+---
+
