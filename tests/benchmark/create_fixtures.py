@@ -159,3 +159,9 @@ for i in range(250):
     monster_c += f"    int a{i} = 0;\n"
 monster_c += "}\n"
 write(f"{b}/monster.h", monster_c)
+
+for lang in ["typescript", "javascript", "java", "rust", "go", "cpp", "c", "python"]:
+    b = f"tests/benchmark/fixtures/{lang}"
+    ext = {"typescript": ".ts", "javascript": ".js", "java": ".java", "rust": ".rs", "go": ".go", "cpp": ".cpp", "c": ".c", "python": ".py"}[lang]
+    write(f"{b}/care{ext}", "// care")
+    write(f"{b}/react{ext}", "// react")

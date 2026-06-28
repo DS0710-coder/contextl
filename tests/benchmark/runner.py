@@ -90,13 +90,57 @@ def test_language(lang: str, repo_path: str):
             assert len(ctx.all_affected) > 0
     run_test(lang, "git_impact", "review_changes", test_review)
 
-def test_adversarial():
-    def test_empty_query():
-        try:
-            mcp_server._run_query(str(FIXTURES_DIR / "python"), "", top_n=10)
-        except ValueError:
-            pass
-    run_test("all", "adversarial", "query_repo", test_empty_query)
+    # query_repo
+    def test_query():
+        from query_engine import query as run_engine_query
+        
+        # 1. Duplicate-term invariant
+        res_once = run_engine_query("monster", repo_graph, top_n=10)
+        res_thrice = run_engine_query("monster monster monster", repo_graph, top_n=10)
+        
+        def get_score(res, target_str):
+            for r in res:
+                if target_str in r.path.lower():
+                    return r.total_score
+            return 0.0
+            
+        score1 = get_score(res_once, "monster")
+        score3 = get_score(res_thrice, "monster")
+        assert score1 > 0.0, "monster file not found in results for 'monster'"
+        assert abs(score1 - score3) < 1e-6, f"Duplicate term inflated score: {score1} != {score3}"
+
+        # 2. Relevance ordering invariant
+        score_monster = get_score(res_once, "monster")
+        score_dead = get_score(res_once, "dead")
+        assert score_monster > score_dead, f"monster scored lower ({score_monster}) than dead ({score_dead})"
+        assert res_once and res_once[0].path.lower().find("monster") != -1, "monster file did not rank #1"
+        
+        # 3. Anagram/letter-overlap non-match check
+        res_care = run_engine_query("care", repo_graph, top_n=10)
+        react_kscore = 0.0
+        for r in res_care:
+            if "react" in r.path.lower():
+                react_kscore = r.keyword_score
+        assert react_kscore < 1e-6, f"Anagram 'react' matched 'care' with keyword score {react_kscore}"
+
+        # 4. Determinism check
+        res_det1 = run_engine_query("complex query", repo_graph, top_n=10)
+        res_det2 = run_engine_query("complex query", repo_graph, top_n=10)
+        assert len(res_det1) == len(res_det2), "Non-deterministic result length"
+        for r1, r2 in zip(res_det1, res_det2):
+            assert r1.path == r2.path and abs(r1.total_score - r2.total_score) < 1e-6, "Non-deterministic ranking or scores"
+
+        # 5. Empty query
+        res_empty = run_engine_query("", repo_graph, top_n=10)
+        assert res_empty == [], f"Empty query did not return empty list, got: {res_empty}"
+
+        res_mcp = mcp_server._run_query(repo_path, "", top_n=10)
+        assert res_mcp["results"] == [], f"Empty query in MCP handler did not return empty results: {res_mcp['results']}"
+
+    run_test(lang, "search_quality", "query_repo", test_query)
+
+
+
 
 def main():
     if not FIXTURES_DIR.exists():
@@ -105,7 +149,7 @@ def main():
         if lang_dir.is_dir():
             test_language(lang_dir.name, str(lang_dir))
     
-    test_adversarial()
+    
 
     pass_cnt = sum(1 for r in RESULTS if r["status"] == "PASS")
     fail_cnt = sum(1 for r in RESULTS if r["status"] == "FAIL")
