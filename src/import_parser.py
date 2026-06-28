@@ -1250,13 +1250,15 @@ def _skeleton_ts_js(root: "Node") -> dict:
                                 if sub2.type == "identifier":
                                     name = _node_text(sub2)
                                     exports.append(name)
-                                    functions.append({
-                                        "name": name,
-                                        "params": "",
-                                        "return_type": "",
-                                        "is_async": False,
-                                        "is_exported": True,
-                                    })
+                                    is_callable = any(c.type in ("arrow_function", "function", "generator_function") for c in sub.children)
+                                    if is_callable:
+                                        functions.append({
+                                            "name": name,
+                                            "params": "",
+                                            "return_type": "",
+                                            "is_async": False,
+                                            "is_exported": True,
+                                        })
                                     break
                     return
                 if child.type == "export_clause":
