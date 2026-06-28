@@ -11,7 +11,7 @@ def install_mcp():
     targets = []
     
     # 1. Antigravity
-    targets.append(home / ".gemini" / "antigravity" / "mcp_config.json")
+    targets.append(home / ".gemini" / "config" / "mcp_config.json")
     
     # 2. Claude Desktop
     if system == "Darwin":
