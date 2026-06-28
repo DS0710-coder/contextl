@@ -1,6 +1,7 @@
 import os
 import json
 import platform
+import sys
 from pathlib import Path
 
 def install_mcp():
