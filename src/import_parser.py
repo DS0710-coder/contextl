@@ -1185,6 +1185,42 @@ def _skeleton_ts_js(root: "Node") -> dict:
             "is_exported": is_exported,
         }
 
+    def visit_enum(node: "Node") -> dict:
+        name = ""
+        properties: list[dict] = []
+        for child in node.children:
+            if child.type == "identifier":
+                name = _node_text(child)
+            elif child.type == "enum_body":
+                for member in child.children:
+                    if member.type == "property_identifier":
+                        properties.append({
+                            "name": _node_text(member),
+                            "type": "",
+                            "visibility": "public",
+                        })
+                    elif member.type == "enum_assignment":
+                        member_name = ""
+                        member_val = ""
+                        for sub in member.children:
+                            if sub.type == "property_identifier":
+                                member_name = _node_text(sub)
+                            elif sub.type not in ("=",):
+                                member_val = _node_text(sub)
+                        if member_name:
+                            properties.append({
+                                "name": member_name,
+                                "type": member_val,
+                                "visibility": "public",
+                            })
+        return {
+            "name": name,
+            "extends": "",
+            "implements": [],
+            "methods": [],
+            "properties": properties,
+        }
+
     def visit(node: "Node"):
         if node.type == "class_declaration":
             c = visit_class(node)
@@ -1196,19 +1232,9 @@ def _skeleton_ts_js(root: "Node") -> dict:
                 functions.append(f)
             return
         if node.type == "enum_declaration":
-            name = ""
-            for child in node.children:
-                if child.type == "identifier":
-                    name = _node_text(child)
-                    break
-            if name:
-                classes.append({
-                    "name": name,
-                    "extends": "",
-                    "implements": [],
-                    "methods": [],
-                    "properties": [],
-                })
+            c = visit_enum(node)
+            if c["name"]:
+                classes.append(c)
             return
         if node.type == "export_statement":
             # Track what is exported
@@ -1228,20 +1254,10 @@ def _skeleton_ts_js(root: "Node") -> dict:
                         exports.append(f["name"])
                     return
                 if child.type == "enum_declaration":
-                    name = ""
-                    for sub in child.children:
-                        if sub.type == "identifier":
-                            name = _node_text(sub)
-                            break
-                    if name:
-                        classes.append({
-                            "name": name,
-                            "extends": "",
-                            "implements": [],
-                            "methods": [],
-                            "properties": [],
-                        })
-                        exports.append(name)
+                    c = visit_enum(child)
+                    if c["name"]:
+                        classes.append(c)
+                        exports.append(c["name"])
                     return
                 if child.type == "lexical_declaration":
                     for sub in child.children:
