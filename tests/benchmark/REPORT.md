@@ -1,0 +1,428 @@
+# Benchmark Report
+
+## Iteration 1 - 2026-06-28T12:29:36.410894
+
+**Summary:** Total=12, PASS=6, FAIL=2, CRASH=4
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| python | query_invariants | query_repo | 💥 CRASH | `Traceback (most recent call last):<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 31, in run_test<br>    func(*args, **kwargs)<br>    ~~~~^^^^^^^^^^^^^^^^^<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 45, in test_query<br>    res1 = query(repo_path, "monster", max_results=10)<br>TypeError: query() got an unexpected keyword argument 'max_results'<br>` |
+| python | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | 💥 CRASH | `Traceback (most recent call last):<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 31, in run_test<br>    func(*args, **kwargs)<br>    ~~~~^^^^^^^^^^^^^^^^^<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 80, in test_standalone<br>    dead_files = [f.path for f in find_standalone_files(repo_graph, scan)]<br>                                  ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^<br>TypeError: find_standalone_files() takes 1 positional argument but 2 were given<br>` |
+| python | skeleton_complex | get_skeleton | ❌ FAIL | `Decorator missing` |
+| typescript | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | 💥 CRASH | `Traceback (most recent call last):<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 31, in run_test<br>    func(*args, **kwargs)<br>    ~~~~^^^^^^^^^^^^^^^^^<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 113, in test_standalone<br>    dead_files = [f.path for f in find_standalone_files(repo_graph, scan)]<br>                                  ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^<br>TypeError: find_standalone_files() takes 1 positional argument but 2 were given<br>` |
+| javascript | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| java | relative_circular_barrel | analyze_impact | ❌ FAIL | `Main.java missing` |
+| rust | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| go | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| cpp | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| all | adversarial | query_repo | 💥 CRASH | `Traceback (most recent call last):<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 31, in run_test<br>    func(*args, **kwargs)<br>    ~~~~^^^^^^^^^^^^^^^^^<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 168, in test_empty_query<br>    mcp_server._query(str(FIXTURES_DIR / "python"), "")<br>    ^^^^^^^^^^^^^^^^^<br>AttributeError: module 'mcp_server' has no attribute '_query'<br>` |
+
+---
+
+## Iteration 2 - 2026-06-28T12:30:30.660456
+
+**Summary:** Total=12, PASS=8, FAIL=2, CRASH=2
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| python | query_invariants | query_repo | ✅ PASS | - |
+| python | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | 💥 CRASH | `Traceback (most recent call last):<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 31, in run_test<br>    func(*args, **kwargs)<br>    ~~~~^^^^^^^^^^^^^^^^^<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 80, in test_standalone<br>    dead_files = [f.path for f in find_standalone_files(repo_graph)]<br>                  ^^^^^^<br>AttributeError: 'str' object has no attribute 'path'<br>` |
+| python | skeleton_complex | get_skeleton | ❌ FAIL | `Decorator missing` |
+| typescript | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | 💥 CRASH | `Traceback (most recent call last):<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 31, in run_test<br>    func(*args, **kwargs)<br>    ~~~~^^^^^^^^^^^^^^^^^<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 113, in test_standalone<br>    dead_files = [f.path for f in find_standalone_files(repo_graph)]<br>                  ^^^^^^<br>AttributeError: 'str' object has no attribute 'path'<br>` |
+| javascript | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| java | relative_circular_barrel | analyze_impact | ❌ FAIL | `Main.java missing` |
+| rust | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| go | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| cpp | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| all | adversarial | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 3 - 2026-06-28T12:30:52.017267
+
+**Summary:** Total=12, PASS=10, FAIL=2, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| python | query_invariants | query_repo | ✅ PASS | - |
+| python | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ❌ FAIL | `Decorator missing` |
+| typescript | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| java | relative_circular_barrel | analyze_impact | ❌ FAIL | `Main.java missing` |
+| rust | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| go | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| cpp | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| all | adversarial | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 4 - 2026-06-28T12:33:44.181188
+
+**Summary:** Total=12, PASS=11, FAIL=1, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| python | query_invariants | query_repo | ✅ PASS | - |
+| python | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ❌ FAIL | `Nested doc missing` |
+| typescript | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| java | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| rust | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| go | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| cpp | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| all | adversarial | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 5 - 2026-06-28T12:34:22.886957
+
+**Summary:** Total=12, PASS=12, FAIL=0, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| python | query_invariants | query_repo | ✅ PASS | - |
+| python | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| java | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| rust | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| go | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| cpp | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| all | adversarial | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 6 - 2026-06-28T12:34:31.197354
+
+**Summary:** Total=12, PASS=12, FAIL=0, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| python | query_invariants | query_repo | ✅ PASS | - |
+| python | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| java | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| rust | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| go | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| cpp | relative_circular_barrel | analyze_impact | ✅ PASS | - |
+| all | adversarial | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 7 - 2026-06-28T12:35:10.618763
+
+**Summary:** Total=41, PASS=22, FAIL=11, CRASH=8
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ❌ FAIL | `dead code not flagged. found: []` |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ❌ FAIL | `Failed to export` |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | 💥 CRASH | `Traceback (most recent call last):<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 30, in run_test<br>    func(*args, **kwargs)<br>    ~~~~^^^^^^^^^^^^^^^^^<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 90, in test_review<br>    assert len(ctx.get("direct_impacts", [])) > 0<br>               ^^^^^^^<br>AttributeError: 'ReviewContext' object has no attribute 'get'<br>` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ❌ FAIL | `Failed to export` |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | 💥 CRASH | `Traceback (most recent call last):<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 30, in run_test<br>    func(*args, **kwargs)<br>    ~~~~^^^^^^^^^^^^^^^^^<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 90, in test_review<br>    assert len(ctx.get("direct_impacts", [])) > 0<br>               ^^^^^^^<br>AttributeError: 'ReviewContext' object has no attribute 'get'<br>` |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ❌ FAIL | `Failed to export` |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | 💥 CRASH | `Traceback (most recent call last):<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 30, in run_test<br>    func(*args, **kwargs)<br>    ~~~~^^^^^^^^^^^^^^^^^<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 90, in test_review<br>    assert len(ctx.get("direct_impacts", [])) > 0<br>               ^^^^^^^<br>AttributeError: 'ReviewContext' object has no attribute 'get'<br>` |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ❌ FAIL | `Failed to export` |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | 💥 CRASH | `Traceback (most recent call last):<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 30, in run_test<br>    func(*args, **kwargs)<br>    ~~~~^^^^^^^^^^^^^^^^^<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 90, in test_review<br>    assert len(ctx.get("direct_impacts", [])) > 0<br>               ^^^^^^^<br>AttributeError: 'ReviewContext' object has no attribute 'get'<br>` |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ❌ FAIL | `Failed to export` |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | 💥 CRASH | `Traceback (most recent call last):<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 30, in run_test<br>    func(*args, **kwargs)<br>    ~~~~^^^^^^^^^^^^^^^^^<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 90, in test_review<br>    assert len(ctx.get("direct_impacts", [])) > 0<br>               ^^^^^^^<br>AttributeError: 'ReviewContext' object has no attribute 'get'<br>` |
+| rust | dead_code_heuristics | find_standalone_files | ❌ FAIL | `entry point incorrectly flagged as dead: ['dead', 'fastest', 'main', 'monster', 'my file', 'mod', 'mod', 'x']` |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ❌ FAIL | `Failed to export` |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | 💥 CRASH | `Traceback (most recent call last):<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 30, in run_test<br>    func(*args, **kwargs)<br>    ~~~~^^^^^^^^^^^^^^^^^<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 90, in test_review<br>    assert len(ctx.get("direct_impacts", [])) > 0<br>               ^^^^^^^<br>AttributeError: 'ReviewContext' object has no attribute 'get'<br>` |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ❌ FAIL | `Failed to export` |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | 💥 CRASH | `Traceback (most recent call last):<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 30, in run_test<br>    func(*args, **kwargs)<br>    ~~~~^^^^^^^^^^^^^^^^^<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 90, in test_review<br>    assert len(ctx.get("direct_impacts", [])) > 0<br>               ^^^^^^^<br>AttributeError: 'ReviewContext' object has no attribute 'get'<br>` |
+| go | dead_code_heuristics | find_standalone_files | ❌ FAIL | `entry point incorrectly flagged as dead: ['main', 'contest', 'dead', 'monster', 'my file', 'x']` |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ❌ FAIL | `Failed to export` |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | 💥 CRASH | `Traceback (most recent call last):<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 30, in run_test<br>    func(*args, **kwargs)<br>    ~~~~^^^^^^^^^^^^^^^^^<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 90, in test_review<br>    assert len(ctx.get("direct_impacts", [])) > 0<br>               ^^^^^^^<br>AttributeError: 'ReviewContext' object has no attribute 'get'<br>` |
+| all | adversarial | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 8 - 2026-06-28T12:36:57.638039
+
+**Summary:** Total=41, PASS=33, FAIL=0, CRASH=8
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | 💥 CRASH | `Traceback (most recent call last):<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 30, in run_test<br>    func(*args, **kwargs)<br>    ~~~~^^^^^^^^^^^^^^^^^<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 90, in test_review<br>    assert len(ctx.direct_impacts) > 0<br>               ^^^^^^^^^^^^^^^^^^<br>AttributeError: 'ReviewContext' object has no attribute 'direct_impacts'<br>` |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | 💥 CRASH | `Traceback (most recent call last):<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 30, in run_test<br>    func(*args, **kwargs)<br>    ~~~~^^^^^^^^^^^^^^^^^<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 90, in test_review<br>    assert len(ctx.direct_impacts) > 0<br>               ^^^^^^^^^^^^^^^^^^<br>AttributeError: 'ReviewContext' object has no attribute 'direct_impacts'<br>` |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | 💥 CRASH | `Traceback (most recent call last):<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 30, in run_test<br>    func(*args, **kwargs)<br>    ~~~~^^^^^^^^^^^^^^^^^<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 90, in test_review<br>    assert len(ctx.direct_impacts) > 0<br>               ^^^^^^^^^^^^^^^^^^<br>AttributeError: 'ReviewContext' object has no attribute 'direct_impacts'<br>` |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | 💥 CRASH | `Traceback (most recent call last):<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 30, in run_test<br>    func(*args, **kwargs)<br>    ~~~~^^^^^^^^^^^^^^^^^<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 90, in test_review<br>    assert len(ctx.direct_impacts) > 0<br>               ^^^^^^^^^^^^^^^^^^<br>AttributeError: 'ReviewContext' object has no attribute 'direct_impacts'<br>` |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | 💥 CRASH | `Traceback (most recent call last):<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 30, in run_test<br>    func(*args, **kwargs)<br>    ~~~~^^^^^^^^^^^^^^^^^<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 90, in test_review<br>    assert len(ctx.direct_impacts) > 0<br>               ^^^^^^^^^^^^^^^^^^<br>AttributeError: 'ReviewContext' object has no attribute 'direct_impacts'<br>` |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | 💥 CRASH | `Traceback (most recent call last):<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 30, in run_test<br>    func(*args, **kwargs)<br>    ~~~~^^^^^^^^^^^^^^^^^<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 90, in test_review<br>    assert len(ctx.direct_impacts) > 0<br>               ^^^^^^^^^^^^^^^^^^<br>AttributeError: 'ReviewContext' object has no attribute 'direct_impacts'<br>` |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | 💥 CRASH | `Traceback (most recent call last):<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 30, in run_test<br>    func(*args, **kwargs)<br>    ~~~~^^^^^^^^^^^^^^^^^<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 90, in test_review<br>    assert len(ctx.direct_impacts) > 0<br>               ^^^^^^^^^^^^^^^^^^<br>AttributeError: 'ReviewContext' object has no attribute 'direct_impacts'<br>` |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | 💥 CRASH | `Traceback (most recent call last):<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 30, in run_test<br>    func(*args, **kwargs)<br>    ~~~~^^^^^^^^^^^^^^^^^<br>  File "/home/dev7shah/Desktop/contextl/tests/benchmark/runner.py", line 90, in test_review<br>    assert len(ctx.direct_impacts) > 0<br>               ^^^^^^^^^^^^^^^^^^<br>AttributeError: 'ReviewContext' object has no attribute 'direct_impacts'<br>` |
+| all | adversarial | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 9 - 2026-06-28T12:37:23.162032
+
+**Summary:** Total=41, PASS=41, FAIL=0, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| all | adversarial | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 10 - 2026-06-28T12:37:32.189270
+
+**Summary:** Total=41, PASS=41, FAIL=0, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| all | adversarial | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 11 - 2026-06-28T12:39:14.632515
+
+**Summary:** Total=41, PASS=41, FAIL=0, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| all | adversarial | query_repo | ✅ PASS | - |
+
+---
+
+## Iteration 12 - 2026-06-28T12:39:24.454114
+
+**Summary:** Total=41, PASS=41, FAIL=0, CRASH=0
+
+| Language | Feature | Tool | Status | Details |
+|---|---|---|---|---|
+| java | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| java | skeleton_complex | get_skeleton | ✅ PASS | - |
+| java | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| java | relative_circular | analyze_impact | ✅ PASS | - |
+| java | git_impact | review_changes | ✅ PASS | - |
+| javascript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| javascript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| javascript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| javascript | relative_circular | analyze_impact | ✅ PASS | - |
+| javascript | git_impact | review_changes | ✅ PASS | - |
+| typescript | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| typescript | skeleton_complex | get_skeleton | ✅ PASS | - |
+| typescript | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| typescript | relative_circular | analyze_impact | ✅ PASS | - |
+| typescript | git_impact | review_changes | ✅ PASS | - |
+| python | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| python | skeleton_complex | get_skeleton | ✅ PASS | - |
+| python | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| python | relative_circular | analyze_impact | ✅ PASS | - |
+| python | git_impact | review_changes | ✅ PASS | - |
+| c | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| c | skeleton_complex | get_skeleton | ✅ PASS | - |
+| c | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| c | relative_circular | analyze_impact | ✅ PASS | - |
+| c | git_impact | review_changes | ✅ PASS | - |
+| rust | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| rust | skeleton_complex | get_skeleton | ✅ PASS | - |
+| rust | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| rust | relative_circular | analyze_impact | ✅ PASS | - |
+| rust | git_impact | review_changes | ✅ PASS | - |
+| cpp | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| cpp | skeleton_complex | get_skeleton | ✅ PASS | - |
+| cpp | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| cpp | relative_circular | analyze_impact | ✅ PASS | - |
+| cpp | git_impact | review_changes | ✅ PASS | - |
+| go | dead_code_heuristics | find_standalone_files | ✅ PASS | - |
+| go | skeleton_complex | get_skeleton | ✅ PASS | - |
+| go | vault_generation | export_obsidian_vault | ✅ PASS | - |
+| go | relative_circular | analyze_impact | ✅ PASS | - |
+| go | git_impact | review_changes | ✅ PASS | - |
+| all | adversarial | query_repo | ✅ PASS | - |
+
+---
+

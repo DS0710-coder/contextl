@@ -1,0 +1,1 @@
+module.exports = { dead: true };

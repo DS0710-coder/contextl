@@ -18,7 +18,7 @@ ENTRY_POINT_MARKERS = {
     "route.ts", "route.js",
     "globals.css", "global.css", "tailwind.css",
     "index.ts", "index.js", "index.tsx", "index.jsx",
-    "main.ts", "main.js", "main.py",
+    "main.ts", "main.js", "main.py", "main.go", "main.rs", "main.c", "main.cpp", "main.cc", "main.java",
     "app.ts", "app.js", "app.tsx", "app.jsx", "app.py",
     "mcp_server.py", "server.ts", "server.js", "server.py",
     "__main__.py", "__init__.py", "setup.py", "conftest.py",
