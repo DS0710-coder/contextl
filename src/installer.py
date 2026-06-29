@@ -75,10 +75,10 @@ def install_mcp():
                 with open(path, "w", encoding="utf-8") as f:
                     json.dump(config, f, indent=2)
                     
-                print(f"✅ Successfully injected ContextL MCP Server into: {path}")
+                print(f"[SUCCESS] Successfully injected ContextL MCP Server into: {path}")
                 success_count += 1
             except Exception as e:
-                print(f"❌ Failed to parse or write to {path}: {e}")
+                print(f"[ERROR] Failed to parse or write to {path}: {e}")
                 
     if success_count > 0:
         print("\nInstallation successful! Please restart your IDE or AI Client (e.g. reload the window) for the changes to take effect.")
