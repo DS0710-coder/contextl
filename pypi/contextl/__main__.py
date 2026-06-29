@@ -37,6 +37,7 @@ def main() -> None:
     env = os.environ.copy()
     env["PYTHONPATH"] = str(python_dir)
     env["PYTHONUNBUFFERED"] = "1"
+    env["CONTEXTL_ECOSYSTEM"] = "pip"
 
     # Replace this process entirely — clean stdio passthrough, no extra PID.
     os.execve(sys.executable, [sys.executable, str(mcp_server)] + sys.argv[1:], env)
