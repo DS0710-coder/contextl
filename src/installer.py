@@ -11,6 +11,9 @@ def install_mcp():
     # Define common MCP configuration paths
     targets = []
     
+    # Default to pip/direct invocation if not explicitly set by the npm wrapper
+    is_npm = os.environ.get("CONTEXTL_ECOSYSTEM") == "npm"
+    
     # 1. Antigravity
     targets.append(home / ".gemini" / "config" / "mcp_config.json")
     
@@ -56,9 +59,6 @@ def install_mcp():
                 if "mcpServers" not in config:
                     config["mcpServers"] = {}
                 
-                # Determine ecosystem
-                is_npm = sys.argv[0].endswith("mcp_server.py") or "node_modules" in __file__
-                
                 # Inject contextl
                 if is_npm:
                     config["mcpServers"]["contextl"] = {
@@ -83,7 +83,6 @@ def install_mcp():
     if success_count > 0:
         print("\nInstallation successful! Please restart your IDE or AI Client (e.g. reload the window) for the changes to take effect.")
     else:
-        is_npm = sys.argv[0].endswith("mcp_server.py") or "node_modules" in __file__
         print("No supported MCP configuration files were found automatically.")
         print("You may need to manually add the following JSON to your MCP configuration:")
         if is_npm:

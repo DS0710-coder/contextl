@@ -143,6 +143,7 @@ function launchServer(python) {
       ...process.env,
       PYTHONPATH: PYTHON_DIR,
       PYTHONUNBUFFERED: "1",
+      CONTEXTL_ECOSYSTEM: "npm",
     },
   });
 
