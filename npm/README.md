@@ -12,7 +12,7 @@ lib/api.ts                   [high confidence]
 types/index.ts                [medium confidence]
 ```
 
-No LLM. No embeddings. No API keys. No vector database. Pure dependency graph + text scoring — runs entirely on your machine, your code never leaves your laptop.
+No LLM. No embeddings. No API keys. No vector database. Pure dependency graph + text scoring — runs entirely on your machine, your code never leaves your system.
 
 ---
 
@@ -178,6 +178,8 @@ See the full live telemetry and methodology breakdown at our [official documenta
    - The engine calculates PageRank across the entire repository graph. When files have identical or highly similar relevance scores, highly-central files heavily depended on by the rest of the codebase (like core `utils.py` or base classes) rank slightly higher.
 
 *(Note: Test files are automatically penalized by 50% unless the natural language query explicitly contains words like "test" or "spec".)*
+
+No machine learning involved — every score is fully explainable and traceable back to a specific signal.
 
 ---
 
