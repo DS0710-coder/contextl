@@ -2,16 +2,13 @@
 Repository Intelligence Engine
 Step 3: Graph Builder
 
-Takes the import relationships from the parser and builds a directed graph
-where nodes are files and edges are import dependencies.
+Takes the list of who-imports-who and maps out the entire repository like a giant spiderweb.
+Each file is a dot (node), and each import is a line connecting them (edge).
 
-Adds useful metadata to each node:
-  - in_degree:  how many files import this file (how "shared" it is)
-  - out_degree: how many files this file imports (how many deps it has)
-  - centrality: PageRank score (overall importance in the graph)
-
-Also computes connected clusters so we can understand which files
-belong to the same logical feature.
+We figure out three main things for every file:
+  - in_degree:  How many other files import this one? (Is it a shared utility?)
+  - out_degree: How many files does this one import? (Is it a heavy coordinator?)
+  - centrality: Overall importance score (using Google's original PageRank math!)
 """
 
 import networkx as nx
@@ -160,11 +157,12 @@ def build_graph(scan_result, parse_result: ParseResult) -> RepoGraph:
         if rel.source in G and rel.target in G:
             G.add_edge(rel.source, rel.target, raw_import=rel.raw_import)
 
-    # Compute PageRank (importance score)
+    # Run the PageRank algorithm to figure out which files are the most "important"
     try:
         pagerank = nx.pagerank(G, alpha=0.85)
         
-        # Penalize cycle-locked nodes to prevent inflation
+        # Sometimes files get stuck importing each other in a circle (circular dependencies).
+        # We penalize files that only get imported by their circular friends so they don't artificially inflate their score.
         sccs = [scc for scc in nx.strongly_connected_components(G) if len(scc) > 1]
         for scc in sccs:
             for node in scc:
@@ -175,7 +173,7 @@ def build_graph(scan_result, parse_result: ParseResult) -> RepoGraph:
     except nx.PowerIterationFailedConvergence:
         pagerank = {n: 1.0 / len(G.nodes) for n in G.nodes}
 
-    # Attach metrics to each node
+    # Finally, stick all these cool metrics onto the file objects so we can use them later
     for path, node in file_nodes.items():
         node.in_degree = G.in_degree(path)
         node.out_degree = G.out_degree(path)

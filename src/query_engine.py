@@ -153,7 +153,7 @@ def _keyword_score(query_terms: list[str], file_path: str, idf_weights: dict[str
             if term not in matched:
                 matched.append(term)
 
-    # Normalize by max possible score (sum of all IDFs)
+    # Normalize the score so it maxes out at 1.0 (unless there are bonus points)
     max_score = sum(idf_weights.get(t, 1.0) for t in query_terms)
     if max_score > 0:
         base_normalized = min(1.0, sum(idf_weights.get(t, 1.0) for t in matched) / max_score)
@@ -165,9 +165,10 @@ def _keyword_score(query_terms: list[str], file_path: str, idf_weights: dict[str
 
 def _content_score(query_terms: list[str], file_path: str, file_content: str, idf_weights: dict[str, float], dl: int, avgdl: float) -> tuple[float, list[str]]:
     """
-    Score how often query terms appear in the file's source code.
-    Uses BM25 Term Frequency weighting to neutralize document length bias.
-    Includes language-specific heuristics for Java and other OOP languages.
+    Looks inside the file content to see how often the search terms appear.
+    We use BM25 math here, which basically prevents huge 10,000-line files from 
+    stealing all the top spots just because they have more words.
+    We also add some smart bonuses if the search term matches a class name or function!
     """
     is_java = file_path.endswith(".java")
     is_ts = file_path.endswith(".ts") or file_path.endswith(".tsx")
@@ -239,9 +240,9 @@ def _content_score(query_terms: list[str], file_path: str, file_content: str, id
     if not query_terms:
         return 0.0, []
 
-    # Multiplier strength scales inversely with query length.
-    # Short queries (1-2 terms, likely vibe) need a loud structural signal.
-    # Long queries (4+ terms, likely standard LLM) rely more on BM25 math.
+    # We dynamically adjust our multipliers depending on how long the user's search is.
+    # If they only typed 1 or 2 words, they are probably looking for a specific class or file, so we boost structural matches heavily.
+    # If they typed a whole paragraph, we rely more on the math of term frequencies.
     n_terms = len(query_terms)
     if n_terms <= 2:
         class_mult = 10.0
@@ -268,7 +269,7 @@ def _content_score(query_terms: list[str], file_path: str, file_content: str, id
         elif t in annotations:
             multiplier = ann_mult
             
-        # 4. BM25 Term Frequency
+        # Step 4: Run the BM25 formula to get our final content score for this file
         count = term_counts[t]
         k1 = 1.5
         b = 0.75
@@ -304,7 +305,7 @@ def _apply_neighbor_bonus(
     boosted = dict(scores)
 
     for path, score in scores.items():
-        # Only propagate from files with meaningful scores
+        # We only want to share points from files that actually matched something meaningfu
         if score < 0.1:
             continue
 
@@ -391,8 +392,9 @@ def query(
         content_scores[path] = cscore
         matched_terms[path] = list(set(kterms + cterms))
         
-        # Base combination: heavily weight filename/path matches (70%) over content matches (30%)
-        # This prevents transitive consumers of a file from out-ranking the file itself
+        # Combine the scores. We heavily favor files where the filename matches (70%) 
+        # over files where the content just mentions the word (30%). 
+        # This stops a random utility file from being out-ranked by 50 other files that import it.
         combined = (kscore * 0.7) + (cscore * 0.3)
         
         # Tiebreaker: Slightly penalize deep paths so src/x.py wins over build/npm/python/x.py

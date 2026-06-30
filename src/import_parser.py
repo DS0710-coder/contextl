@@ -35,7 +35,8 @@ from scanner import ScannedFile, ScanResult
 
 
 # ---------------------------------------------------------------------------
-# tree-sitter availability check — graceful fallback to regex if not installed
+# We try to use the Tree-Sitter library because it's super fast and accurate.
+# But if it's not installed, we gracefully fall back to regular expressions!
 # ---------------------------------------------------------------------------
 try:
     from tree_sitter import Language, Parser as TSParser, Node
@@ -106,7 +107,9 @@ def _get_parser(ext: str):
 
 
 # ---------------------------------------------------------------------------
-# tree-sitter import extraction — per-language node walkers
+# Language-Specific Tree Walkers
+# These functions dig through the syntax tree of different languages to find 
+# exactly what other files they are importing.
 # ---------------------------------------------------------------------------
 
 def _ts_imports_python(root: "Node") -> list[str]:
@@ -357,7 +360,7 @@ def _extract_raw_imports_ts(source_bytes: bytes, ext: str) -> list[str]:
 
 
 # ---------------------------------------------------------------------------
-# Regex fallback (kept verbatim from original for non-tree-sitter envs)
+# Regex fallback (just in case Tree-Sitter isn't working for some reason)
 # ---------------------------------------------------------------------------
 
 IMPORT_PATTERN = re.compile(
@@ -794,7 +797,9 @@ class ParseResult:
 
 
 # ---------------------------------------------------------------------------
-# Main entry point (public API — signature unchanged)
+# Main Engine
+# This takes the raw text from files and turns it into a list of actual 
+# file-to-file relationships.
 # ---------------------------------------------------------------------------
 
 def parse_imports(scan_result: ScanResult) -> ParseResult:
