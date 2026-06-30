@@ -144,10 +144,23 @@ Extracts the structural skeleton (API surface) of a source file using Tree-sitte
 
 ## How the ranking works
 
-1. **Keyword match** — does the filename contain query terms?
-2. **Content match** — does the file's source code mention the terms?
-3. **Graph proximity** — files connected to high-scoring files get a relevance boost
-4. **Centrality (PageRank)** — heavily-connected files rank higher when scores tie
+`contextl` relies strictly on deterministic mathematical scoring based on Okapi BM25 and graph theory. There are no LLMs or embeddings involved.
+
+1. **Keyword Match (Path / Filename)**
+   - Exact filename matches receive a massive `4.0x` IDF multiplier.
+   - Exact path matches receive a `2.0x` IDF multiplier.
+   - Substring and canonical abbreviation matches (e.g., `db` matching `database.py`) also receive significant boosts.
+2. **Content Match (BM25 TF-IDF & Structural Analysis)**
+   - Calculates Okapi BM25 Term Frequency (`k1=1.5`, `b=0.75`), using Document Length Normalization to aggressively penalize huge files (e.g., 5,000-line god classes) and normalize token counts.
+   - **TypeScript Exports**: Matches on `export const / class / function` receive a permanent `8.0x` multiplier.
+   - **Classes / Interfaces**: Matches on OOP class definitions receive up to a `10.0x` structural multiplier for short vibe queries.
+   - **Functions / Annotations**: Matches on method signatures and annotations receive a `4.0x` or `5.0x` boost.
+3. **Graph Proximity Bonus**
+   - Files directly adjacent in the dependency graph to high-scoring files receive a `0.2x` recursive relevance boost, pulling tightly coupled dependencies up the ranking.
+4. **Centrality Tiebreaker**
+   - The engine calculates PageRank across the entire repository graph. When files have identical or highly similar relevance scores, highly-central files heavily depended on by the rest of the codebase (like core `utils.py` or base classes) rank slightly higher.
+
+*(Note: Test files are automatically penalized by 50% unless the natural language query explicitly contains words like "test" or "spec".)*
 
 ---
 
