@@ -28,6 +28,7 @@
   "bin": {
     "contextl": "bin/contextl.js"
   },
+  "preferGlobal": true,
   "files": [
     "bin/",
     "python/",
