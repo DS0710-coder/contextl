@@ -80,7 +80,45 @@ def _path_tokens(path: str) -> list[str]:
         # Split camelCase: LoginHeader → login, header
         sub = re.sub(r"([A-Z])", r" \1", part).lower()
         tokens.extend(re.findall(r"[a-z0-9]+", sub))
-    return [t for t in tokens if t not in STOP_WORDS and len(t) > 1]
+COMMON_ABBREVS = {
+    "db": "database",
+    "auth": "authentication",
+    "config": "configuration",
+    "pkg": "package",
+    "app": "application",
+    "svc": "service",
+    "repo": "repository",
+    "mgr": "manager",
+    "impl": "implementation",
+    "dir": "directory",
+    "req": "request",
+    "res": "response",
+    "env": "environment",
+    "src": "source",
+    "lib": "library",
+    "bin": "binary",
+    "init": "initialize",
+    "util": "utility",
+    "utils": "utilities",
+    "msg": "message",
+    "err": "error",
+    "ctx": "context",
+    "fn": "function",
+    "cmd": "command",
+    "ctrl": "controller",
+    "mid": "middleware"
+}
+
+def _is_match(term: str, target: str) -> bool:
+    if term in target or target in term or target.startswith(term) or term.startswith(target):
+        return True
+        
+    # Static dictionary for common development abbreviations
+    expanded = COMMON_ABBREVS.get(term)
+    if expanded and (expanded == target or expanded in target):
+        return True
+        
+    return False
 
 
 def _keyword_score(query_terms: list[str], file_path: str, idf_weights: dict[str, float]) -> tuple[float, list[str]]:
@@ -100,10 +138,7 @@ def _keyword_score(query_terms: list[str], file_path: str, idf_weights: dict[str
             score += 4.0 * idf_weights.get(term, 1.0)   # Massive signal
             matched.append(term)
         # Substring or abbreviation match on filename
-        elif len(term) >= 2 and any(
-            term in ft or ft in term or ft.startswith(term) or term.startswith(ft)
-            for ft in filename_toks
-        ):
+        elif len(term) >= 2 and any(_is_match(term, ft) for ft in filename_toks):
             score += 3.0 * idf_weights.get(term, 1.0)
             matched.append(term)
         # Exact match on path
@@ -112,10 +147,7 @@ def _keyword_score(query_terms: list[str], file_path: str, idf_weights: dict[str
             if term not in matched:
                 matched.append(term)
         # Substring or abbreviation match on path
-        elif len(term) >= 2 and any(
-            term in pt or pt in term or pt.startswith(term) or term.startswith(pt)
-            for pt in path_toks
-        ):
+        elif len(term) >= 2 and any(_is_match(term, pt) for pt in path_toks):
             score += 1.5 * idf_weights.get(term, 1.0)
             if term not in matched:
                 matched.append(term)

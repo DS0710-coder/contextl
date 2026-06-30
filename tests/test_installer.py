@@ -20,6 +20,8 @@ class TestInstaller(unittest.TestCase):
         (self.home / ".config" / "Claude").mkdir(parents=True, exist_ok=True)
         (self.home / "Documents" / "Cline").mkdir(parents=True, exist_ok=True)
         (self.home / ".cursor").mkdir(parents=True, exist_ok=True)
+        (self.home / ".codeium" / "windsurf").mkdir(parents=True, exist_ok=True)
+        (self.home / ".vscode").mkdir(parents=True, exist_ok=True)
         
         # Initial config content with unrelated existing JSON keys
         self.initial_config = {
@@ -36,7 +38,10 @@ class TestInstaller(unittest.TestCase):
             self.home / ".gemini" / "config" / "mcp_config.json",
             self.home / ".config" / "Claude" / "claude_desktop_config.json",
             self.home / "Documents" / "Cline" / "cline_mcp_settings.json",
-            self.home / ".cursor" / "mcp.json"
+            self.home / ".cursor" / "mcp.json",
+            self.home / ".claude.json",
+            self.home / ".codeium" / "windsurf" / "mcp_config.json",
+            self.home / ".vscode" / "mcp.json"
         ]
         
         for path in self.config_paths:
@@ -46,11 +51,13 @@ class TestInstaller(unittest.TestCase):
     def tearDown(self):
         self.temp_dir.cleanup()
 
+    @patch("installer.Path.cwd")
     @patch("installer.Path.home")
     @patch("installer.platform.system")
     @patch.dict(os.environ, {"CONTEXTL_ECOSYSTEM": "pip"}, clear=True)
-    def test_pip_ecosystem(self, mock_system, mock_home):
+    def test_pip_ecosystem(self, mock_system, mock_home, mock_cwd):
         mock_home.return_value = self.home
+        mock_cwd.return_value = self.home
         mock_system.return_value = "Linux"
         
         # Run installer
@@ -68,11 +75,13 @@ class TestInstaller(unittest.TestCase):
             self.assertIn("existing_server", config["mcpServers"])
             self.assertTrue(config["unrelated_setting"])
 
+    @patch("installer.Path.cwd")
     @patch("installer.Path.home")
     @patch("installer.platform.system")
     @patch.dict(os.environ, {"CONTEXTL_ECOSYSTEM": "npm"}, clear=True)
-    def test_npm_ecosystem(self, mock_system, mock_home):
+    def test_npm_ecosystem(self, mock_system, mock_home, mock_cwd):
         mock_home.return_value = self.home
+        mock_cwd.return_value = self.home
         mock_system.return_value = "Linux"
         
         # Run installer
@@ -89,12 +98,14 @@ class TestInstaller(unittest.TestCase):
             self.assertIn("existing_server", config["mcpServers"])
             self.assertTrue(config["unrelated_setting"])
 
+    @patch("installer.Path.cwd")
     @patch("installer.Path.home")
     @patch("installer.platform.system")
     @patch.dict(os.environ, {}, clear=True)
-    def test_direct_invocation_fallback(self, mock_system, mock_home):
+    def test_direct_invocation_fallback(self, mock_system, mock_home, mock_cwd):
         # Should fallback to pip behavior when CONTEXTL_ECOSYSTEM is unset
         mock_home.return_value = self.home
+        mock_cwd.return_value = self.home
         mock_system.return_value = "Linux"
         
         # Run installer
