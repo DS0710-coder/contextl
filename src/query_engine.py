@@ -1,18 +1,4 @@
-"""
-Repository Intelligence Engine
-Step 4: Query Engine
-
-Accepts a natural-language query and ranks files by relevance using:
-
-  1. Keyword match score  — does the filename / path contain query terms?
-  2. Content match score  — do the file's contents mention query terms?
-  3. Graph neighbor bonus — if a high-scoring file is nearby in the graph,
-                            its neighbors get a proximity boost
-  4. Centrality weight    — more connected files rank slightly higher when
-                            scores are otherwise equal
-
-No LLM. No embeddings. Pure text + graph.
-"""
+"""Ranks repository files by relevance to a natural-language query using keyword, content, and graph-based scoring."""
 
 import math
 import re

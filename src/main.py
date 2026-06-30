@@ -1,15 +1,4 @@
-"""
-Repository Intelligence Engine
-CLI Entry Point
-
-Usage:
-    python main.py <repo_path> "<query>" [--top N] [--json]
-
-Examples:
-    python main.py ./my-next-app "change the download button"
-    python main.py ./my-next-app "fix file upload" --top 10
-    python main.py ./my-next-app "update footer text" --json
-"""
+"""CLI entry point for the repository intelligence engine."""
 
 import argparse
 import json

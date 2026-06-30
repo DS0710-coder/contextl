@@ -1,13 +1,4 @@
-"""
-Repository Intelligence Engine
-Step 3: Graph Builder
-
-Builds a directed graph from parser output, mapping files as nodes and imports as edges.
-Computes structural metrics for each node:
-  - in_degree: number of files importing this node
-  - out_degree: number of files imported by this node
-  - centrality: PageRank score indicating structural importance
-"""
+"""Builds a directed dependency graph from scan+parse results and computes PageRank centrality for each file."""
 
 import networkx as nx
 from dataclasses import dataclass, field

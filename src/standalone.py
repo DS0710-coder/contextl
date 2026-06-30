@@ -1,11 +1,4 @@
-"""
-Repository Intelligence Engine
-Step 7: Standalone Files Analysis
-
-Finds files in the dependency graph that have an in-degree of 0 
-(meaning they are never imported by any other file), while filtering 
-out standard entry points and test files.
-"""
+"""Finds files with zero in-degree (never imported) that are not known entry points or test files."""
 
 from graph_builder import RepoGraph
 from impact_analysis import _is_test_file

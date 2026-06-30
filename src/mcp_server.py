@@ -1,28 +1,4 @@
-"""
-Repository Intelligence Engine — Universal MCP Server
-
-Exposes the engine as an MCP (Model Context Protocol) server over stdio.
-Works with any MCP-compatible IDE: Cursor, Windsurf, Claude Code, VS Code, etc.
-
-The IDE launches this script automatically when it needs it.
-No manual server to keep running.
-
-Usage (the IDE does this for you, but you can test manually):
-    python mcp_server.py
-
-Tools exposed:
-    query_repo             — rank files by relevance to a natural-language query
-    scan_repo              — list all source files the engine can see in a repo
-    analyze_impact         — find every file affected by changing a target file
-    find_dead_files        — find unimported files with in-degree 0
-    export_obsidian_vault  — export repo graph to an Obsidian markdown vault
-
-Performance:
-    A shared graph cache is maintained per repo path + file mtime fingerprint.
-    The 4-step build pipeline (scan → parse → graph → query) runs ONCE per
-    session and is reused by all tool calls. Subsequent calls on an unchanged
-    repo return from cache in <1ms.
-"""
+"""MCP server that exposes the repository intelligence engine over stdio to any MCP-compatible IDE."""
 
 import asyncio
 import json

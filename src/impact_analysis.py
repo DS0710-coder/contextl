@@ -1,10 +1,4 @@
-"""
-Repository Intelligence Engine
-Step 6: Change Impact Analysis
-
-Performs a reverse graph traversal (BFS) from a target file to identify all
-direct and transitive dependents. Flags test files found in the dependency chain.
-"""
+"""Performs reverse BFS on the dependency graph to find all direct and transitive dependents of a changed file."""
 
 from dataclasses import dataclass, field
 

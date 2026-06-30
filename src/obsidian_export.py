@@ -1,11 +1,4 @@
-"""
-Repository Intelligence Engine
-Step 7: Obsidian Exporter
-
-Exports the RepoGraph into a folder of interconnected Markdown files.
-By opening the folder as an Obsidian Vault, users get an instant 3D interactive
-visualization of their entire codebase.
-"""
+"""Exports the repository dependency graph to an Obsidian-compatible Markdown vault."""
 
 import os
 import shutil

@@ -1,18 +1,4 @@
-"""
-Repository Intelligence Engine
-Step 2: Import Parser
-
-Reads each scanned file and extracts import relationships using tree-sitter
-for accurate, AST-level parsing across Python, TypeScript, JavaScript, Java,
-Rust, Go, and C++.
-
-Falls back to the previous regex engine if tree-sitter is not installed
-(zero regression for existing users).
-
-Public API (unchanged):
-  parse_imports(scan_result: ScanResult) -> ParseResult
-  extract_skeleton(file_path: str) -> dict   [NEW — Skeleton Mode]
-"""
+"""Extracts import relationships from source files using tree-sitter AST parsing with a regex fallback."""
 
 import re
 import sys

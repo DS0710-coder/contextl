@@ -1,10 +1,4 @@
-"""
-Repository Intelligence Engine
-Step 1: Repository Scanner
-
-Walks a repository and discovers all relevant source files.
-Filters by supported extensions across 9 language families.
-"""
+"""Walks the repository and collects all source files by supported extension, filtering out build and dependency directories."""
 
 import os
 import pathlib
