@@ -1,6 +1,6 @@
 # contextl
 
-> **v1.2.50 is our most stable, thoroughly benchmarked release yet.**
+> **v1.3.0 is our most stable, thoroughly benchmarked release yet.**
 
 **Architecture intelligence for AI coding agents.**
 
@@ -23,10 +23,10 @@ No LLM. No embeddings. No API keys. No vector database. Pure dependency graph + 
 **Requires Python 3.9+** on your PATH. All required Python dependencies — graph processing and tree-sitter parsers for 7 languages — install automatically on first run.
 
 ```bash
-npx -y contextl install
+npm install -g contextl && contextl install
 ```
 
-This will automatically execute the `contextl` CLI and inject the correct configuration into your AI IDE (Cursor, Windsurf, Claude Code, etc.). 
+This will globally install the `contextl` CLI and automatically inject the correct configuration into your AI IDE (Cursor, Windsurf, Claude Code, etc.). 
 
 Restart your IDE and the contextl tools will be instantly available to your agent!
 
