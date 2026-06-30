@@ -1,5 +1,7 @@
 # contextl
 
+> **v1.2.49 is our most stable, thoroughly benchmarked release yet.**
+
 **Architecture intelligence for AI coding agents.**
 
 Stop letting your AI agent read your entire codebase to make one small change. `contextl` finds the exact files that matter — using graph theory, not guesswork.
