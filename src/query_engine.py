@@ -80,6 +80,8 @@ def _path_tokens(path: str) -> list[str]:
         # Split camelCase: LoginHeader → login, header
         sub = re.sub(r"([A-Z])", r" \1", part).lower()
         tokens.extend(re.findall(r"[a-z0-9]+", sub))
+    return [t for t in tokens if t not in STOP_WORDS and len(t) > 1]
+
 COMMON_ABBREVS = {
     "db": "database",
     "auth": "authentication",
@@ -111,8 +113,7 @@ COMMON_ABBREVS = {
 
 def _is_match(term: str, target: str) -> bool:
     term_canon = COMMON_ABBREVS.get(term, term)
-    target_canon = COMMON_ABBREVS.get(target, target)
-    if term_canon in target_canon or target_canon in term_canon or target_canon.startswith(term_canon) or term_canon.startswith(target_canon):
+    if term_canon in target or target in term_canon or target.startswith(term_canon) or term_canon.startswith(target):
         return True
     return False
 
