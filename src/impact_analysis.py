@@ -2,11 +2,8 @@
 Repository Intelligence Engine
 Step 6: Change Impact Analysis
 
-Answers the question: "If I modify this file, what else breaks?"
-
-It crawls backward through the dependency graph to find every single file that 
-relies on the file you're changing, either directly or through a chain of imports. 
-It also looks for test files along the way so you know exactly what to re-run!
+Performs a reverse graph traversal (BFS) from a target file to identify all
+direct and transitive dependents. Flags test files found in the dependency chain.
 """
 
 from dataclasses import dataclass, field
@@ -18,7 +15,7 @@ from graph_builder import build_graph, RepoGraph
 
 import re
 
-# Simple words we look for in file paths to guess if it's a test file
+# Markers used to identify test files by path
 TEST_MARKERS = ("test", "spec", "__tests__", "__mocks__")
 _TEST_PATTERN = re.compile(r'(?<![a-z0-9])(?:' + '|'.join(re.escape(m) for m in TEST_MARKERS) + r')(?![a-z0-9])', re.IGNORECASE)
 
@@ -140,7 +137,7 @@ def analyze_impact(
     visited: set[str] = {target_file}
     direct_dependents = repo_graph.get_dependents(target_file)
 
-    # --- Step 1: Find the files that directly import our target file ---
+    # Distance 1: direct dependents
     frontier: list[tuple[str, str]] = []  # (path, via)
     for dep in direct_dependents:
         if dep in visited:
@@ -154,7 +151,7 @@ def analyze_impact(
             report.test_files.append(dep)
         frontier.append((dep, dep))
 
-    # --- Step 2: Keep crawling backward to find files that import the files we just found ---
+    # Distance 2+: transitive dependents (BFS upstream)
     distance = 2
     while frontier and distance <= max_depth:
         next_frontier: list[tuple[str, str]] = []

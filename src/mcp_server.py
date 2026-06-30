@@ -18,9 +18,10 @@ Tools exposed:
     export_obsidian_vault  — export repo graph to an Obsidian markdown vault
 
 Performance:
-    To keep things blazing fast, we hold a "map" of the codebase in memory. 
-    We only rebuild the map if we notice a file has actually changed since the 
-    last time we looked. Otherwise, it answers queries instantly!
+    A shared graph cache is maintained per repo path + file mtime fingerprint.
+    The 4-step build pipeline (scan → parse → graph → query) runs ONCE per
+    session and is reused by all tool calls. Subsequent calls on an unchanged
+    repo return from cache in <1ms.
 """
 
 import asyncio
@@ -105,9 +106,10 @@ def _get_graph(repo_path: str):
         now = time.time()
         entry = _cache.get(resolved)
         
-        # Fast path: If we literally just checked the files less than 5 seconds ago, 
-        # don't bother asking the hard drive again. This saves a lot of effort if 
-        # the AI is rapid-firing questions at us!
+        # Fast path: bypass filesystem walk if checked within last 5 seconds.
+        # This intentionally creates a 5s "blind window" where new/deleted/modified
+        # files are not instantly detected, drastically reducing disk I/O on large repos
+        # when the MCP client rapid-fires multiple queries concurrently.
         if entry and (now - entry.last_checked_time < 5.0):
             return entry.scan, entry.repo_graph
 
