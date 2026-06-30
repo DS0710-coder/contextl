@@ -2,9 +2,11 @@ import os
 import json
 import platform
 import sys
+import tempfile
+import shutil
 from pathlib import Path
 
-def install_mcp():
+def install_mcp(include_vscode_workspace: bool = False):
     home = Path.home()
     system = platform.system()
     
@@ -42,6 +44,16 @@ def install_mcp():
     # 4. Cursor
     targets.append(home / ".cursor" / "mcp.json")
     
+    # 5. Claude Code
+    targets.append(home / ".claude.json")
+    
+    # 6. Windsurf
+    targets.append(home / ".codeium" / "windsurf" / "mcp_config.json")
+    
+    # 7. VS Code (Workspace level)
+    if include_vscode_workspace:
+        targets.append(Path.cwd() / ".vscode" / "mcp.json")
+    
     success_count = 0
     
     for path in targets:
@@ -71,9 +83,14 @@ def install_mcp():
                         "args": []
                     }
                 
-                # Write config
-                with open(path, "w", encoding="utf-8") as f:
+                # Backup existing config
+                shutil.copy(path, path.with_suffix(path.suffix + ".bak"))
+                
+                # Write config atomically
+                fd, tmp_path = tempfile.mkstemp(dir=path.parent, suffix=".tmp")
+                with os.fdopen(fd, "w", encoding="utf-8") as f:
                     json.dump(config, f, indent=2)
+                os.replace(tmp_path, path)
                     
                 print(f"[SUCCESS] Successfully injected ContextL MCP Server into: {path}")
                 success_count += 1
