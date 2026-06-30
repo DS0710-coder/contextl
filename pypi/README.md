@@ -19,18 +19,15 @@ No LLM. No embeddings. No API keys. No vector database. Pure dependency graph + 
 ## Install
 
 ```bash
-pip install contextl-mcp
+pip install contextl-mcp && contextl install
 ```
 
-### Option 1: The AI Prompt Method (Recommended)
-Since you are using an AI IDE, you don't even need to edit the configuration yourself. Just open Cursor's Composer or Claude Code's chat and paste this prompt:
+This will globally install the `contextl` CLI and automatically inject the correct configuration into your AI IDE (Cursor, Windsurf, Claude Code, etc.). 
 
-> *"Hey, add the `contextl` MCP server to your configuration file. The command is `contextl`."*
+Restart your IDE and the contextl tools will be instantly available to your agent!
 
-The AI will find its own config file, inject the JSON, and reboot automatically.
-
-### Option 2: The Manual Method
-If you prefer to configure it manually, add this to your IDE's MCP config file:
+### Manual Configuration (Fallback)
+If the auto-installer doesn't detect your IDE, or if you prefer to configure it manually, add this to your IDE's MCP config file:
 
 ```json
 {
@@ -46,11 +43,13 @@ If you prefer to configure it manually, add this to your IDE's MCP config file:
 
 | IDE | Config path |
 |-----|-------------|
-| Gemini CLI | `~/.gemini/config/mcp_config.json` |
+| Antigravity | `~/.gemini/config/mcp_config.json` |
+| Claude Desktop | `~/.config/Claude/claude_desktop_config.json` (varies by OS) |
+| Cline / Roo | `~/Documents/Cline/cline_mcp_settings.json` (varies by OS) |
 | Cursor | `~/.cursor/mcp.json` |
-| Windsurf | `~/.codeium/windsurf/mcp_config.json` |
 | Claude Code | `~/.claude.json` |
-| VS Code | `.vscode/mcp.json` |
+| Windsurf | `~/.codeium/windsurf/mcp_config.json` |
+| VS Code (Workspace) | `.vscode/mcp.json` |
 
 Restart your IDE. The `contextl` command is now available — `pip install` registered it on your PATH.
 
