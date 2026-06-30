@@ -18,7 +18,7 @@ No LLM. No embeddings. No API keys. No vector database. Pure dependency graph + 
 
 ## Install (60 seconds)
 
-**Requires Python 3.9+** on your PATH. Everything else (`networkx`, `mcp`) installs automatically on first run.
+**Requires Python 3.9+** on your PATH. All required Python dependencies — graph processing and tree-sitter parsers for 7 languages — install automatically on first run.
 
 ```bash
 npm install -g contextl && contextl install

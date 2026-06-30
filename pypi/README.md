@@ -16,7 +16,9 @@ No LLM. No embeddings. No API keys. No vector database. Pure dependency graph + 
 
 ---
 
-## Install
+## Install (60 seconds)
+
+**Requires Python 3.9+**. All required dependencies — graph processing and tree-sitter parsers for 7 languages — are automatically bundled via `pip`.
 
 ```bash
 pip install contextl-mcp && contextl install
