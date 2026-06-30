@@ -61,7 +61,7 @@ class TestInstaller(unittest.TestCase):
         mock_system.return_value = "Linux"
         
         # Run installer
-        install_mcp()
+        install_mcp(include_vscode_workspace=True)
         
         # Verify JSON
         for path in self.config_paths:
@@ -74,6 +74,13 @@ class TestInstaller(unittest.TestCase):
             # Ensure existing settings are untouched
             self.assertIn("existing_server", config["mcpServers"])
             self.assertTrue(config["unrelated_setting"])
+            
+            # Verify Backup
+            bak_path = path.with_suffix(path.suffix + ".bak")
+            self.assertTrue(bak_path.exists())
+            with open(bak_path, "r", encoding="utf-8") as bf:
+                bak_config = json.load(bf)
+            self.assertEqual(bak_config, self.initial_config)
 
     @patch("installer.Path.cwd")
     @patch("installer.Path.home")
@@ -85,7 +92,7 @@ class TestInstaller(unittest.TestCase):
         mock_system.return_value = "Linux"
         
         # Run installer
-        install_mcp()
+        install_mcp(include_vscode_workspace=True)
         
         # Verify JSON
         for path in self.config_paths:
@@ -98,6 +105,13 @@ class TestInstaller(unittest.TestCase):
             self.assertIn("existing_server", config["mcpServers"])
             self.assertTrue(config["unrelated_setting"])
 
+            # Verify Backup
+            bak_path = path.with_suffix(path.suffix + ".bak")
+            self.assertTrue(bak_path.exists())
+            with open(bak_path, "r", encoding="utf-8") as bf:
+                bak_config = json.load(bf)
+            self.assertEqual(bak_config, self.initial_config)
+
     @patch("installer.Path.cwd")
     @patch("installer.Path.home")
     @patch("installer.platform.system")
@@ -109,7 +123,7 @@ class TestInstaller(unittest.TestCase):
         mock_system.return_value = "Linux"
         
         # Run installer
-        install_mcp()
+        install_mcp(include_vscode_workspace=True)
         
         # Verify JSON
         for path in self.config_paths:
@@ -121,6 +135,13 @@ class TestInstaller(unittest.TestCase):
             self.assertEqual(config["mcpServers"]["contextl"]["args"], [])
             self.assertIn("existing_server", config["mcpServers"])
             self.assertTrue(config["unrelated_setting"])
+
+            # Verify Backup
+            bak_path = path.with_suffix(path.suffix + ".bak")
+            self.assertTrue(bak_path.exists())
+            with open(bak_path, "r", encoding="utf-8") as bf:
+                bak_config = json.load(bf)
+            self.assertEqual(bak_config, self.initial_config)
 
 if __name__ == "__main__":
     unittest.main()

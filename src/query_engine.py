@@ -110,14 +110,10 @@ COMMON_ABBREVS = {
 }
 
 def _is_match(term: str, target: str) -> bool:
-    if term in target or target in term or target.startswith(term) or term.startswith(target):
+    term_canon = COMMON_ABBREVS.get(term, term)
+    target_canon = COMMON_ABBREVS.get(target, target)
+    if term_canon in target_canon or target_canon in term_canon or target_canon.startswith(term_canon) or term_canon.startswith(target_canon):
         return True
-        
-    # Static dictionary for common development abbreviations
-    expanded = COMMON_ABBREVS.get(term)
-    if expanded and (expanded == target or expanded in target):
-        return True
-        
     return False
 
 
@@ -362,13 +358,8 @@ def query(
         path_tokens = set(_path_tokens(path))
         combined_tokens = content_tokens.union(path_tokens)
         for term in query_terms:
-            if term in combined_tokens:
+            if any(_is_match(term, ct) for ct in combined_tokens):
                 document_frequency[term] += 1
-            elif len(term) >= 2:
-                for ct in combined_tokens:
-                    if term in ct or (len(ct) >= 2 and ct in term):
-                        document_frequency[term] += 1
-                        break
 
     avgdl = total_tokens_count / total_files if total_files > 0 else 1.0
 

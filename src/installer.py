@@ -6,7 +6,7 @@ import tempfile
 import shutil
 from pathlib import Path
 
-def install_mcp():
+def install_mcp(include_vscode_workspace: bool = False):
     home = Path.home()
     system = platform.system()
     
@@ -51,7 +51,8 @@ def install_mcp():
     targets.append(home / ".codeium" / "windsurf" / "mcp_config.json")
     
     # 7. VS Code (Workspace level)
-    targets.append(Path.cwd() / ".vscode" / "mcp.json")
+    if include_vscode_workspace:
+        targets.append(Path.cwd() / ".vscode" / "mcp.json")
     
     success_count = 0
     
