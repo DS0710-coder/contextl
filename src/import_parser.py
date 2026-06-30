@@ -593,10 +593,21 @@ def _find_file_in_repo(
             py_idx = cand + "/__init__.py"
             if py_idx in file_index:
                 return py_idx
-            suffix = "/" + py_ext
+                
+            suffix_ext = "/" + py_ext
+            suffix_idx = "/" + py_idx
+            matches = []
+            
             for path in file_index:
-                if path.endswith(suffix) or path == py_ext:
-                    return path
+                if path.endswith(suffix_ext) or path == py_ext:
+                    matches.append(path)
+                elif path.endswith(suffix_idx) or path == py_idx:
+                    matches.append(path)
+                    
+            if matches:
+                if source_file:
+                    matches.sort(key=lambda p: (_path_distance(source_file, p), 0 if p.endswith("__init__.py") else 1))
+                return matches[0]
                     
             # Fallback for Python cross-language imports (e.g. from tests to .ts/.js core logic)
             for ext in [".ts", ".tsx", ".js", ".jsx", ".java", ".go", ".rs", ".cpp", ".cc", ".cxx", ".h", ".hpp", ".c"]:

@@ -18,7 +18,7 @@ ignore_dirs = {
     ".git", "node_modules", "__pycache__", "venv", ".venv",
     "env", ".env", ".next", ".nuxt", "out", "build", "dist",
     "coverage", ".nyc_output", ".pytest_cache", "npm", "pypi",
-    "vendor", "target", ".cargo", "Pods", "third_party"
+    "vendor", "target", ".cargo", "Pods", "third_party", "deps"
 }
 
 def _should_ignore(path: str) -> bool:
