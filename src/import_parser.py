@@ -605,7 +605,10 @@ def _find_file_in_repo(
                     matches.append(path)
                     
             if matches:
-                matches.sort(key=lambda p: (p.count("/"), 0 if p.endswith("__init__.py") else 1))
+                if source_file:
+                    matches.sort(key=lambda p: (p.count("/"), _path_distance(source_file, p), 0 if p.endswith("__init__.py") else 1))
+                else:
+                    matches.sort(key=lambda p: (p.count("/"), 0 if p.endswith("__init__.py") else 1))
                 return matches[0]
                     
             # Fallback for Python cross-language imports (e.g. from tests to .ts/.js core logic)

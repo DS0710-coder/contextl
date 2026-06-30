@@ -111,9 +111,13 @@ COMMON_ABBREVS = {
     "mid": "middleware"
 }
 
+REVERSE_ABBREVS = {v: k for k, v in COMMON_ABBREVS.items()}
+
 def _is_match(term: str, target: str) -> bool:
     term_canon = COMMON_ABBREVS.get(term, term)
     if term_canon in target or target in term_canon or target.startswith(term_canon) or term_canon.startswith(target):
+        return True
+    if target == REVERSE_ABBREVS.get(term_canon):
         return True
     return False
 
