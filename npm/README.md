@@ -21,10 +21,10 @@ No LLM. No embeddings. No API keys. No vector database. Pure dependency graph + 
 **Requires Python 3.9+** on your PATH. All required Python dependencies — graph processing and tree-sitter parsers for 7 languages — install automatically on first run.
 
 ```bash
-npm install -g contextl && contextl install
+npx -y contextl install
 ```
 
-This will globally install the `contextl` CLI and automatically inject the correct configuration into your AI IDE (Cursor, Windsurf, Claude Code, etc.). 
+This will automatically execute the `contextl` CLI and inject the correct configuration into your AI IDE (Cursor, Windsurf, Claude Code, etc.). 
 
 Restart your IDE and the contextl tools will be instantly available to your agent!
 
