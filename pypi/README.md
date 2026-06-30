@@ -203,7 +203,7 @@ contextl search ./my-repo "fix the auth flow"
 contextl impact ./my-repo src/api.py
 
 # 3. Find dead unused files
-contextl dead-code ./my-repo
+contextl standalone ./my-repo
 
 # 4. Generate an Obsidian vault
 contextl obsidian ./my-repo ./my_vault
