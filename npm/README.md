@@ -90,6 +90,8 @@ Walks the dependency graph upstream from any file to find every direct and trans
 Lists every source file `contextl` can see — useful for the agent to orient itself before doing anything else.
 
 ### `find_dead_files`
+*"Which files are never imported by anything?"*
+
 Find files in the repository that are never imported by any other file (in-degree of 0 in the dependency graph). 
 
 *Note: The engine automatically detects and excludes standard entry points (e.g. `src/index.ts`, `main.py`, `app.tsx`) and test files from these results, as they are intentionally not imported by other files.*
@@ -137,6 +139,18 @@ Extracts the structural skeleton (API surface) of a source file using Tree-sitte
   "file_path": "/path/to/src/api.py"
 }
 ```
+
+---
+
+## Benchmarks & Token Reduction
+
+Instead of dumping an entire repository into your agent's context window, `contextl` surgically extracts only the relevant dependencies. Across 9 real-world open source repositories, this results in massive token savings while maintaining high relationship accuracy:
+
+- **JavaScript (Express)**: 93.58% context reduction
+- **C++ (JSON)**: 84.31% context reduction
+- **Python (Flask)**: 52.69% context reduction
+
+See the full live telemetry and methodology breakdown at our [official documentation and metrics dashboard](https://contextl-web.vercel.app).
 
 
 
@@ -218,6 +232,7 @@ Same engine, same tools — installable via PyPI for Python-first workflows.
 
 ## Links
 
+- [Official Documentation & Benchmarks](https://contextl-web.vercel.app)
 - [Creator GitHub](https://github.com/DS0710-coder)
 - [PyPI package](https://pypi.org/project/contextl-mcp)
 

@@ -141,6 +141,18 @@ Extracts the structural skeleton (API surface) of a source file using Tree-sitte
 }
 ```
 
+---
+
+## Benchmarks & Token Reduction
+
+Instead of dumping an entire repository into your agent's context window, `contextl` surgically extracts only the relevant dependencies. Across 9 real-world open source repositories, this results in massive token savings while maintaining high relationship accuracy:
+
+- **JavaScript (Express)**: 93.58% context reduction
+- **C++ (JSON)**: 84.31% context reduction
+- **Python (Flask)**: 52.69% context reduction
+
+See the full live telemetry and methodology breakdown at our [official documentation and metrics dashboard](https://contextl-web.vercel.app).
+
 
 
 ## How the ranking works
@@ -221,6 +233,7 @@ Same engine, same tools — installable via npm for JS/TS-first workflows.
 
 ## Links
 
+- [Official Documentation & Benchmarks](https://contextl-web.vercel.app)
 - [Creator GitHub](https://github.com/DS0710-coder)
 - [npm package](https://npmjs.com/package/contextl)
 
