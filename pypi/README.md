@@ -1,6 +1,6 @@
 # contextl-mcp
 
-> **v1.2.49 is our most stable, thoroughly benchmarked release yet.**
+> **v1.2.50 is our most stable, thoroughly benchmarked release yet.**
 
 **Architecture intelligence for AI coding agents.**
 
