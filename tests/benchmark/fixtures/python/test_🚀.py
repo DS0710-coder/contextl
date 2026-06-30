@@ -1,0 +1,2 @@
+def rocket():
+    pass
